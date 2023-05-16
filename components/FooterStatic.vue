@@ -1,0 +1,94 @@
+<template>
+  <div class="box">
+    <div class="content-box">
+      <div class="content content1">
+        <div class="title">劇情介紹</div>
+        <nuxt-link to="/chapter" class="link-item">虎兔篇</nuxt-link>
+        <nuxt-link to="/" class="link-item">鼠牛篇</nuxt-link>
+        <nuxt-link to="/" class="link-item">馬羊篇</nuxt-link>
+        <nuxt-link to="/" class="link-item">龍虎篇</nuxt-link>
+      </div>
+      <div class="content content2">
+        <div class="title">公司</div>
+        <nuxt-link to="/" class="link-item">關於阿普蛙</nuxt-link>
+        <nuxt-link to="/" class="link-item">聯絡阿普蛙</nuxt-link>
+      </div>
+      <div class="content content3">
+        <div class="title2">阿普蛙工作室有限公司</div>
+        <div class="text-item">地址：200基隆市仁愛區忠三路75號2樓</div>
+        <div class="text-item">E-mail: wasupstudio@gmail.com</div>
+        <div class="text-item">課程窗口 & 合作洽談：林侃眉 0933-769550 </div>
+        <div class="text-item">遊戲設計 & 課程設計：吳健毅 0908-858625</div>
+      </div>
+    </div>
+
+  </div>
+</template>
+
+<style lang="scss" scoped>
+.box {
+  width: 100%;
+  height: 314px;
+  background-color: $secondary1;
+  display: flex;
+  justify-content: center;
+
+  .content1 {
+    // margin-left: 138px;
+  }
+
+  .content2 {
+    margin-left: 170px;
+  }
+
+  .content3 {
+    margin-left: 400px;
+  }
+
+  .content-box {
+    display: flex;
+
+    .content {
+      padding-top: 80px;
+      display: flex;
+      flex-direction: column;
+
+      .title {
+        font-weight: 500;
+        font-size: 16px;
+        letter-spacing: 0.5px;
+        color: $text1;
+        margin-bottom: 4px;
+        letter-spacing: 0.5px;
+        color: $text1;
+      }
+
+      .title2 {
+        font-weight: 700;
+        font-size: 20px;
+        letter-spacing: 1.5px;
+        margin-bottom: 8px;
+        color: $text1;
+      }
+
+      .link-item {
+        font-weight: 400;
+        font-size: 14px;
+        letter-spacing: 0.5px;
+        margin-top: 8px;
+        text-decoration-line: underline;
+        letter-spacing: 0.5px;
+        color: $text2;
+      }
+      .text-item {
+        margin-top: 8px;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 22px;
+        letter-spacing: 0.5px;
+        color: $text1;
+      }
+    }
+  }
+}
+</style>
