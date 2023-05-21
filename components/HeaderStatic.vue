@@ -1,36 +1,59 @@
 <template>
   <div class="box">
-    <div class="title">我們班的叢林法則</div>
+    <nuxt-link class="title" to="/">
+      <div >我們班的叢林法則</div>
+    </nuxt-link>
     <div class="item">
-      <nuxt-link to="/" class="link link-action">
+      <nuxt-link to="/" class="link" :class="{ 'link-action': routeName == 'index' }">
         首頁
-        <div v-if="true" class="decoration"></div>
+        <div v-if="routeName == 'index'" class="decoration"></div>
       </nuxt-link>
-      <div class="link sublink">
+      <div class="link sublink" :class="{ 'link-action': routeName == 'chapter' }">
         劇本介紹 ▾
-        <div v-if="false" class="decoration"></div>
+        <div v-if="routeName == 'chapter'" class="decoration"></div>
         <div class="subbox">
           <div class="arrow"></div>
           <div class="submenu">
-            <nuxt-link to="/chapter"><div class="subitem">虎兔篇</div></nuxt-link>
-            <nuxt-link to="/chapter"><div class="subitem">鼠牛篇</div></nuxt-link>
-            <nuxt-link to="/chapter"><div class="subitem">馬羊篇</div></nuxt-link>
-            <nuxt-link to="/chapter"><div class="subitem">龍虎篇</div></nuxt-link>
+            <nuxt-link to="/chapter">
+              <div class="subitem">虎兔篇</div>
+            </nuxt-link>
+            <nuxt-link to="/chapter">
+              <div class="subitem">鼠牛篇</div>
+            </nuxt-link>
+            <nuxt-link to="/chapter">
+              <div class="subitem">馬羊篇</div>
+            </nuxt-link>
+            <nuxt-link to="/chapter">
+              <div class="subitem" style="border-bottom: none;">龍虎篇</div>
+            </nuxt-link>
           </div>
         </div>
       </div>
-      <nuxt-link to="/" class="link">
+      <nuxt-link to="/about" class="link" :class="{ 'link-action': routeName == 'about' }">
         關於阿普蛙
-        <div v-if="false" class="decoration"></div>
+        <div v-if="routeName == 'about'" class="decoration"></div>
       </nuxt-link>
-      <nuxt-link to="/" class="link">
+      <nuxt-link to="/connection" class="link" :class="{ 'link-action': routeName == 'connection' }">
         聯絡阿普蛙
-        <div v-if="false" class="decoration"></div>
+        <div v-if="routeName == 'connection'" class="decoration"></div>
       </nuxt-link>
     </div>
-    <div class="login-box">登入 / 註冊</div>
+    <nuxt-link class="login-box" to="/login">
+      <div>登入 / 註冊</div>
+    </nuxt-link>
   </div>
 </template>
+
+<script setup>
+let routeName = ref("")
+
+const route = useRoute();
+
+watch(route, value => {
+  routeName.value = route.name
+  console.log(routeName.value)
+}, { deep: true, immediate: true })
+</script>
 
 <style lang="scss" scoped>
 .box {
@@ -87,6 +110,7 @@
       right: -60px;
       padding-top: 20px;
       display: none;
+      z-index: 999;
 
       .submenu {
         background-color: #fff;
@@ -94,12 +118,15 @@
         -webkit-box-shadow: 1px 1px 18px 0px rgba(50, 50, 50, 0.33);
         -moz-box-shadow: 1px 1px 18px 0px rgba(50, 50, 50, 0.33);
         box-shadow: 1px 1px 18px 0px rgba(50, 50, 50, 0.33);
+        border-radius: 5px;
+
         & a {
           color: $text2;
           letter-spacing: 0.5px;
           font-weight: 400;
           font-size: 14px;
           width: 100%;
+          border-radius: 5px;
         }
       }
 
@@ -114,12 +141,13 @@
         border-bottom: 10px solid #fff;
       }
 
+     
       .subitem {
         width: 100%;
         padding: 8px 12px;
         border-bottom: 1px solid #e5e5e5;
+        border-radius: 5px;
 
-        
 
         &:hover {
           background-color: #eeeeee;
@@ -147,6 +175,7 @@
     color: $secondary2;
     display: flex;
     justify-content: center;
+    cursor: pointer;
   }
 }
 </style>
