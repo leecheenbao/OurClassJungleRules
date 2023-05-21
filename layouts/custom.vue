@@ -2,7 +2,6 @@
     <div class="box">
       <HeaderStatic />
       <slot />
-      <FooterStatic />
     </div>
 </template>
 
@@ -16,5 +15,3 @@
   width: 100%;
 }
 </style>
-
-  
