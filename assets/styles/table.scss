@@ -1,0 +1,22 @@
+.Mtable {
+
+    &-row {
+        display: flex;
+        align-items: center;
+    }
+
+    &-icon-outer {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid #008B77;
+        border-radius: 50px;
+        margin-right: 4px;
+    }
+
+    &-icon {
+        
+    }
+}
