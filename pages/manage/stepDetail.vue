@@ -24,9 +24,9 @@
                     <div class="step-day-title">*建議進行時間</div>
                     <input class="input step-day-input" placeholder="ex.10 分鐘" type="text">
                     <div class="step-day-title">*帶領方式說明</div>
-                    <textarea class="input step-day-textarea" placeholder="ex.10 分鐘" type="text">
+                    <textarea class="input step-day-textarea" placeholder="ex.10 分鐘" type="text"></textarea>
                     <div class="step-day-title">*本日劇情</div>
-                    <textarea class="input step-day-textarea" placeholder="ex.10 分鐘" type="text">
+                    <textarea class="input step-day-textarea" placeholder="ex.10 分鐘" type="text"></textarea>
                     
                     <div class="step-day-row">
                         <div class="step-day-title">*額外資訊</div>
@@ -132,15 +132,15 @@
                     <div class="step-day-title">*建議進行時間</div>
                     <input class="input step-day-input" placeholder="ex.1 節課" type="text">
                     <div class="step-day-title">*帶領方式說明</div>
-                    <textarea class="input step-day-textarea" placeholder="ex.10 分鐘" type="text">
+                    <textarea class="input step-day-textarea" placeholder="ex.10 分鐘" type="text"></textarea>
                     <div class="step-day-title">*結局二描述 (鴿老師)</div>
-                    <textarea class="input step-day-textarea" placeholder="請輸入描述內容" type="text">
+                    <textarea class="input step-day-textarea" placeholder="請輸入描述內容" type="text"></textarea>
                     <div class="step-day-title">*結局一描述 (鴞老師)</div>
-                    <textarea class="input step-day-textarea" placeholder="請輸入描述內容" type="text">
+                    <textarea class="input step-day-textarea" placeholder="請輸入描述內容" type="text"></textarea>
                     <div class="step-day-title">*結局三描述 (鴉老師)</div>
-                    <textarea class="input step-day-textarea" placeholder="請輸入描述內容" type="text">
+                    <textarea class="input step-day-textarea" placeholder="請輸入描述內容" type="text"></textarea>
                     <div class="step-day-title">*結局四描述 (鷹老師)</div>
-                    <textarea class="input step-day-textarea" placeholder="請輸入描述內容" type="text">
+                    <textarea class="input step-day-textarea" placeholder="請輸入描述內容" type="text"></textarea>
                     
                     <div class="step-day-title2">結局影片</div>
                     <div class="step-day-net">
