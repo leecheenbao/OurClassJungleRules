@@ -258,6 +258,7 @@
                                 </div>
                             </div>
                             <div class="step-day-line"></div>
+                            <div class="step-day-row">
                                 <div class="step-day-title">結局二 (鴿老師)</div>
                                 <div class="step-day-row2">
                                     <div class="step-day-test2">秩序：</div>
@@ -267,6 +268,7 @@
                                 </div>
                             </div>
                             <div class="step-day-line"></div>
+                            <div class="step-day-row">
                                 <div class="step-day-title">結局三 (鴉老師)</div>
                                 <div class="step-day-row2">
                                     <div class="step-day-test2">秩序：</div>
@@ -276,6 +278,7 @@
                                 </div>
                             </div>
                             <div class="step-day-line"></div>
+                            <div class="step-day-row">
                                 <div class="step-day-title">結局四 (鷹老師)</div>
                                 <div class="step-day-row2">
                                     <div class="step-day-test2">秩序：</div>
