@@ -37,14 +37,26 @@
         聯絡阿普蛙
         <div v-if="routeName == 'connection'" class="decoration"></div>
       </nuxt-link>
+      <nuxt-link to="/mission/list" class="link" :class="{ 'link-action': routeName == 'mission-list' }">
+        我的任務
+        <div v-if="routeName == 'mission-list'" class="decoration"></div>
+      </nuxt-link>
     </div>
-    <nuxt-link class="login-box" to="/login">
-      <div>登入 / 註冊</div>
-    </nuxt-link>
+
+    <div class="login-box"></div>
+      <img class="login-box-dropdown" src="~assets/images/Icon/setting.svg" alt="">
+      <div class="login-box-hover">
+
+      </div>
+      <nuxt-link to="/login">
+        <div class="login-box-login">登入 / 註冊</div>
+      </nuxt-link>
   </div>
 </template>
 
 <script setup>
+import { Search } from '@element-plus/icons-vue'
+
 let routeName = ref("")
 
 const route = useRoute();
@@ -54,6 +66,14 @@ watch(route, value => {
   console.log(routeName.value)
 }, { deep: true, immediate: true })
 </script>
+
+<style>
+
+.el-dropdown {
+  border: 0px;
+}
+
+</style>
 
 <style lang="scss" scoped>
 .box {
@@ -164,18 +184,27 @@ watch(route, value => {
 
   .login-box {
     margin-left: auto;
-    font-weight: 700;
-    font-size: 14px;
-    letter-spacing: 1px;
-    padding: 8px 12px;
-    width: 100px;
-    height: 36px;
-    background: $primary1;
-    border-radius: 50px;
-    color: $secondary2;
-    display: flex;
-    justify-content: center;
-    cursor: pointer;
+
+    &-dropdown {
+      width: 30px;
+      margin-right: 8px;
+      cursor: pointer;
+    }
+
+    &-login {
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: 1px;
+      padding: 8px 12px;
+      width: 100px;
+      height: 36px;
+      background: $primary1;
+      border-radius: 50px;
+      color: $secondary2;
+      display: flex;
+      justify-content: center;
+      cursor: pointer;
+    }
   }
 }
 </style>
