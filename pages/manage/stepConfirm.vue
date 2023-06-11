@@ -79,16 +79,16 @@
                     <div class="step-day-row3">
                         <div class="step-day-title5">學生問題討論</div>
                         <div class="step-day-green">
-                            <div class="step-day-green-head">
+                            <div class="step-day-green-row">
                                 <div class="step-day-green-question">？</div>
                                 <div class="step-day-green-head">如果你是他們的同學，當下你會怎麼做?</div>
                             </div>
                             <div class="step-day-green-content">
-                                <div>
+                                <div class="step-day-green-row2">
                                     <div class="step-day-green-answer">A</div>
                                     <div class="step-day-green-head">溫和堅定地制止張萌虎。</div>
                                 </div>
-                                <div>
+                                <div class="step-day-green-row3">
                                     <div class="step-day-green-sub">秩序：</div>
                                     <div class="step-day-green-text">加分</div>
                                     <div class="step-day-green-sub">關係：</div>
@@ -96,11 +96,11 @@
                                 </div>
                             </div>
                             <div class="step-day-green-content">
-                                <div>
+                                <div class="step-day-green-row2">
                                     <div class="step-day-green-answer">B</div>
                                     <div class="step-day-green-head">溫和堅定地制止張萌虎。</div>
                                 </div>
-                                <div>
+                                <div class="step-day-green-row3">
                                     <div class="step-day-green-sub">秩序：</div>
                                     <div class="step-day-green-text">加分</div>
                                     <div class="step-day-green-sub">關係：</div>
@@ -113,16 +113,16 @@
                     <div class="step-day-row3">
                         <div class="step-day-title5">家長問題討論</div>
                         <div class="step-day-green">
-                            <div class="step-day-green-head">
+                            <div class="step-day-green-row">
                                 <div class="step-day-green-question">？</div>
                                 <div class="step-day-green-head">如果你是他們的同學，當下你會怎麼做?</div>
                             </div>
                             <div class="step-day-green-content">
-                                <div>
+                                <div class="step-day-green-row2">
                                     <div class="step-day-green-answer">A</div>
                                     <div class="step-day-green-head">溫和堅定地制止張萌虎。</div>
                                 </div>
-                                <div>
+                                <div class="step-day-green-row3">
                                     <div class="step-day-green-sub">秩序：</div>
                                     <div class="step-day-green-text">加分</div>
                                     <div class="step-day-green-sub">關係：</div>
@@ -130,11 +130,11 @@
                                 </div>
                             </div>
                             <div class="step-day-green-content">
-                                <div>
+                                <div class="step-day-green-row2">
                                     <div class="step-day-green-answer">B</div>
                                     <div class="step-day-green-head">溫和堅定地制止張萌虎。</div>
                                 </div>
-                                <div>
+                                <div class="step-day-green-row3">
                                     <div class="step-day-green-sub">秩序：</div>
                                     <div class="step-day-green-text">加分</div>
                                     <div class="step-day-green-sub">關係：</div>
@@ -148,23 +148,23 @@
                         <div class="step-day-title5">教材檔案</div>
                         <div class="step-day-net">
                             <div class="step-day-row">
-                                <div class="step-day-title">劇情影片</div>
-                                <div class="step-day-add">第1日教學影片.mp4</div>
+                                <div class="step-day-title3">劇情影片</div>
+                                <div class="step-day-video">第1日教學影片.mp4</div>
                             </div>
                             <div class="step-day-line"></div>
                             <div class="step-day-row">
-                                <div class="step-day-title">學習單</div>
-                                <div class="step-day-add">第1日學習單.mp4</div>
+                                <div class="step-day-title3">學習單</div>
+                                <div class="step-day-video">第1日學習單.mp4</div>
                             </div>
                             <div class="step-day-line"></div>
                             <div class="step-day-row">
-                                <div class="step-day-title">教學簡報</div>
-                                <div class="step-day-add">第1日教學簡報.mp4</div>
+                                <div class="step-day-title3">教學簡報</div>
+                                <div class="step-day-video">第1日教學簡報.mp4</div>
                             </div>
                             <div class="step-day-line"></div>
                             <div class="step-day-row">
-                                <div class="step-day-title">額外資訊</div>
-                                <div class="step-day-add">第1日額外資訊.mp4</div>
+                                <div class="step-day-title3">額外資訊</div>
+                                <div class="step-day-video">第1日額外資訊.mp4</div>
                             </div>
                         </div>
                     </div>
@@ -210,22 +210,22 @@
                         <div class="step-day-net">
                             <div class="step-day-row">
                                 <div class="step-day-title">結局一 (鴞老師) 影片</div>
-                                <div class="step-day-add">結局一.mp4</div>
+                                <div class="step-day-video">結局一.mp4</div>
                             </div>
                             <div class="step-day-line"></div>
                             <div class="step-day-row">
                                 <div class="step-day-title">結局二 (鴿老師) 影片</div>
-                                <div class="step-day-add">結局二.mp4</div>
+                                <div class="step-day-video">結局二.mp4</div>
                             </div>
                             <div class="step-day-line"></div>
                             <div class="step-day-row">
                                 <div class="step-day-title">結局三 (鴉老師) 影片</div>
-                                <div class="step-day-add">結局三.mp4</div>
+                                <div class="step-day-video">結局三.mp4</div>
                             </div>
                             <div class="step-day-line"></div>
                             <div class="step-day-row">
                                 <div class="step-day-title">結局四 (鷹老師) 影片</div>
-                                <div class="step-day-add">結局四.mp4</div>
+                                <div class="step-day-video">結局四.mp4</div>
                             </div>
                         </div>
                     </div>
@@ -235,12 +235,12 @@
                         <div class="step-day-net">
                             <div class="step-day-row">
                                 <div class="step-day-title">學習單</div>
-                                <div class="step-day-add">學習單.mp4</div>
+                                <div class="step-day-video">學習單.mp4</div>
                             </div>
                             <div class="step-day-line"></div>
                             <div class="step-day-row">
                                 <div class="step-day-title">學習簡報</div>
-                                <div class="step-day-add">學習簡報.mp4</div>
+                                <div class="step-day-video">學習簡報.mp4</div>
                             </div>
                         </div>
                     </div>
@@ -289,6 +289,7 @@
                             </div>
                         </div>
                     </div>                    
+                    <div class="step-day-grey">若計分結果未有正、負面傾向性，則以正面作為結果。</div>
 
 
                 </div>

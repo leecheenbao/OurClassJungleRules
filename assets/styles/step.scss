@@ -312,6 +312,7 @@
         }
 
         &-net {
+            width: 100%;
             margin-top: 12px;
             padding: 16px;
             border: 1px solid #E7E7E7;
@@ -356,6 +357,83 @@
             font-size: 12px;
             color: #999;
             text-align: right;
+        }
+
+        // step3 green
+
+        &-green {
+            width: 100%;
+
+            &-row {
+                width: 100%;
+                display: flex;
+                align-items: center;
+                padding: 10px 12px;
+                background-color: #E1E1E1;
+                border: 10px;
+            }
+
+            &-row2 {
+                width: 100%;
+                display: flex;
+                align-items: center;
+                padding: 10px 12px;
+                background-color: #EFEFEF;
+                border: 10px;
+            }
+
+            &-row3 {
+                width: 100%;
+                display: flex;
+                justify-content: flex-end;
+                align-items: center;
+                padding: 10px 12px;
+                background-color: #EFEFEF;
+                border: 10px;
+            }
+
+            &-question {
+                width: 20px;
+                height: 20px;
+                color: white;
+                background-color: #008B77;
+                border-radius: 4px;
+            }
+
+            &-head {
+                margin-left: 8px;
+                font-size: 14px;
+            }
+
+            &-content {
+                display: flex;
+            }
+
+            &-answer {
+                width: 20px;
+                height: 20px;
+                line-height: 20px;
+                text-align: center;
+                color: #008B77;
+                border: 1px solid #008B77;
+                border-radius: 4px;
+            }
+
+            &-sub {
+                margin-left: 28px;
+                color: #666666;
+            }
+
+            &-text {
+                
+            }
+
+        }
+
+        // step 3
+
+        &-video {
+            color: #666666;
         }
 
     }
