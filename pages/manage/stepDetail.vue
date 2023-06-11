@@ -6,8 +6,8 @@
                 <div class="step-header-num">1</div>
                 <div class="step-header-head">基本資訊</div>
                 <div class="step-header-line"></div>
-                <div class="step-header-num">2</div>
-                <div class="step-header-head">詳細內容</div>
+                <div class="step-header-num step-header-num-current">2</div>
+                <div class="step-header-head step-header-head-current">詳細內容</div>
                 <div class="step-header-line"></div>
                 <div class="step-header-num">3</div>
                 <div class="step-header-head">確認內容</div>
@@ -16,8 +16,8 @@
             <!-- body -->
             <div class="step-day">
                 <div class="step-day-head-row">
-                    <div class="step-day-head">第 1 日</div>
-                    <div class="step-day-up">^</div>
+                    <div class="step-day-head-text">第 1 日</div>
+                    <div class="step-day-head-up">^</div>
                 </div>
 
                 <div class="step-day-box">
@@ -29,7 +29,7 @@
                     <textarea class="input step-day-textarea" placeholder="ex.10 分鐘" type="text"></textarea>
                     
                     <div class="step-day-row">
-                        <div class="step-day-title">*額外資訊</div>
+                        <div class="step-day-title3">*額外資訊</div>
                         <div class="step-day-add">＋增加</div>
                     </div>
                     <div class="step-day-row2">
@@ -40,8 +40,8 @@
                     <!-- 學生 -->
                     <div class="step-day-title2">學生討論內容</div>
                     <div class="step-day-net">
-                        <div class="step-day-title">*家長討論題目</div>
-                        <input class="input step-day-input" placeholder="請輸入題目描述" type="text">
+                        <div class="step-day-title">*學生討論題目</div>
+                        <input class="input step-day-input1" placeholder="請輸入題目描述" type="text">
                         <div class="step-day-line"></div>
 
                         <div class="step-day-row">
@@ -49,22 +49,22 @@
                             <div class="step-day-add">＋增加</div>
                         </div>
                         <div class="step-day-row2">
-                            <input class="input step-day-input2" placeholder="請輸入選項描述" type="text">
-                            <div class="step-day-title">秩序</div>
+                            <input class="input step-day-input3" placeholder="請輸入選項描述" type="text">
+                            <div class="step-day-title3">秩序</div>
                             <div class="step-day-container">
                                 <select class="select">
                                     <option value="">計分</option>
                                     <option value="volvo">不計分</option>
                                 </select>
                             </div>
-                            <div class="step-day-title">關係</div>
+                            <div class="step-day-title3">關係</div>
                             <div class="step-day-container">
                                 <select class="select">
                                     <option value="">計分</option>
                                     <option value="volvo">不計分</option>
                                 </select>
                             </div>
-                            <div class="step-day-title">-</div>
+                            <div class="step-day-title3">-</div>
                         </div>
                     </div>
 
@@ -72,7 +72,7 @@
                     <div class="step-day-title2">家長討論內容</div>
                     <div class="step-day-net">
                         <div class="step-day-title">*家長討論題目</div>
-                        <input class="input step-day-input" placeholder="請輸入題目描述" type="text">
+                        <input class="input step-day-input1" placeholder="請輸入題目描述" type="text">
                         <div class="step-day-line"></div>
 
                         <div class="step-day-row">
@@ -80,41 +80,41 @@
                             <div class="step-day-add">＋增加</div>
                         </div>
                         <div class="step-day-row2">
-                            <input class="input step-day-input2" placeholder="請輸入選項描述" type="text">
-                            <div class="step-day-title">秩序</div>
+                            <input class="input step-day-input3" placeholder="請輸入選項描述" type="text">
+                            <div class="step-day-title3">秩序</div>
                             <div class="step-day-container">
                                 <select class="select">
                                     <option value="">計分</option>
                                     <option value="volvo">不計分</option>
                                 </select>
                             </div>
-                            <div class="step-day-title">關係</div>
+                            <div class="step-day-title3">關係</div>
                             <div class="step-day-container">
                                 <select class="select">
                                     <option value="">計分</option>
                                     <option value="volvo">不計分</option>
                                 </select>
                             </div>
-                            <div class="step-day-title">-</div>
+                            <div class="step-day-close">-</div>
                         </div>
                     </div>
                     
                     <div class="step-day-title2">教材檔案</div>
                     <div class="step-day-net">
                         <div class="step-day-row">
-                            <div class="step-day-title">劇情影片</div>
+                            <div class="step-day-title3">劇情影片</div>
                             <div class="step-day-upload">上傳</div>
                         </div>
                         <div class="step-day-row">
-                            <div class="step-day-title">學習單</div>
+                            <div class="step-day-title3">學習單</div>
                             <div class="step-day-upload">上傳</div>
                         </div>
                         <div class="step-day-row">
-                            <div class="step-day-title">教學簡報</div>
+                            <div class="step-day-title3">教學簡報</div>
                             <div class="step-day-upload">上傳</div>
                         </div>
                         <div class="step-day-row">
-                            <div class="step-day-title">額外資訊</div>
+                            <div class="step-day-title3">額外資訊</div>
                             <div class="step-day-upload">上傳</div>
                         </div>
                     </div>
@@ -124,8 +124,8 @@
             <!-- 結局日 -->
             <div class="step-day">
                 <div class="step-day-head-row">
-                    <div class="step-day-head">第 2 日 (結局日)</div>
-                    <div class="step-day-up">^</div>
+                    <div class="step-day-head-text">第 2 日 (結局日)</div>
+                    <div class="step-day-head-up">^</div>
                 </div>
 
                 <div class="step-day-box">
@@ -145,19 +145,19 @@
                     <div class="step-day-title2">結局影片</div>
                     <div class="step-day-net">
                         <div class="step-day-row">
-                            <div class="step-day-title">結局一 (鴞老師) 影片</div>
+                            <div class="step-day-title3">結局一 (鴞老師) 影片</div>
                             <div class="step-day-upload">上傳</div>
                         </div>
                         <div class="step-day-row">
-                            <div class="step-day-title">結局二 (鴿老師) 影片</div>
+                            <div class="step-day-title3">結局二 (鴿老師) 影片</div>
                             <div class="step-day-upload">上傳</div>
                         </div>
                         <div class="step-day-row">
-                            <div class="step-day-title">結局三 (鴉老師) 影片</div>
+                            <div class="step-day-title3">結局三 (鴉老師) 影片</div>
                             <div class="step-day-upload">上傳</div>
                         </div>
                         <div class="step-day-row">
-                            <div class="step-day-title">結局四 (鷹老師) 影片</div>
+                            <div class="step-day-title3">結局四 (鷹老師) 影片</div>
                             <div class="step-day-upload">上傳</div>
                         </div>
                     </div>
@@ -165,11 +165,11 @@
                     <div class="step-day-title2">教材檔案</div>
                     <div class="step-day-net">
                         <div class="step-day-row">
-                            <div class="step-day-title">學習單</div>
+                            <div class="step-day-title3">學習單</div>
                             <div class="step-day-upload">上傳</div>
                         </div>
                         <div class="step-day-row">
-                            <div class="step-day-title">教學簡報</div>
+                            <div class="step-day-title3">教學簡報</div>
                             <div class="step-day-upload">上傳</div>
                         </div>
                     </div>
@@ -178,15 +178,15 @@
                     <div class="step-day-net">
                         <div class="step-day-row">
                             <div class="step-day-title">結局一 (鴞老師)</div>
-                            <div>
-                                <div class="step-day-title">秩序</div>
+                            <div class="step-day-row">
+                                <div class="step-day-title3">秩序</div>
                                 <div class="step-day-container">
                                     <select class="select">
                                         <option value="">計分</option>
                                         <option value="volvo">不計分</option>
                                     </select>
                                 </div>
-                                <div class="step-day-title">關係</div>
+                                <div class="step-day-title3">關係</div>
                                 <div class="step-day-container">
                                     <select class="select">
                                         <option value="">計分</option>
@@ -197,15 +197,15 @@
                         </div>
                         <div class="step-day-row">
                             <div class="step-day-title">結局二 (鴿老師)</div>
-                            <div>
-                                <div class="step-day-title">秩序</div>
+                            <div class="step-day-row">
+                                <div class="step-day-title3">秩序</div>
                                 <div class="step-day-container">
                                     <select class="select">
                                         <option value="">計分</option>
                                         <option value="volvo">不計分</option>
                                     </select>
                                 </div>
-                                <div class="step-day-title">關係</div>
+                                <div class="step-day-title3">關係</div>
                                 <div class="step-day-container">
                                     <select class="select">
                                         <option value="">計分</option>
@@ -216,15 +216,15 @@
                         </div>
                         <div class="step-day-row">
                             <div class="step-day-title">結局三 (鴉老師)</div>
-                            <div>
-                                <div class="step-day-title">秩序</div>
+                            <div class="step-day-row">
+                                <div class="step-day-title3">秩序</div>
                                 <div class="step-day-container">
                                     <select class="select">
                                         <option value="">計分</option>
                                         <option value="volvo">不計分</option>
                                     </select>
                                 </div>
-                                <div class="step-day-title">關係</div>
+                                <div class="step-day-title3">關係</div>
                                 <div class="step-day-container">
                                     <select class="select">
                                         <option value="">計分</option>
@@ -235,15 +235,15 @@
                         </div>
                         <div class="step-day-row">
                             <div class="step-day-title">結局四 (鷹老師)</div>
-                            <div>
-                                <div class="step-day-title">秩序</div>
+                            <div class="step-day-row">
+                                <div class="step-day-title3">秩序</div>
                                 <div class="step-day-container">
                                     <select class="select">
                                         <option value="">計分</option>
                                         <option value="volvo">不計分</option>
                                     </select>
                                 </div>
-                                <div class="step-day-title">關係</div>
+                                <div class="step-day-title3">關係</div>
                                 <div class="step-day-container">
                                     <select class="select">
                                         <option value="">計分</option>
@@ -260,8 +260,8 @@
 
             <!-- next -->
             <div class="step-next">
-                <div class="step-next-next">下一步</div>
-                <div class="step-next-cancel">上一步</div>
+                <nuxt-link  to="/manage/stepConfirm" class="step-next-next">下一步</nuxt-link>
+                <nuxt-link  to="/manage/stepInfo" class="step-next-cancel">上一步</nuxt-link>
             </div>
         </div>
     </NuxtLayout>
