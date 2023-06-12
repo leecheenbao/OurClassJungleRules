@@ -3,6 +3,7 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    padding-bottom: 200px;
     background-color: rgb(215, 220, 215);
 
     // header
@@ -43,6 +44,117 @@
             background-color: #B5B5B5;
         }
 
+    }
+
+    // script header
+
+    &-script {
+
+        &-head {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px 0px;
+            background-color: white;
+
+            &-leave {
+                padding-bottom: 10px;
+                font-weight: 700;
+                color: #008B77;
+            }
+
+            &-route {
+                display: flex;
+            }
+
+            &-route1 {
+                width: 100px;
+                padding-bottom: 10px;
+                margin: 0px 8px;
+                text-align: center;
+                border-bottom: 4px solid #008B77;
+            }
+
+            &-route2 {
+                width: 100px;
+                padding-bottom: 16px;
+                margin: 0px 8px;
+                text-align: center;
+                color: #999999;
+                cursor: pointer;
+            }
+
+            &-setting {
+                display: flex;
+                align-items: center;
+                padding-bottom: 10px;
+            }
+
+            &-sub {
+                color: #666666;
+            }
+        }
+
+        // script edit
+
+        &-edit {
+
+            &-row {
+                width: 928px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-top: 35px;
+            }
+
+            &-row2 {
+                display: flex;
+                align-items: center;
+            }
+
+            &-title {
+                font-weight: 700;
+                font-size: 24px;
+            }
+
+            &-edit {
+                width: 80px;
+                height: 30px;
+                font-size: 14px;
+                line-height: 30px;
+                text-align: center;
+                border-radius: 20px;
+                color: #008B77;
+                border: 1px solid #008B77;
+                cursor: pointer;
+            }
+
+            &-store {
+                width: 80px;
+                height: 30px;
+                margin-right: 20px;
+                font-size: 14px;
+                line-height: 30px;
+                text-align: center;
+                border-radius: 20px;
+                color: white;
+                background-color: #008B77;
+                cursor: pointer;
+            }
+
+            &-cancel {
+                width: 80px;
+                height: 30px;
+                font-size: 14px;
+                line-height: 30px;
+                text-align: center;
+                border-radius: 20px;
+                color: #008B77;
+                border: 1px solid #008B77;
+                cursor: pointer;
+            }
+        }
     }
 
     // body

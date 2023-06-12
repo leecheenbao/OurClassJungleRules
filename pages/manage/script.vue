@@ -5,7 +5,7 @@
                 <div class="manage-head">劇本教材管理</div>
                 <div class="manage-row">
                     <div class="manage-num">項目數量：10</div>
-                    <div @click="addUser" class="manage-create">+ 建立劇本教材</div>
+                    <nuxt-link to="/manage/stepInfo" class="manage-create">+ 建立劇本教材</nuxt-link>
                 </div>
                 
             </div>
@@ -102,6 +102,8 @@
 
 <script setup>
 
+const router = useRouter();
+
 const dataAll = reactive([
   { account: 'user1@gmail.com', name: 'frank', gender: '女', birth: '1992/02/01', organization: '森林國小', type: '學校', registerTime: '2022/02/03 12:22:11'},
   { account: 'user2@gmail.com', name: 'frank', gender: '女', birth: '1992/02/01', organization: '森林國小', type: '學校', registerTime: '2022/02/03 12:22:11'},
@@ -119,12 +121,9 @@ const isShowDelete = ref(false)
 const editData = ref({})
 const deleteData = ref({})
 
-function addUser() {
-    
-}
-
 function editUser(row) {
     console.log(row)
+    router.push({ path: '/manage/scriptSetting' })
 }
 
 function deleteUser(row) {
