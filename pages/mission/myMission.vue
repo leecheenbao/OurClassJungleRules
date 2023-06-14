@@ -48,157 +48,293 @@
             </div>
 
             <div class="mission-day">
-                <div class="mission-day-head">
-                    <div class="mission-day-head-selected">第 1 日</div>
-                    <!-- <div class="mission-day-head-unselect"></div> -->
-                    <div class="mission-day-head-last">
+                <div class="mission-head">
+                    <div class="mission-head-selected">第 1 日</div>
+                    <!-- <div class="mission-head-unselect"></div> -->
+                    <div class="mission-head-last">
                         <div>第 2 日</div>
-                        <div class="mission-day-head-hint">(結局日)</div>
+                        <div class="mission-head-hint">(結局日)</div>
                     </div>
                 </div>
 
-                <div class="mission-day-body">
-                    <div class="mission-day-body-head">帶領方式說明</div>
-                    <div class="mission-day-body-text">簡介本教材進行方式。</div>
-                    <div class="mission-day-body-text">在課堂上發布第 1 日的影片: 虎兔篇 Day1。</div>
-                    <div class="mission-day-body-text">發布虎兔篇「額外資訊」。</div>
-                    <div class="mission-day-body-text">發下第一日的學習單，請同學回家填寫。</div>
-                    <div class="mission-day-body-head">建議進行時間</div>
-                    <div class="mission-day-body-text">10分鐘</div>
-                    <div class="mission-day-body-line"></div>
+                <div class="mission-body">
+                    <div class="mission-body-head">帶領方式說明</div>
+                    <div class="mission-body-text">簡介本教材進行方式。</div>
+                    <div class="mission-body-text">在課堂上發布第 1 日的影片: 虎兔篇 Day1。</div>
+                    <div class="mission-body-text">發布虎兔篇「額外資訊」。</div>
+                    <div class="mission-body-text">發下第一日的學習單，請同學回家填寫。</div>
+                    <div class="mission-body-head">建議進行時間</div>
+                    <div class="mission-body-text">10分鐘</div>
+                    <div class="mission-body-line"></div>
 
-                    <div class="mission-day-body-head">本日劇情影片</div>
-                    <div class="mission-day-body-video">
-                        <div class="mission-day-body-video-head">虎兔篇 第 1 日</div>
-                        <div class="mission-day-body-video-play">
-                            <img class="mission-day-body-video-img" src="~assets/images/Icon/play.svg" alt="">
+                    <div class="mission-body-head">本日劇情影片</div>
+                    <div class="mission-body-video">
+                        <div class="mission-body-video-head">虎兔篇 第 1 日</div>
+                        <div class="mission-body-video-play">
+                            <img class="mission-body-video-img" src="~assets/images/Icon/play.svg" alt="">
                             <div>播放影片</div>
                         </div>
-                        <div class="mission-day-body-video-text">
-                            <img class="mission-day-body-video-img" src="~assets/images/Icon/detail.svg" alt="">
+                        <div class="mission-body-video-text">
+                            <img class="mission-body-video-img" src="~assets/images/Icon/detail.svg" alt="">
                             <div>閱讀文字版</div>
                         </div>
-                        <div class="mission-day-body-video-text">
-                            <img class="mission-day-body-video-img" src="~assets/images/Icon/download.svg" alt="">
+                        <div class="mission-body-video-text">
+                            <img class="mission-body-video-img" src="~assets/images/Icon/download.svg" alt="">
                             <div>影片 QR code 下載</div>
                         </div>
                     </div>
 
-                    <div class="mission-day-body-row">
-                        <div class="mission-day-body-box">學生問題討論</div>
-                        <div class="mission-day-body-box">家長問題討論</div>
+                    <div class="mission-body-row">
+                        <div class="mission-body-box">學生問題討論</div>
+                        <div class="mission-body-box">家長問題討論</div>
                     </div>
 
-                    <div class="mission-day-body-row0">
+                    <div class="mission-body-row0">
                         <!-- 左側 -->
-                        <div class="mission-day-body-box">
-                            <div class="mission-day-body-box-header">
-                                <div class="mission-day-body-box-question">?</div>
-                                <div class="mission-day-body-box-head">如果你是他們的同學，當下你會怎麼做?</div>
+                        <div class="mission-body-box">
+                            <div class="mission-body-box-header">
+                                <div class="mission-body-box-question">?</div>
+                                <div class="mission-body-box-head">如果你是他們的同學，當下你會怎麼做?</div>
                             </div>
-                            <div class="mission-day-body-box-row1">
-                                <div class="mission-day-body-box-row2">
-                                    <div class="mission-day-body-box-answer">A</div>
-                                    <div class="mission-day-body-box-text">溫和堅定地制止張萌虎。</div>
+                            <div class="mission-body-box-row1">
+                                <div class="mission-body-box-row2">
+                                    <div class="mission-body-box-answer">A</div>
+                                    <div class="mission-body-box-text">溫和堅定地制止張萌虎。</div>
                                 </div>
-                               <img @click="isShowInfo = true" class="mission-day-body-box-info" src="~assets/images/Icon/information.svg" alt="">
+                               <img @click="isShowInfo = true" class="mission-body-box-info" src="~assets/images/Icon/information.svg" alt="">
                             </div>
-                            <div class="mission-day-body-box-row1">
-                                <div class="mission-day-body-box-row2">
-                                    <div class="mission-day-body-box-answer">B</div>
-                                    <div class="mission-day-body-box-text">溫和堅定地制止張萌虎。</div>
+                            <div class="mission-body-box-row1">
+                                <div class="mission-body-box-row2">
+                                    <div class="mission-body-box-answer">B</div>
+                                    <div class="mission-body-box-text">溫和堅定地制止張萌虎。</div>
                                 </div>
-                               <img class="mission-day-body-box-info" src="~assets/images/Icon/information.svg" alt="">
+                               <img class="mission-body-box-info" src="~assets/images/Icon/information.svg" alt="">
                             </div>
-                            <div class="mission-day-body-box-row1">
-                                <div class="mission-day-body-box-row2">
-                                    <div class="mission-day-body-box-answer">C</div>
-                                    <div class="mission-day-body-box-text">溫和堅定地制止張萌虎。</div>
+                            <div class="mission-body-box-row1">
+                                <div class="mission-body-box-row2">
+                                    <div class="mission-body-box-answer">C</div>
+                                    <div class="mission-body-box-text">溫和堅定地制止張萌虎。</div>
                                 </div>
-                               <img class="mission-day-body-box-info" src="~assets/images/Icon/information.svg" alt="">
+                               <img class="mission-body-box-info" src="~assets/images/Icon/information.svg" alt="">
                             </div>
                         </div>
                         <!-- 右側 -->
-                        <div class="mission-day-body-box">
-                            <div class="mission-day-body-box-header">
-                                <div class="mission-day-body-box-question">?</div>
-                                <div class="mission-day-body-box-head">如果你是他們的同學，當下你會怎麼做?</div>
+                        <div class="mission-body-box">
+                            <div class="mission-body-box-header">
+                                <div class="mission-body-box-question">?</div>
+                                <div class="mission-body-box-head">如果你是他們的同學，當下你會怎麼做?</div>
                             </div>
-                            <div class="mission-day-body-box-row1">
-                                <div class="mission-day-body-box-row2">
-                                    <div class="mission-day-body-box-answer">A</div>
-                                    <div class="mission-day-body-box-text">溫和堅定地制止張萌虎。</div>
+                            <div class="mission-body-box-row1">
+                                <div class="mission-body-box-row2">
+                                    <div class="mission-body-box-answer">A</div>
+                                    <div class="mission-body-box-text">溫和堅定地制止張萌虎。</div>
                                 </div>
-                               <img class="mission-day-body-box-info" src="~assets/images/Icon/information.svg" alt="">
+                               <img class="mission-body-box-info" src="~assets/images/Icon/information.svg" alt="">
                             </div>
-                            <div class="mission-day-body-box-row1">
-                                <div class="mission-day-body-box-row2">
-                                    <div class="mission-day-body-box-answer">B</div>
-                                    <div class="mission-day-body-box-text">溫和堅定地制止張萌虎。</div>
+                            <div class="mission-body-box-row1">
+                                <div class="mission-body-box-row2">
+                                    <div class="mission-body-box-answer">B</div>
+                                    <div class="mission-body-box-text">溫和堅定地制止張萌虎。</div>
                                 </div>
-                               <img class="mission-day-body-box-info" src="~assets/images/Icon/information.svg" alt="">
+                               <img class="mission-body-box-info" src="~assets/images/Icon/information.svg" alt="">
                             </div>
-                            <div class="mission-day-body-box-row1">
-                                <div class="mission-day-body-box-row2">
-                                    <div class="mission-day-body-box-answer">C</div>
-                                    <div class="mission-day-body-box-text">溫和堅定地制止張萌虎。</div>
+                            <div class="mission-body-box-row1">
+                                <div class="mission-body-box-row2">
+                                    <div class="mission-body-box-answer">C</div>
+                                    <div class="mission-body-box-text">溫和堅定地制止張萌虎。</div>
                                 </div>
-                               <img class="mission-day-body-box-info" src="~assets/images/Icon/information.svg" alt="">
+                               <img class="mission-body-box-info" src="~assets/images/Icon/information.svg" alt="">
                             </div>
                         </div>
                     </div>
 
                     <!-- 額外資訊 -->
 
-                    <div class="mission-day-body-head2">額外資訊</div>
-                    <div class="mission-day-body-row2">
-                        <div class="mission-day-body-sub">資訊 1</div>
-                        <div class="mission-day-body-text">張萌虎是個靜不下來的孩子，下課時就往操場跑，不是去打球就是去跑步。</div>
+                    <div class="mission-body-head2">額外資訊</div>
+                    <div class="mission-body-row2">
+                        <div class="mission-body-sub">資訊 1</div>
+                        <div class="mission-body-text">張萌虎是個靜不下來的孩子，下課時就往操場跑，不是去打球就是去跑步。</div>
                     </div>
-                    <div class="mission-day-body-row2">
-                        <div class="mission-day-body-sub">資訊 2</div>
-                        <div class="mission-day-body-text">在班上的時候，張猛虎總是坐不太住，常常動來動去，右腳也常常在抖。</div>
+                    <div class="mission-body-row2">
+                        <div class="mission-body-sub">資訊 2</div>
+                        <div class="mission-body-text">在班上的時候，張猛虎總是坐不太住，常常動來動去，右腳也常常在抖。</div>
                     </div>
-                    <div class="mission-day-body-row2">
-                        <div class="mission-day-body-sub">資訊 3</div>
-                        <div class="mission-day-body-text">你曾經問過張萌虎為什麼一直抖腳，他回答你說:「我也不知道!就是忍不住想要抖腳，我有試著不要抖，但就感覺很煩躁、很想生氣。」</div>
+                    <div class="mission-body-row2">
+                        <div class="mission-body-sub">資訊 3</div>
+                        <div class="mission-body-text">你曾經問過張萌虎為什麼一直抖腳，他回答你說:「我也不知道!就是忍不住想要抖腳，我有試著不要抖，但就感覺很煩躁、很想生氣。」</div>
                     </div>
-                    <div class="mission-day-body-line"></div>
+                    <div class="mission-body-line"></div>
 
                     <!-- 本日計分 -->
-                    <div class="mission-day-body-head">本日計分</div>
-                    <div class="mission-day-body-net">
-                        <div class="mission-day-body-text">目前還未填寫分數</div>
-                        <div class="mission-day-body-write">
-                            <img class="mission-day-body-edit" src="~assets/images/Icon/edit.svg" alt="">
+                    <div class="mission-body-head">本日計分</div>
+                    <div class="mission-body-net">
+                        <div class="mission-body-text">目前還未填寫分數</div>
+                        <div class="mission-body-write">
+                            <img class="mission-body-edit" src="~assets/images/Icon/edit.svg" alt="">
                             <div>填寫分數</div>
                         </div>
                     </div>
-                    
-                    <div class="mission-day-body-line"></div>
 
-                    <!-- 教材檔案 -->
-                    <div class="mission-day-body-head">教材檔案</div>
-                    <div class="mission-day-body-net2">
-                        <div class="mission-day-body-row3">
-                            <div class="mission-day-body-row4">
-                                <div class="mission-day-body-head3">學習單</div>
-                                <img class="mission-day-body-icon" src="~assets/images/Icon/download.svg" alt="">
-                            </div>
-                            <div class="mission-day-body-row4">
-                                <div class="mission-day-body-head3">教學簡報</div>
-                                <img class="mission-day-body-icon" src="~assets/images/Icon/download.svg" alt="">
+                    <!-- 計分 -->
+                    <div class="mission-count">
+                        <div class="mission-count-header">
+                            <div class="mission-count-title">學生討論題選項</div>
+                            <div class="mission-count-row">
+                                <div class="mission-count-text">數量</div>
+                                <div class="mission-count-text">秩序統計</div>
+                                <div class="mission-count-text">關係統計</div>
                             </div>
                         </div>
-                        <div class="mission-day-body-line2"></div>
-                        <div class="mission-day-body-row3">
-                            <div class="mission-day-body-row4">
-                                <div class="mission-day-body-head3">額外資訊</div>
-                                <img class="mission-day-body-icon" src="~assets/images/Icon/download.svg" alt="">
+
+                        <div class="mission-count-row2">
+                            <div class="mission-count-choose">
+                                <div class="mission-count-sub1">選項 A</div>
+                                <div class="mission-count-sub2">秩序效果：+1，關係效果：-2</div>
                             </div>
-                            <div class="mission-day-body-row4">
-                                <div class="mission-day-body-head3">本日影片 QR code </div>
-                                <img class="mission-day-body-icon" src="~assets/images/Icon/download.svg" alt="">
+                            <div class="mission-count-row3">
+                                <div class="mission-count-count">2</div>
+                                <div class="mission-count-count">+2</div>
+                                <div class="mission-count-count">+1</div>
+                            </div>
+                        </div>
+                        <div class="mission-count-row2">
+                            <div class="mission-count-choose">
+                                <div class="mission-count-sub1">選項 A</div>
+                                <div class="mission-count-sub2">秩序效果：+1，關係效果：-2</div>
+                            </div>
+                            <div class="mission-count-row3">
+                                <div class="mission-count-count">2</div>
+                                <div class="mission-count-count">+2</div>
+                                <div class="mission-count-count">+1</div>
+                            </div>
+                        </div>
+                        <div class="mission-count-row2">
+                            <div class="mission-count-choose">
+                                <div class="mission-count-sub1">選項 A</div>
+                                <div class="mission-count-sub2">秩序效果：+1，關係效果：-2</div>
+                            </div>
+                            <div class="mission-count-row3">
+                                <div class="mission-count-count">2</div>
+                                <div class="mission-count-count">+2</div>
+                                <div class="mission-count-count">+1</div>
+                            </div>
+                        </div>
+                        <div class="mission-count-row2">
+                            <div class="mission-count-choose">
+                                <div class="mission-count-sub1">選項 A</div>
+                                <div class="mission-count-sub2">秩序效果：+1，關係效果：-2</div>
+                            </div>
+                            <div class="mission-count-row3">
+                                <div class="mission-count-count">2</div>
+                                <div class="mission-count-count">+2</div>
+                                <div class="mission-count-count">+1</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mission-count-sum">
+                        <div class="mission-count-sum1">
+                            <div class="mission-count-title2">小計</div>
+                            <div class="mission-count-num">+5</div>
+                        </div>
+                        <div class="mission-count-sum2">+3</div>
+                    </div>
+
+
+                    <div class="mission-count">
+                        <div class="mission-count-header">
+                            <div class="mission-count-title">家長討論題選項</div>
+                            <div class="mission-count-row">
+                                <div class="mission-count-text">數量</div>
+                                <div class="mission-count-text">秩序統計</div>
+                                <div class="mission-count-text">關係統計</div>
+                            </div>
+                        </div>
+
+                        <div class="mission-count-row2">
+                            <div class="mission-count-choose">
+                                <div class="mission-count-sub1">選項 A</div>
+                                <div class="mission-count-sub2">秩序效果：+1，關係效果：-2</div>
+                            </div>
+                            <div class="mission-count-row3">
+                                <div class="mission-count-count">2</div>
+                                <div class="mission-count-count">+2</div>
+                                <div class="mission-count-count">+1</div>
+                            </div>
+                        </div>
+                        <div class="mission-count-row2">
+                            <div class="mission-count-choose">
+                                <div class="mission-count-sub1">選項 A</div>
+                                <div class="mission-count-sub2">秩序效果：+1，關係效果：-2</div>
+                            </div>
+                            <div class="mission-count-row3">
+                                <div class="mission-count-count">2</div>
+                                <div class="mission-count-count">+2</div>
+                                <div class="mission-count-count">+1</div>
+                            </div>
+                        </div>
+                        <div class="mission-count-row2">
+                            <div class="mission-count-choose">
+                                <div class="mission-count-sub1">選項 A</div>
+                                <div class="mission-count-sub2">秩序效果：+1，關係效果：-2</div>
+                            </div>
+                            <div class="mission-count-row3">
+                                <div class="mission-count-count">2</div>
+                                <div class="mission-count-count">+2</div>
+                                <div class="mission-count-count">+1</div>
+                            </div>
+                        </div>
+                        <div class="mission-count-row2">
+                            <div class="mission-count-choose">
+                                <div class="mission-count-sub1">選項 A</div>
+                                <div class="mission-count-sub2">秩序效果：+1，關係效果：-2</div>
+                            </div>
+                            <div class="mission-count-row3">
+                                <div class="mission-count-count">2</div>
+                                <div class="mission-count-count">+2</div>
+                                <div class="mission-count-count">+1</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mission-count-sum">
+                        <div class="mission-count-sum1">
+                            <div class="mission-count-title2">小計</div>
+                            <div class="mission-count-num">+5</div>
+                        </div>
+                        <div class="mission-count-sum2">+3</div>
+                    </div>
+                    <div class="mission-count-total">
+                        <div class="mission-count-total">
+                            <div class="mission-count-title3">每日小計</div>
+                            <div class="mission-count-num2">+2</div>
+                        </div>
+                        <div class="mission-count-num3">+4</div>
+                    </div>
+                    
+
+                    <div class="mission-body-line"></div>
+
+                    <!-- 教材檔案 -->
+                    <div class="mission-body-head">教材檔案</div>
+                    <div class="mission-body-net2">
+                        <div class="mission-body-row3">
+                            <div class="mission-body-row4">
+                                <div class="mission-body-head3">學習單</div>
+                                <img class="mission-body-icon" src="~assets/images/Icon/download.svg" alt="">
+                            </div>
+                            <div class="mission-body-row4">
+                                <div class="mission-body-head3">教學簡報</div>
+                                <img class="mission-body-icon" src="~assets/images/Icon/download.svg" alt="">
+                            </div>
+                        </div>
+                        <div class="mission-body-line2"></div>
+                        <div class="mission-body-row3">
+                            <div class="mission-body-row4">
+                                <div class="mission-body-head3">額外資訊</div>
+                                <img class="mission-body-icon" src="~assets/images/Icon/download.svg" alt="">
+                            </div>
+                            <div class="mission-body-row4">
+                                <div class="mission-body-head3">本日影片 QR code </div>
+                                <img class="mission-body-icon" src="~assets/images/Icon/download.svg" alt="">
                             </div>
                         </div>
                     </div>
@@ -263,7 +399,6 @@
                     </div>
                 </div>
             </div>
-
 
         </div>
     </NuxtLayout>
@@ -405,259 +540,372 @@ const isShowInfo = ref(false)
 
     // 第一日
 
-    &-day {
+    &-body {
         width: 928px;
         margin-top: 20px;
+    }
+
+    &-head {
+        width: 100%;
+        height: 80px;
+        display: flex;
+        justify-content: space-between;
+
+        &-selected {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color:#008B77;
+            color: white;
+        }
+
+        &-last {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border-top: 4px solid #008B77;
+            background-color: white;
+        }
+
+        &-hint {
+            margin-top: 4px;
+            color: #999999;
+        }
+        
+    }
+
+    &-body {
+        padding: 8px 32px 32px;
+        background-color: white;
 
         &-head {
-            width: 100%;
-            height: 80px;
-            display: flex;
-            justify-content: space-between;
+            margin: 24px 4px;
+            color: #008B77;
+        }
 
-            &-selected {
-                width: 100%;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                background-color:#008B77;
+        &-text {
+            font-size: 14px;
+            color: #666666;
+        }
+
+        &-line {
+            height: 1px;
+            margin: 24px 0px;
+            background-color: #E7E7E7;
+        }
+
+        &-video {
+            width: 100%;
+            height: 500px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(black, 0.3);
+
+            &-head {
+                font-size: 24px;
                 color: white;
             }
 
-            &-last {
-                width: 100%;
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                border-top: 4px solid #008B77;
-                background-color: white;
-            }
-
-            &-hint {
-                margin-top: 4px;
-                color: #999999;
-            }
-            
-        }
-
-        &-body {
-            padding: 8px 32px 32px;
-            background-color: white;
-
-            &-head {
-                margin: 24px 4px;
-                color: #008B77;
-            }
-
-            &-text {
-                font-size: 14px;
-                color: #666666;
-            }
-
-            &-line {
-                height: 1px;
-                margin: 24px 0px;
-                background-color: #E7E7E7;
-            }
-
-            &-video {
-                width: 100%;
-                height: 500px;
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                background-color: rgba(black, 0.3);
-
-                &-head {
-                    font-size: 24px;
-                    color: white;
-                }
-
-                &-play {
-                    display: flex;
-                    align-items: center;
-                    margin: 24px 0px 8px;
-                    padding: 16px 55px;
-                    color: white;
-                    cursor: pointer;
-                }
-
-                &-img {
-                    width: 12px;
-                    height: 12px;
-                    margin-right: 4px;
-                }
-
-                &-text {
-                    display: flex;
-                    align-items: center;
-                    margin: 16px 0px;
-                    font-size: 14px;
-                    color: #CCCCCC;
-                }
-                
-            }
-
-            &-row {
-                width: 100%;
-                margin-top: 20px;
-                display: flex;
-                justify-content: space-between;
-            }
-
-            &-row0 {
-                width: 100%;
-                display: flex;
-                justify-content: space-between;
-            }
-
-            &-box {
-                width: 49%;
-
-                &-header {
-                    margin-top: 8px;
-                    padding: 10px;
-                    display: flex;
-                    align-items: center;
-                    border-top-left-radius: 10px;
-                    border-top-right-radius: 10px;
-                    background: #E1E1E1;
-                }
-
-                &-question {
-                    width: 20px;
-                    height: 20px;
-                    margin-right: 10px;
-                    line-height: 20px;
-                    text-align: center;
-                    background: #008B77;
-                    border-radius: 4px;
-                    color: white;
-                }
-
-                &-head {
-                    font-size: 14px;
-                }
-
-                &-row1 {
-                    display: flex;
-                    justify-content: space-between;
-                    padding: 10px;
-                    border-bottom: 1px solid white;
-                    background: #EFEFEF;
-                }
-
-                &-row2 {
-                    display: flex;
-                }
-
-                &-answer {
-                    width: 20px;
-                    height: 20px;
-                    line-height: 20px;
-                    margin-right: 10px;
-                    text-align: center;
-                    font-size: 13px;
-                    color: #008B77;
-                    border: 1px solid #008B77;
-                }
-
-                &-text {
-                    font-size: 14px;
-                }
-
-                &-info {
-                    width: 16px;
-                    height: 16px;
-                }
-                
-            }
-
-            // 額外資訊
-
-            &-head2 {
-                margin: 16px 0px 8px;
-                font-size: 14px;
-            }
-
-            &-row2 {
-                display: flex;
-                margin-bottom: 4px;
-            }
-
-            &-sub {
-                width: 64px;
-                font-size: 14px;
-            }
-
-            &-net {
+            &-play {
                 display: flex;
                 align-items: center;
-                justify-content: space-between;
-                padding: 12px 16px;
-                background: #FFFFFF;
-                border: 1px solid #E7E7E7;
-                border-radius: 12px;
-            }
-
-            &-net2 {
-                background: #FFFFFF;
-                border: 1px solid #E7E7E7;
-                border-radius: 12px;
-            }
-
-            &-write {
-                display: flex;
-                align-items: center;
-                padding: 8px 12px;
-                border-radius: 20px;
-                border: 1px solid #008B77;
-                font-weight: 700;
-                font-size: 14px;
-                color: #008B77;
+                margin: 24px 0px 8px;
+                padding: 16px 55px;
+                color: white;
                 cursor: pointer;
             }
 
-            &-edit {
+            &-img {
                 width: 12px;
                 height: 12px;
                 margin-right: 4px;
             }
 
-            // 本日計分
-
-            // 教材檔案
-
-            &-row3 {
-                width: 100%;
+            &-text {
                 display: flex;
-                border-bottom: 1px solid #E7E7E7;
-            }
-
-            &-row4 {
-                width: 50%;
-                display: flex;
-                justify-content: space-between;
                 align-items: center;
-                padding: 12px 16px;
-                border-right: 1px solid #E7E7E7;
-            }
-
-            &-head3 {
+                margin: 16px 0px;
                 font-size: 14px;
-            }
-
-            &-icon {
-                padding: 12px;
-                border: 1px solid #008B77;
-                border-radius: 100%;
-                cursor: pointer;
+                color: #CCCCCC;
             }
             
         }
+
+        &-row {
+            width: 100%;
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        &-row0 {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        &-box {
+            width: 49%;
+
+            &-header {
+                margin-top: 8px;
+                padding: 10px;
+                display: flex;
+                align-items: center;
+                border-top-left-radius: 10px;
+                border-top-right-radius: 10px;
+                background: #E1E1E1;
+            }
+
+            &-question {
+                width: 20px;
+                height: 20px;
+                margin-right: 10px;
+                line-height: 20px;
+                text-align: center;
+                background: #008B77;
+                border-radius: 4px;
+                color: white;
+            }
+
+            &-head {
+                font-size: 14px;
+            }
+
+            &-row1 {
+                display: flex;
+                justify-content: space-between;
+                padding: 10px;
+                border-bottom: 1px solid white;
+                background: #EFEFEF;
+            }
+
+            &-row2 {
+                display: flex;
+            }
+
+            &-answer {
+                width: 20px;
+                height: 20px;
+                line-height: 20px;
+                margin-right: 10px;
+                text-align: center;
+                font-size: 13px;
+                color: #008B77;
+                border: 1px solid #008B77;
+            }
+
+            &-text {
+                font-size: 14px;
+            }
+
+            &-info {
+                width: 16px;
+                height: 16px;
+            }
+            
+        }
+
+        // 額外資訊
+
+        &-head2 {
+            margin: 16px 0px 8px;
+            font-size: 14px;
+        }
+
+        &-row2 {
+            display: flex;
+            margin-bottom: 4px;
+        }
+
+        &-sub {
+            width: 64px;
+            font-size: 14px;
+        }
+
+        &-net {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 16px;
+            background: #FFFFFF;
+            border: 1px solid #E7E7E7;
+            border-radius: 12px;
+        }
+
+        &-net2 {
+            background: #FFFFFF;
+            border: 1px solid #E7E7E7;
+            border-radius: 12px;
+        }
+
+        &-write {
+            display: flex;
+            align-items: center;
+            padding: 8px 12px;
+            border-radius: 20px;
+            border: 1px solid #008B77;
+            font-weight: 700;
+            font-size: 14px;
+            color: #008B77;
+            cursor: pointer;
+        }
+
+        &-edit {
+            width: 12px;
+            height: 12px;
+            margin-right: 4px;
+        }
+
+        // 教材檔案
+
+        &-row3 {
+            width: 100%;
+            display: flex;
+            border-bottom: 1px solid #E7E7E7;
+        }
+
+        &-row4 {
+            width: 50%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            border-right: 1px solid #E7E7E7;
+        }
+
+        &-head3 {
+            font-size: 14px;
+        }
+
+        &-icon {
+            padding: 12px;
+            border: 1px solid #008B77;
+            border-radius: 100%;
+            cursor: pointer;
+        }
         
+    }
+
+    // 本日計分
+
+    &-count {
+        margin-top: 10px;
+
+        &-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 16px;
+            background: #333333;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+
+        &-title {
+            font-size: 14px;
+            color: white;
+        }
+
+        &-row {
+            display: flex;
+        }
+
+        &-row2 {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 16px;
+            border-bottom: 1px solid #E7E7E7;
+            background-color: white;
+        }
+
+        &-row3 {
+            display: flex;
+            align-items: center;
+        }
+
+        &-text {
+            margin-right: 90px;
+            font-size: 14px;
+            color: white;
+        }
+
+        &-choose {
+            
+        }
+
+        &-sub1 {
+            font-size: 14px;
+        }
+
+        &-sub2 {
+            margin-top: 4px;
+            font-size: 12px;
+            color: #666666;
+        }
+
+        &-count {
+            margin-right: 90px;
+            font-size: 14px;
+        }
+
+        &-sum {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            padding: 10px 0px;
+        }
+
+        &-sum1 {
+            display: flex;
+        }
+
+        &-title2 {
+            margin-right: 16px;
+        }
+
+        &-num {
+            margin-right: 90px;
+        }
+
+        &-sum2 {
+            margin-right: 100px;
+        }
+
+        &-total {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            padding: 12px 0px;
+            background-color: #008B77;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+        }
+
+        &-title3 {
+            margin-right: 16px;
+            font-size: 14px;
+            color: white;
+        }
+
+        &-num2 {
+            margin-right: 90px;
+            font-size: 24px;
+            color: white;
+        }
+
+        &-num3 {
+            margin-right: 90px;
+            font-size: 24px;
+            color: white;
+        }
+
     }
 
 }
