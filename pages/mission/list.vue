@@ -181,6 +181,8 @@
 
 <script setup>
 
+const router = useRouter();
+
 const isFirst = ref(false)
 
 const dataAll = reactive([
@@ -205,9 +207,10 @@ function addUser(row) {
 }
 
 function editUser(row) {
-    isShowEdit.value = true
+    // isShowEdit.value = true
     editData.value = row
     console.log(row)
+    router.push({ path: '/mission/myMission' })
 }
 
 function deleteUser(row) {
