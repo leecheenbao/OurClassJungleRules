@@ -4,7 +4,7 @@
             <div class="mission-head">
                 <nuxt-link to="/mission/list" class="mission-head-leave">＜- 返回列表</nuxt-link>
                 <div class="mission-head-text">1年二班虎兔篇</div>
-                <div class="mission-head-edit">
+                <div @click="isShowEdit = true" class="mission-head-edit">
                     <img class="mission-head-img" src="~assets/images/Icon/edit.svg" alt="">
                 </div>
             </div>
@@ -101,7 +101,7 @@
                                     <div class="mission-day-body-box-answer">A</div>
                                     <div class="mission-day-body-box-text">溫和堅定地制止張萌虎。</div>
                                 </div>
-                               <img class="mission-day-body-box-info" src="~assets/images/Icon/information.svg" alt="">
+                               <img @click="isShowInfo = true" class="mission-day-body-box-info" src="~assets/images/Icon/information.svg" alt="">
                             </div>
                             <div class="mission-day-body-box-row1">
                                 <div class="mission-day-body-box-row2">
@@ -208,6 +208,62 @@
             <!-- day end -->
 
             <!-- popup -->
+            <!-- 編輯資料 -->
+            <div v-if="isShowEdit" class="popup">
+                <div @click="isShowEdit = false" class="box">
+                    <div @click.stop class="block-box">
+                        <div class="title">編輯任務</div>
+                        <div class="item-title">*任務名稱</div>
+                        <div><input class="input" placeholder="請輸入文字" type="text"></div>
+                        <div class="item-title">*選擇劇本</div>
+                        <div class="select-container">
+                            <select class="select">
+                                <option value="">請選擇</option>
+                                <option value="volvo">Volvo</option>
+                                <option value="saab">Saab</option>
+                                <option value="mercedes">Mercedes</option>
+                                <option value="audi">Audi</option>
+                            </select>
+                        </div>
+                        <div class="item-title">*學習對象</div>
+                        <div class="select-container">
+                            <select class="select">
+                                <option value="">請選擇</option>
+                                <option value="volvo">Volvo</option>
+                                <option value="saab">Saab</option>
+                                <option value="mercedes">Mercedes</option>
+                                <option value="audi">Audi</option>
+                            </select>
+                        </div>
+                        <div class="item-title">*預期參與人數/組數</div>
+                        <div><input class="input" placeholder="請輸入數字" type="text"></div>
+                        <div class="item-title">*結束日期</div>
+                        <div><input class="input" type="date"></div>
+                        <div class="btn-green">確認</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 劇情內容 -->
+            <div v-if="isShowInfo" class="popup">
+                <div @click="isShowInfo = false" class="box">
+                    <div @click.stop class="block-box">
+                        <div class="title">劇情內容</div>
+                        <div class="text">某天，在童話國小的叢林班上，事情發生了......</div>
+                        <div class="text">砰!一聲巨大的聲響，蓋過下課時教室裡嘈雜的人聲，同學們紛紛轉過頭去尋找聲音的來源。</div>
+                        <div class="text">「好痛......」只見嬌小瘦弱的林曉兔跌坐在地上，正撫摸著自己瘀青的膝蓋，一旁是倒掉的課桌椅，看來就是她造成了剛剛那聲巨響。</div>
+                        <div class="text">一個龐大的身影突然籠罩著林曉兔，她抬起頭，臉上浮現了害怕的表情。</div>
+                        <div class="text">黑影的主人，是身型壯碩的張萌虎，正惡狠狠地瞪著林曉兔，，右腳也不斷地抖著。</div>
+                        <div class="text">張萌虎說:「妳很會跑嘛，再跑給我看啊!我看妳現在往哪裡跑?」</div>
+                        <div class="text">說完還用力地踹了倒掉的桌子一腳，又發出「砰!」的一聲，教室裡的人們都嚇了一大跳。</div>
+                        <div class="text">「等、等一下，」林曉兔微微顫抖地說:「我剛剛只是在開玩笑，我不是故意——」</div>
+                        <div class="text">砰!不等林曉兔說玩，張萌虎又踹倒了旁邊一張椅子，林曉兔發出一聲驚恐的尖叫。</div>
+                        <div class="text">「開玩笑?」張萌虎咬牙切齒地說著:「所以你是在笑我?妳覺得很好玩、很好笑囉?」</div>
+                        <div class="text">林曉兔嚇得低下頭，張萌虎怒吼一聲，又掀翻了一張桌子。同學們你看我、我看你，但一時沒有任何人敢有動作......</div>
+                    </div>
+                </div>
+            </div>
+
 
         </div>
     </NuxtLayout>
@@ -215,13 +271,17 @@
 
 <script setup>
 
+const isShowEdit = ref(false)
+const isShowVideo = ref(false)
+const isShowInfo = ref(false)
+
 </script>
 
 <style lang="scss" scoped>
-// @import '~/assets/styles/popup.scss';
-// @import '~/assets/styles/form.scss';
-// @import '~/assets/styles/manage.scss';
-// @import '~/assets/styles/table.scss';
+@import '~/assets/styles/popup.scss';
+@import '~/assets/styles/form.scss';
+@import '~/assets/styles/manage.scss';
+@import '~/assets/styles/table.scss';
 
 .mission {
     display: flex;
