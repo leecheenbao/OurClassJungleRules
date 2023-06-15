@@ -169,7 +169,7 @@
                     <div class="mission-body-head">本日計分</div>
                     <div class="mission-body-net">
                         <div class="mission-body-text">目前還未填寫分數</div>
-                        <div class="mission-body-write">
+                        <div @click="isShowWrite = true" class="mission-body-write">
                             <img class="mission-body-edit" src="~assets/images/Icon/edit.svg" alt="">
                             <div>填寫分數</div>
                         </div>
@@ -400,6 +400,62 @@
                 </div>
             </div>
 
+            <!-- 填寫分數 -->
+            <div v-if="isShowWrite" class="popup">
+                <div @click="isShowWrite = false" class="box">
+                    <div @click.stop class="block-box">
+                        <div class="title">劇情內容</div>
+                        <div class="mission-pop">
+                            <div class="mission-pop-row">
+                                <div class="mission-pop-title">第 1 日</div>
+                                <div class="mission-pop-add">+ 增加</div>
+                            </div>
+                            <div class="mission-pop-row2">
+                                <div class="mission-pop-answer">學生答案</div>
+                                <div class="mission-pop-answer">家長答案</div>
+                            </div>
+                            <div class="mission-pop-row3">
+                                <div class="mission-pop-num">1</div>
+                                <select class="select mission-pop-select">
+                                    <option value="">請選擇</option>
+                                    <option value="volvo">Volvo</option>
+                                    <option value="saab">Saab</option>
+                                    <option value="mercedes">Mercedes</option>
+                                    <option value="audi">Audi</option>
+                                </select>
+                                <select class="select mission-pop-select">
+                                    <option value="">請選擇</option>
+                                    <option value="volvo">Volvo</option>
+                                    <option value="saab">Saab</option>
+                                    <option value="mercedes">Mercedes</option>
+                                    <option value="audi">Audi</option>
+                                </select>
+                                <div class="mission-pop-close">-</div>
+                            </div>
+                            <div class="mission-pop-row3">
+                                <div class="mission-pop-num">2</div>
+                                <select class="select mission-pop-select">
+                                    <option value="">請選擇</option>
+                                    <option value="volvo">Volvo</option>
+                                    <option value="saab">Saab</option>
+                                    <option value="mercedes">Mercedes</option>
+                                    <option value="audi">Audi</option>
+                                </select>
+                                <select class="select mission-pop-select">
+                                    <option value="">請選擇</option>
+                                    <option value="volvo">Volvo</option>
+                                    <option value="saab">Saab</option>
+                                    <option value="mercedes">Mercedes</option>
+                                    <option value="audi">Audi</option>
+                                </select>
+                                <div class="mission-pop-close">-</div>
+                            </div>
+                            <div class="mission-pop-confirm">確認</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </NuxtLayout>
 </template>
@@ -409,6 +465,7 @@
 const isShowEdit = ref(false)
 const isShowVideo = ref(false)
 const isShowInfo = ref(false)
+const isShowWrite = ref(false)
 
 </script>
 
@@ -906,6 +963,76 @@ const isShowInfo = ref(false)
             color: white;
         }
 
+    }
+
+    &-pop {
+
+        &-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        &-title {
+            font-size: 20px;
+        }
+
+        &-add {
+            color: #008B77;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        &-row2 {
+            display: flex;
+            align-items: center;
+            margin-top: 16px;
+        }
+
+        &-answer {
+            margin: 0px 100px 0px 19px;
+            font-size: 14px;
+        }
+
+        &-row3 {
+            display: flex;
+            align-items: center;
+            padding: 12px 0px 15px;
+            border-bottom: 1px solid #CCCCCC;
+        }
+
+        &-select {
+            width: 200px;
+            margin: 0px 10px;
+            padding: 6px;
+            font-size: 14px;
+            border-radius: 10px;
+            background-color: #ebebeb;
+        }
+
+        &-num {
+            font-size: 14px;
+        }
+
+        &-close {
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            border: 1px solid #008B77;
+            border-radius: 100%;
+            color: #008B77;
+        }
+
+        &-confirm {
+            margin-top: 40px;
+            padding: 6px 0px;
+            text-align: center;
+            color: white;
+            border-radius: 20px;
+            background-color: #008B77;
+            cursor: pointer;
+        }
     }
 
 }
