@@ -2,7 +2,7 @@
     <NuxtLayout name="custom">
         <div class="step">
             <div class="step-script-head">
-                <div class="step-script-head-leave">＜- 返回列表</div>
+                <nuxt-link to="/manage/script" class="step-script-head-leave">＜- 返回列表</nuxt-link>
                 <div class="step-script-head-route">
                     <nuxt-link to="/manage/scriptSetting" class="step-script-head-route2">基本設定</nuxt-link>
                     <nuxt-link to="/manage/scriptDetail" class="step-script-head-route1">詳細內容</nuxt-link>

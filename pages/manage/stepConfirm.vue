@@ -297,7 +297,7 @@
 
             <!-- next -->
             <div class="step-next">
-                <div class="step-next-next">完成</div>
+                <nuxt-link to="/manage/script" class="step-next-next">完成</nuxt-link>
                 <div class="step-next-cancel">上一步</div>
             </div>
         </div>

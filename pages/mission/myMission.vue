@@ -48,12 +48,12 @@
             </div>
 
             <div class="mission-day">
-                <div class="mission-head">
-                    <div class="mission-head-selected">第 1 日</div>
+                <div class="mission-head2">
+                    <div class="mission-head2-selected">第 1 日</div>
                     <!-- <div class="mission-head-unselect"></div> -->
-                    <div class="mission-head-last">
+                    <div class="mission-head2-last">
                         <div>第 2 日</div>
-                        <div class="mission-head-hint">(結局日)</div>
+                        <div class="mission-head2-hint">(結局日)</div>
                     </div>
                 </div>
 
@@ -602,9 +602,10 @@ const isShowWrite = ref(false)
         margin-top: 20px;
     }
 
-    &-head {
+    &-head2 {
         width: 100%;
         height: 80px;
+        margin-top: 20px;
         display: flex;
         justify-content: space-between;
 
@@ -1002,7 +1003,7 @@ const isShowWrite = ref(false)
         }
 
         &-select {
-            width: 200px;
+            width: 153px;
             margin: 0px 10px;
             padding: 6px;
             font-size: 14px;
