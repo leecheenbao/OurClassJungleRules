@@ -10,7 +10,7 @@ export default defineNuxtConfig({
     css: {
       preprocessorOptions: {
         scss: {
-          additionalData: '@import "@/assets/styles/variable.scss";',
+          additionalData: '@import "@/assets/styles/variable.scss"; @import "@/assets/styles/rwdMixin.scss";',
         },
       },
     },

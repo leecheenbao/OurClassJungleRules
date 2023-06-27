@@ -1,0 +1,7 @@
+@mixin respond-to($breakname) {
+    @if $breakname == "phone" {
+        @media (min-width: 320px) and (max-width: 480px) {
+            @content;
+        }
+    }
+}

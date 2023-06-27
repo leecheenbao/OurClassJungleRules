@@ -166,6 +166,11 @@
             margin-top: 32px;
             padding: 32px;
 
+            @include respond-to('phone') {
+                width: 90%;
+                height: auto;
+            }
+
             .notice-title {
                 display: flex;
                 align-items: center;
@@ -201,6 +206,11 @@
             border-radius: 15px;
             background: $secondary2;
             overflow: hidden;
+
+            @include respond-to('phone') {
+                width: 90%;
+                height: auto;
+            }
 
             .title-box {
                 display: flex;
@@ -264,6 +274,10 @@
                     align-items: center;
                     justify-content: center;
 
+                    @include respond-to('phone') {
+                        height: 204px;
+                    }
+
                     &-btn {
                         width: 200px;
                         height: 44px;
@@ -302,10 +316,18 @@
                 background: $secondary2;
                 margin-bottom: 72px;
 
+                @include respond-to('phone') {
+                    width: 90%;
+                }
+
                 &>div {
                     width: 928px;
                     height: 164px;
                     padding: 35px;
+
+                    @include respond-to('phone') {
+                        height: auto;
+                    }
 
                 }
             }
@@ -341,6 +363,10 @@
                 justify-content: center;
                 align-items: center;
                 flex-direction: column;
+
+                @include respond-to('phone') {
+                    margin-bottom: 80px;
+                }
             }
 
             &-title {
@@ -357,6 +383,10 @@
             &-itemBox {
                 display: flex;
                 justify-content: center;
+
+                @include respond-to('phone') {
+                    flex-direction: column;
+                }
             }
 
             &-item {
@@ -400,6 +430,10 @@
                 background-position-x: center;
                 background-position-y: center;
                 margin-bottom: 80px;
+
+                @include respond-to('phone') {
+                    display: none;
+                }
             }
         }
 

@@ -129,12 +129,12 @@
             </div>
             <div class="report-box">
                 <div class="title">媒體報導</div>
-                <div>
-                    <iframe width="928" height="573" src="https://www.youtube.com/embed/0ZLsiE24i_w"
-                        title="YouTube video player" frameborder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                        allowfullscreen></iframe>
-                </div>
+
+                <iframe class="yt-iframe" src="https://www.youtube.com/embed/0ZLsiE24i_w" title="YouTube video player"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowfullscreen></iframe>
+
                 <div class="content-box">
                     <div class="item-box">
                         <div class="title">網路</div>
@@ -192,9 +192,21 @@
     align-items: center;
     justify-content: center;
 
+    @include respond-to('phone') {
+        height: auto;
+        flex-direction: column;
+        padding: 80px 0;
+    }
+
     .img {
         width: 456px;
         height: 456px;
+
+        @include respond-to('phone') {
+            width: 335px;
+            height: 335px;
+            margin-bottom: 40px;
+        }
     }
 
     .title {
@@ -208,6 +220,11 @@
     .content {
         width: 574px;
         height: 296px;
+
+        @include respond-to('phone') {
+            width: 90%;
+            height: auto;
+        }
 
     }
 
@@ -231,14 +248,30 @@
     justify-content: center;
     padding: 80px 0;
 
+    @include respond-to('phone') {
+        width: 100%;
+        background-position-x: left;
+        background-position-y: left;
+        flex-direction: column;
+    }
+
     .left-box {
         margin-right: 134px;
+
+        @include respond-to('phone') {
+            width: 90%;
+            margin: 0;
+        }
 
         .title-box {
             width: 692px;
             padding-left: 24px;
             border-left: 3px solid $secondary1;
             margin-bottom: 66px;
+
+            @include respond-to('phone') {
+                width: 90%;
+            }
 
 
             .title {
@@ -284,6 +317,10 @@
 
 
     .right-box {
+        @include respond-to('phone') {
+            width: 90%;
+        }
+
         .count-box {
             margin-bottom: 32px;
 
@@ -325,10 +362,22 @@
         align-items: flex-start;
         justify-content: center;
 
+        @include respond-to('phone') {
+            flex-direction: column;
+            align-items: center;
+        }
+
         .item-box:not(:last-child) {
             border-right: 1px solid $border3;
             padding-right: 31px;
             margin-right: 32px;
+
+            @include respond-to('phone') {
+                border: 0;
+                padding-right: 0;
+                margin-right: 0;
+                margin-bottom: 64px;
+            }
         }
 
         .item-box {
@@ -337,7 +386,7 @@
             .img {
                 width: 244px;
                 height: 244px;
-                margin-bottom: 24px;
+                margin: 0 auto 24px auto;
             }
 
             .name {
@@ -383,6 +432,10 @@
     justify-content: center;
     padding: 80px 0;
 
+    @include respond-to('phone') {
+        width: 100%;
+    }
+
     .title {
         color: $primary3;
         margin-bottom: 32px;
@@ -391,13 +444,33 @@
         letter-spacing: 1.5px;
     }
 
+    .yt-iframe {
+        width: 928px;
+        height: 573px;
+
+        @include respond-to('phone') {
+            width: 90%;
+            height: 207px;
+        }
+    }
+
     .content-box {
         margin-top: 32px;
         display: flex;
 
+        @include respond-to('phone') {
+            flex-direction: column;
+            align-items: center;
+        }
+
         .item-box {
             width: 566px;
             margin-right: 32px;
+
+            @include respond-to('phone') {
+                width: 90%;
+                margin: 0;
+            }
 
             .title {
                 font-weight: 700;
@@ -425,5 +498,4 @@
         }
     }
 
-}
-</style>
+}</style>

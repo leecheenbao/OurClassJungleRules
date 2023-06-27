@@ -1,7 +1,7 @@
 <template>
   <div class="box">
     <nuxt-link class="title" to="/">
-      <div >我們班的叢林法則</div>
+      <div>我們班的叢林法則</div>
     </nuxt-link>
     <div class="item">
       <nuxt-link to="/" class="link" :class="{ 'link-action': routeName == 'index' }">
@@ -43,7 +43,7 @@
       </nuxt-link>
     </div>
 
-    <div class="login-box"></div>
+    <div class="login-box">
       <img class="login-box-dropdown" src="~assets/images/Icon/setting.svg" alt="">
       <div class="login-box-hover">
 
@@ -51,6 +51,59 @@
       <nuxt-link to="/login">
         <div class="login-box-login">登入 / 註冊</div>
       </nuxt-link>
+    </div>
+
+    <div class="item-box-phone">
+      <img v-if="!isHeaderOpen" @click="isHeaderOpen = true" class="menu-icon" src="~assets/images/Icon/menu.svg" alt="">
+      <img v-if="isHeaderOpen" @click="isHeaderOpen = false" class="menu-icon" src="~assets/images/Icon/cancel.svg"
+        alt="">
+    </div>
+
+    <div v-if="isHeaderOpen" class="dropdown-menu-box">
+      <div class="item-phone">
+        <nuxt-link to="/" class="link" :class="{ 'link-action': routeName == 'index' }">
+          首頁
+        </nuxt-link>
+        <div class="link sublink" @click="isOpenSubbox = !isOpenSubbox"
+          :class="{ 'link-action': routeName == 'chapter' }">
+          劇本介紹 <span>▾</span>
+        </div>
+        <div v-if="isOpenSubbox" class="subbox">
+          <div class="arrow"></div>
+          <div class="submenu">
+            <nuxt-link to="/chapter">
+              <div class="subitem">虎兔篇</div>
+            </nuxt-link>
+            <nuxt-link to="/chapter">
+              <div class="subitem">鼠牛篇</div>
+            </nuxt-link>
+            <nuxt-link to="/chapter">
+              <div class="subitem">馬羊篇</div>
+            </nuxt-link>
+            <nuxt-link to="/chapter">
+              <div class="subitem" style="border-bottom: none;">龍虎篇</div>
+            </nuxt-link>
+          </div>
+        </div>
+        <nuxt-link to="/about" class="link" :class="{ 'link-action': routeName == 'about' }">
+          關於阿普蛙
+        </nuxt-link>
+        <nuxt-link to="/connection" class="link" :class="{ 'link-action': routeName == 'connection' }">
+          聯絡阿普蛙
+        </nuxt-link>
+        <nuxt-link to="/mission/list" class="link" :class="{ 'link-action': routeName == 'mission-list' }">
+          我的任務
+        </nuxt-link>
+      </div>
+      <div class="login-btn-box">
+        <nuxt-link to="/login">
+          <div class="login-box">
+            登入 / 註冊
+          </div>
+        </nuxt-link>
+
+      </div>
+    </div>
   </div>
 </template>
 
@@ -58,6 +111,10 @@
 import { Search } from '@element-plus/icons-vue'
 
 let routeName = ref("")
+
+let isHeaderOpen = ref(false)
+let isOpenSubbox = ref(false)
+
 
 const route = useRoute();
 
@@ -68,11 +125,9 @@ watch(route, value => {
 </script>
 
 <style>
-
 .el-dropdown {
   border: 0px;
 }
-
 </style>
 
 <style lang="scss" scoped>
@@ -83,6 +138,105 @@ watch(route, value => {
   padding: 10px 15px;
   border-bottom: 1px solid $border3;
 
+  .item-box-phone {
+    display: none;
+
+    @include respond-to('phone') {
+      display: flex;
+      flex-grow: 1;
+      align-items: center;
+      justify-content: flex-end;
+    }
+
+    .menu-icon {
+      width: 24px;
+      height: 24px;
+      cursor: pointer;
+    }
+
+
+
+  }
+
+  .dropdown-menu-box {
+    display: none;
+
+    @include respond-to('phone') {
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+      top: 56px;
+      left: 0px;
+      width: 100vw;
+      height: calc(100vh - #{56}px);
+      background-color: #fff;
+      z-index: 99999;
+    }
+
+    .item-phone {
+      .link {
+        width: 100%;
+        padding: 12px 32px;
+        display: flex;
+        align-items: center;
+        font-size: 16px;
+        font-family: Noto Sans TC;
+        font-weight: 500;
+        line-height: 22px;
+        letter-spacing: 0.5px;
+        color: $text3;
+        cursor: pointer;
+      }
+
+      .link-action {
+        color: $primary1;
+      }
+
+      .sublink {
+        display: flex;
+        justify-content: space-between;
+
+      }
+
+      .subbox {
+        background-color: $background2;
+
+        .subitem {
+          padding: 12px 40px;
+          font-size: 16px;
+          font-family: Noto Sans TC;
+          font-weight: 500;
+          line-height: 22px;
+          letter-spacing: 0.5px;
+          color: $text2;
+        }
+
+      }
+    }
+
+    .login-btn-box {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+
+
+      .login-box {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50px;
+        background-color: $primary1;
+        padding: 8px 12px;
+        color: #fff;
+        width: 311px;
+        height: 36px;
+        margin: 0;
+        margin-top: 28px;
+      }
+    }
+
+  }
+
   .title {
     font-style: normal;
     font-weight: 700;
@@ -92,10 +246,21 @@ watch(route, value => {
     align-items: center;
     color: $primary1;
     letter-spacing: 2px;
+
+    @include respond-to('phone') {
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 24px;
+      letter-spacing: 2px;
+    }
   }
 
   .item {
     display: flex;
+
+    @include respond-to('phone') {
+      display: none;
+    }
 
     .link {
       font-style: normal;
@@ -161,7 +326,7 @@ watch(route, value => {
         border-bottom: 10px solid #fff;
       }
 
-     
+
       .subitem {
         width: 100%;
         padding: 8px 12px;
@@ -184,6 +349,12 @@ watch(route, value => {
 
   .login-box {
     margin-left: auto;
+    display: flex;
+
+    @include respond-to('phone') {
+      display: none;
+    }
+
 
     &-dropdown {
       width: 30px;
