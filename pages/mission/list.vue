@@ -31,48 +31,48 @@
                     prop="name"
                     label="任務名稱"
                     sortable
-                    min-width="6"
+                    min-width="160"
                     >
                     </el-table-column>
                     <el-table-column
                     prop="script"
                     label="劇本"
                     sortable
-                    min-width="6"
+                    min-width="160"
                     >
                     </el-table-column>
                     <el-table-column
                     prop="learner"
                     label="學習對象"
                     sortable
-                    min-width="8"
+                    min-width="160"
                     >
                     </el-table-column>
                     <el-table-column
                     prop="status"
                     label="任務狀態"
                     sortable
-                    min-width="8"
+                    min-width="160"
                     >
                     </el-table-column>
                     <el-table-column
                     prop="endTime"
                     label="結束時間"
                     sortable
-                    min-width="7"
+                    min-width="160"
                     >
                     </el-table-column>
                     <el-table-column
                     prop="createTime"
                     label="建立時間"
                     sortable
-                    min-width="12"
+                    min-width="160"
                     >
                     </el-table-column>
                     <el-table-column
                         label="操作"
                         sortable
-                        min-width="12"
+                        min-width="260"
                     >
                         <template #default="scope">
                             <div class="Mtable-row">

@@ -16,23 +16,19 @@
         <div class="item item1">
           <div class="text-box">
             <div class="text1">設計理念</div>
-            <div class="text2">受到少子化的影響，學生在家中少有跟手足相處的機會，來到<br>
-              學校才開始學習跟同儕互動，面對自己的需求，用本能的生存<br>
-              姿態在應對，學生間一定會有衝突，學生們也在衝突間學習如<br>
-              何跟他人相處。但若無師長的正向引導，任由同儕間經常發生<br>
-              衝突，久了就容易形成霸凌。</div>
+            <div class="text2">
+              受到少子化的影響，學生在家中少有跟手足相處的機會，來到學校才開始學習跟同儕互動，面對自己的需求，用本能的生存姿態在應對，學生間一定會有衝突，學生們也在衝突間學習如何跟他人相處。但若無師長的正向引導，任由同儕間經常發生衝突，久了就容易形成霸凌。
+            </div>
           </div>
           <div class="background bg1"></div>
         </div>
-        <div class="item">
+        <div class="item item2">
           <div class="background bg2"></div>
           <div>
             <div class="text-box">
-              <div class="text3">近幾年教育現場不斷在推動「反霸凌」，但是缺乏好操作的教<br>
-                材供老師使用，老師們僅能依賴自己的經驗，卻經常心有餘而<br>
-                力不足，因此阿普蛙設計了這套教材，我們期待從根本來解決<br>
-                問題，霸凌者之所以為霸凌者，往往是因為他們想要滿足自身<br>
-                需求，卻使用的錯誤的方式來滿足，而造成對他人的傷害而不<br>自知。</div>
+              <div class="text3">
+                近幾年教育現場不斷在推動「反霸凌」，但是缺乏好操作的教材供老師使用，老師們僅能依賴自己的經驗，卻經常心有餘而力不足，因此阿普蛙設計了這套教材，我們期待從根本來解決問題，霸凌者之所以為霸凌者，往往是因為他們想要滿足自身需求，卻使用的錯誤的方式來滿足，而造成對他人的傷害而不自知。
+              </div>
             </div>
           </div>
         </div>
@@ -45,7 +41,7 @@
       <div class="content-box">
         <div class="title">關於教材</div>
         <div class="text">本教材將以線上形式呈現作為使用，教材將教導學生認識人的「需求」，
-          並帶著學生討論及教導他們「適當」滿足需求的方式，<br>我們不只教導孩子方法，我們亦在培養孩子自我覺察及關懷他人的能力，霸凌的發生，往往就是因為有許多冷漠或害怕的旁觀<br>
+          並帶著學生討論及教導他們「適當」滿足需求的方式，我們不只教導孩子方法，我們亦在培養孩子自我覺察及關懷他人的能力，霸凌的發生，往往就是因為有許多冷漠或害怕的旁觀
           者，而使得衝突演變成霸凌，我們期待孩子能夠成為正義的助人者，共創和諧的班級文化。</div>
         <div class="item-box">
           <div class="item">
@@ -85,7 +81,7 @@
             </div>
           </div>
         </div>
-        <div class="content">每篇長度不同( 2-5 天版本)，可依教學需求選擇。劇本會以每天發布一段故事的方式呈現，並附有選項讓學生回家跟家長討論，隔日回到班上後再和同<br>
+        <div class="content">每篇長度不同( 2-5 天版本)，可依教學需求選擇。劇本會以每天發布一段故事的方式呈現，並附有選項讓學生回家跟家長討論，隔日回到班上後再和同
           組成員做出選擇。每個選項會有各自的計分，引導劇本走向不同結局。進入結局後，會由老師帶領學生進行最終討論。</div>
       </div>
     </div>
@@ -97,6 +93,7 @@
 .box {
   width: 100%;
 
+
   .top {
     &-block {
       width: 100%;
@@ -107,8 +104,18 @@
       align-items: flex-end;
       padding-bottom: 21px;
 
+      @include respond-to('phone') {
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+      }
+
       .text-box {
         margin-right: 7%;
+
+        @include respond-to('phone') {
+          margin: 40px 0 0 20px;
+        }
 
         .text1 {
           font-weight: 700;
@@ -116,6 +123,13 @@
           color: $primary1;
           margin-bottom: 40px;
           letter-spacing: 1.5px;
+
+          @include respond-to('phone') {
+            font-size: 32px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            width: 70%;
+          }
         }
 
         .text2 {
@@ -124,6 +138,12 @@
           color: $text2;
           padding-bottom: 230px;
           letter-spacing: 0.5px;
+
+          @include respond-to('phone') {
+            font-size: 14px;
+            letter-spacing: 0.5px;
+            padding-bottom: 40px;
+          }
         }
       }
 
@@ -135,6 +155,13 @@
         background-position-y: center;
         width: 790.04px;
         height: 533px;
+
+        @include respond-to('phone') {
+          width: 95%;
+          height: 400px;
+          margin: auto;
+          background-size: contain;
+        }
       }
     }
 
@@ -154,6 +181,10 @@
         border-radius: 50%;
         transform: translateX(-50%);
         background-color: #fffbf4;
+
+        @include respond-to('phone') {
+          height: 800px;
+        }
       }
     }
   }
@@ -179,13 +210,34 @@
         align-items: center;
         justify-content: space-between;
 
+        @include respond-to('phone') {
+          flex-direction: column;
+          justify-content: flex-start;
+          align-items: center;
+          width: 100%;
+        }
+
         .text-box {
+          @include respond-to('phone') {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+          }
+
           .text1 {
             font-weight: 700;
             font-size: 32px;
             color: $secondary1;
             margin-bottom: 32px;
             letter-spacing: 1.5px;
+
+            @include respond-to('phone') {
+              font-size: 32px;
+              font-weight: 700;
+              line-height: 38px;
+              letter-spacing: 1.5px;
+              margin-top: 36px;
+            }
           }
 
           .text2 {
@@ -193,6 +245,15 @@
             font-size: 16px;
             color: $secondary2;
             letter-spacing: 0.5px;
+            width: 461px;
+
+            @include respond-to('phone') {
+              width: 90%;
+              font-size: 16px;
+              line-height: 22px;
+              letter-spacing: 0.5px;
+              margin-bottom: 20px;
+            }
           }
 
           .text3 {
@@ -200,6 +261,15 @@
             font-size: 16px;
             color: $secondary2;
             letter-spacing: 0.5px;
+            width: 458px;
+
+            @include respond-to('phone') {
+              width: 90%;
+              font-size: 16px;
+              line-height: 22px;
+              letter-spacing: 0.5px;
+              margin-bottom: 20px;
+            }
           }
         }
 
@@ -211,6 +281,13 @@
           background-size: cover;
           background-position-x: center;
           background-position-y: center;
+
+          @include respond-to('phone') {
+            width: 100%;
+            height: 237px;
+            background-size: contain;
+            margin-bottom: 20px;
+          }
         }
 
         .bg1 {
@@ -219,6 +296,13 @@
 
         .bg2 {
           background-image: url('../assets/images/image2.png');
+        }
+      }
+
+      .item2 {
+        @include respond-to('phone') {
+          display: flex;
+          flex-direction: column-reverse;
         }
       }
     }
@@ -240,6 +324,10 @@
         border-radius: 50%;
         transform: translateX(-50%);
         background-color: $primary3;
+
+        @include respond-to('phone') {
+          height: 800px;
+        }
       }
     }
   }
@@ -252,10 +340,23 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      @include respond-to('phone') {
+        height: auto;
+        }
 
       .content-box {
         width: 1, 164px;
         height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        @include respond-to('phone') {
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
 
         .title {
           font-weight: 700;
@@ -275,12 +376,20 @@
           display: flex;
           justify-content: center;
           letter-spacing: 0.5px;
+          width: 924px;
+
+          @include respond-to('phone') {
+            width: 90%;
+          }
         }
 
         .item-box {
           margin-top: 30px;
           display: flex;
-
+          @include respond-to('phone') {
+            flex-direction: column;
+            width: 90%;
+          }
           .item {
             width: 279px;
             height: 327px;
@@ -292,6 +401,10 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            @include respond-to('phone') {
+              width: 100%;
+              margin-bottom: 16px;
+          }
 
             .background {
               background-color: #fffbf4;
@@ -319,6 +432,7 @@
               color: $text2;
               margin-top: 12px;
               letter-spacing: 0.5px;
+             
             }
 
             &-btn {
@@ -350,7 +464,6 @@
 
         .content {
           width: 1164px;
-          height: 108px;
           background: $background1;
           border: 3px solid $primary1;
           border-radius: 32px;
@@ -361,11 +474,17 @@
           justify-content: center;
           margin-top: 32px;
           letter-spacing: 0.5px;
+          padding: 32px;
+          @include respond-to('phone') {
+              width: 90%;
+              height: auto;
+              padding: 32px;
+              margin-bottom: 80px;
+          }
         }
       }
     }
 
   }
 
-}
-</style>
+}</style>

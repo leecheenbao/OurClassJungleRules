@@ -33,25 +33,47 @@
   display: flex;
   justify-content: center;
 
+  @include respond-to('phone') {
+    flex-direction: column;
+    height: auto;
+    align-items: center;
+    padding-bottom: 80px;
+  }
+
   .content1 {
     // margin-left: 138px;
   }
 
   .content2 {
     margin-left: 170px;
+
+    @include respond-to('phone') {
+      margin: 0;
+    }
   }
 
   .content3 {
     margin-left: 400px;
+
+    @include respond-to('phone') {
+      margin: 0;
+    }
   }
 
   .content-box {
     display: flex;
 
+
+    @include respond-to('phone') {
+      flex-direction: column;
+      width: 90%;
+    }
+
     .content {
       padding-top: 80px;
       display: flex;
       flex-direction: column;
+      
 
       .title {
         font-weight: 500;
@@ -80,6 +102,7 @@
         letter-spacing: 0.5px;
         color: $text2;
       }
+
       .text-item {
         margin-top: 8px;
         font-weight: 400;

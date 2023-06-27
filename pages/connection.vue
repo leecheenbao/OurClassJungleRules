@@ -29,6 +29,7 @@
 <style lang="scss" scoped>
 .box {
     position: relative;
+
     .content-box {
         padding-top: 80px;
         width: 100%;
@@ -57,6 +58,10 @@
             margin: auto;
             margin-bottom: 32px;
 
+            @include respond-to('phone') {
+                width: 90%;
+            }
+
             .text {
                 font-weight: 400;
                 font-size: 14px;
@@ -78,6 +83,9 @@
                 justify-content: space-between;
                 margin-bottom: 16px;
 
+                @include respond-to('phone') {
+                    flex-direction: column;
+                }
                 .input {
                     width: 192px;
                     height: 36px;
@@ -88,7 +96,10 @@
                     font-weight: 400;
                     font-size: 14px;
                     letter-spacing: 0.5px;
-                    color: $text1;
+                    color: $text1;     
+                    @include respond-to('phone') {
+                        width: 100%;
+                    }         
                 }
             }
 
@@ -119,6 +130,9 @@
                 color: $text1;
                 margin-bottom: 16px;
                 resize: vertical;
+                @include respond-to('phone') {
+                    width: 100%;
+                }
             }
 
             .check-box {
