@@ -3,9 +3,9 @@ export default defineNuxtConfig({
   // css: [
   //     "~/assets/styles/main.scss",
   //   ],
-  app: {
-    baseURL: '/ourClass/',
-  },
+  // app: {
+  //   baseURL: '/ourClass/',
+  // },
   vite: {
     css: {
       preprocessorOptions: {
