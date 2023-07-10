@@ -44,12 +44,32 @@
     </div>
 
     <div class="login-box">
-      <img class="login-box-dropdown" src="~assets/images/Icon/setting.svg" alt="">
-      <div class="login-box-hover">
-
+      <div class="setting-box">
+        <img class="setting-icon" src="~assets/images/Icon/setting.svg" alt="">
+        <div class="setting-dropdown">
+          <div class="arrow"></div>
+          <div class="submenu">
+            <nuxt-link to="/manage/user">
+              <div class="subitem">使用者管理</div>
+            </nuxt-link>
+            <nuxt-link to="/manage/code">
+              <div class="subitem">註冊碼管理</div>
+            </nuxt-link>
+            <nuxt-link to="/">
+              <div class="subitem">任務總覽</div>
+            </nuxt-link>
+            <nuxt-link to="/manage/script">
+              <div class="subitem">劇本教材管理</div>
+            </nuxt-link>
+            <nuxt-link to="/">
+              <div class="subitem" style="border-bottom: none;">資料統計</div>
+            </nuxt-link>
+          </div>
+        </div>
       </div>
+
       <nuxt-link to="/login">
-        <div class="login-box-login">登入 / 註冊</div>
+        <div class="login-btn">登入 / 註冊</div>
       </nuxt-link>
     </div>
 
@@ -123,12 +143,6 @@ watch(route, value => {
   console.log(routeName.value)
 }, { deep: true, immediate: true })
 </script>
-
-<style>
-.el-dropdown {
-  border: 0px;
-}
-</style>
 
 <style lang="scss" scoped>
 .box {
@@ -350,19 +364,80 @@ watch(route, value => {
   .login-box {
     margin-left: auto;
     display: flex;
+    position: relative;
 
     @include respond-to('phone') {
       display: none;
     }
 
 
-    &-dropdown {
+    .setting-icon {
       width: 30px;
       margin-right: 8px;
       cursor: pointer;
     }
 
-    &-login {
+    .setting-box {
+      display: flex;
+      align-items: center;
+
+      .setting-dropdown {
+        position: absolute;
+        top: 41px;
+        left: -78px;
+        width: 160px;
+        background-color: #fff;
+        z-index: 999;
+        display: none;
+
+        .arrow {
+          position: absolute;
+          top: -10px;
+          left: 85px;
+          width: 0;
+          height: 0;
+          border-left: 10px solid transparent;
+          border-right: 10px solid transparent;
+          border-bottom: 10px solid #fff;
+        }
+
+        .subitem {
+          width: 100%;
+          padding: 8px 12px;
+          border-bottom: 1px solid #e5e5e5;
+          border-radius: 5px;
+
+          &:hover {
+            background-color: #eeeeee;
+          }
+        }
+
+        .submenu {
+          background-color: #fff;
+          width: 160px;
+          -webkit-box-shadow: 1px 1px 18px 0px rgba(50, 50, 50, 0.33);
+          -moz-box-shadow: 1px 1px 18px 0px rgba(50, 50, 50, 0.33);
+          box-shadow: 1px 1px 18px 0px rgba(50, 50, 50, 0.33);
+          border-radius: 5px;
+
+          & a {
+            color: $text2;
+            letter-spacing: 0.5px;
+            font-weight: 400;
+            font-size: 14px;
+            width: 100%;
+            border-radius: 5px;
+          }
+        }
+      }
+    }
+
+
+    .setting-box:hover .setting-dropdown {
+      display: block;
+    }
+
+    .login-btn {
       font-weight: 700;
       font-size: 14px;
       letter-spacing: 1px;

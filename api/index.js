@@ -7,7 +7,7 @@ export const googleRegister = async () => {
 };
 
 export const authSignup = async () => {
-    return axios.post(`${baseUrl}/auth/signup`,{
+    return axios.post(`${baseUrl}/auth/signup`, {
         "email": "123@gmail.com",
         "pwd": "12345",
         "name": "John Doe",
@@ -15,6 +15,21 @@ export const authSignup = async () => {
         "birthday": "2000-01-01 00:00:00",
         "organization": "ACME Inc.",
         "grade": 95,
-        "role":"1"
-      });
+        "role": "1"
+    });
 };
+
+
+// {
+//     "email":"123@gmail.com",
+//     "password":"12345",
+//     "role": "ROLE_USER"
+// }
+export const authLogin = async (data) => {
+    return axios.post(`${baseUrl}/auth/login`, data).then(res => {
+        console.log('authLogin',res)
+        
+    });
+};
+
+

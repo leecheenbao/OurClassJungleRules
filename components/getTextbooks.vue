@@ -6,6 +6,7 @@
       <div class="btn" @click="isPaidMemberDialogShow = true">立即取得教材</div>
     </div>
   </div>
+  <PaidMemberDialog v-model="isPaidMemberDialogShow"></PaidMemberDialog>
 </template>
 
 <script setup>

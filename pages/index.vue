@@ -48,37 +48,37 @@
             <div class="background"></div>
             <div class="item-title">虎兔篇</div>
             <div class="item-content">潛在霸凌者需求:生理需求</div>
-            <div class="item-btn">
+            <nuxt-link to="/manage/script" class="item-btn">
               <span class="btn-span">劇本介紹</span>
               <span class="arrowIcon">➔</span>
-            </div>
+            </nuxt-link>
           </div>
           <div class="item">
             <div class="background"></div>
             <div class="item-title">虎兔篇</div>
             <div class="item-content">潛在霸凌者需求:生理需求</div>
-            <div class="item-btn">
+            <nuxt-link to="/manage/script" class="item-btn">
               <span class="btn-span">劇本介紹</span>
               <span class="arrowIcon">➔</span>
-            </div>
+            </nuxt-link>
           </div>
           <div class="item">
             <div class="background"></div>
             <div class="item-title">虎兔篇</div>
             <div class="item-content">潛在霸凌者需求:生理需求</div>
-            <div class="item-btn">
+            <nuxt-link to="/manage/script" class="item-btn">
               <span class="btn-span">劇本介紹</span>
               <span class="arrowIcon">➔</span>
-            </div>
+            </nuxt-link>
           </div>
           <div class="item">
             <div class="background"></div>
             <div class="item-title">虎兔篇</div>
             <div class="item-content">潛在霸凌者需求:生理需求</div>
-            <div class="item-btn">
+            <nuxt-link to="/manage/script" class="item-btn">
               <span class="btn-span">劇本介紹</span>
               <span class="arrowIcon">➔</span>
-            </div>
+            </nuxt-link>
           </div>
         </div>
         <div class="content">每篇長度不同( 2-5 天版本)，可依教學需求選擇。劇本會以每天發布一段故事的方式呈現，並附有選項讓學生回家跟家長討論，隔日回到班上後再和同

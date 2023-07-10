@@ -46,6 +46,10 @@
 @import '~/assets/styles/form.scss';
 @import '~/assets/styles/popup.scss';
 
-
-
+.box {
+    .block-box {
+        overflow: auto;
+        max-height: none;
+    }
+}
 </style>
