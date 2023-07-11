@@ -23,17 +23,23 @@
 
 <script setup>
 import { googleRegister, authLogin } from "~/api/index";
+import { useAuthStore } from '@/store/authStore';
 
 let email = ref('123@gmail.com')
 let password = ref('12345')
-const handleAuthLogin = () => {
+const handleAuthLogin = async () => {
     let data = {
         "email": email.value,
         "password": password.value,
         "role": "ROLE_USER"
     }
-    authLogin(data)
+    useAuthStore().login(data)
+    // console.log('useCartStore().cart',useCartStore().cart)
+    
+ 
 }
+
+
 
 const handleGoogleRegister = () => {
     googleRegister()

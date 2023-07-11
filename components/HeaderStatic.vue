@@ -44,7 +44,7 @@
     </div>
 
     <div class="login-box">
-      <div class="setting-box">
+      <div v-if="isLogin" class="setting-box">
         <img class="setting-icon" src="~assets/images/Icon/setting.svg" alt="">
         <div class="setting-dropdown">
           <div class="arrow"></div>
@@ -68,7 +68,24 @@
         </div>
       </div>
 
-      <nuxt-link to="/login">
+      <div v-if="isLogin" class="user-box">
+        <img class="user-icon" src="~assets/images/Icon/user.svg" alt="">
+        <div class="user-dropdown">
+          <div class="arrow"></div>
+          <div class="submenu">
+            <nuxt-link to="/manage/user">
+              <div class="subitem">個人資料編輯</div>
+            </nuxt-link>
+            <nuxt-link to="/manage/code">
+              <div class="subitem">密碼變更</div>
+            </nuxt-link>
+            <div class="subitem" @click="handleSignOut" style="border-bottom: none;">登出</div>
+          </div>
+        </div>
+      </div>
+
+
+      <nuxt-link v-if="!isLogin" to="/login">
         <div class="login-btn">登入 / 註冊</div>
       </nuxt-link>
     </div>
@@ -129,6 +146,14 @@
 
 <script setup>
 import { Search } from '@element-plus/icons-vue'
+import { useAuthStore } from '@/store/authStore';
+import { storeToRefs } from 'pinia'
+
+let auth = useAuthStore()
+const { isLogin } = storeToRefs(auth)
+const handleSignOut = () => {
+  useAuthStore().signOut()
+}
 
 let routeName = ref("")
 
@@ -434,6 +459,72 @@ watch(route, value => {
 
 
     .setting-box:hover .setting-dropdown {
+      display: block;
+    }
+
+    .user-icon {
+      width: 30px;
+      margin-right: 8px;
+      cursor: pointer;
+    }
+
+    .user-box {
+      display: flex;
+      align-items: center;
+
+      .user-dropdown {
+        position: absolute;
+        top: 41px;
+        left: -78px;
+        width: 160px;
+        background-color: #fff;
+        z-index: 999;
+        display: none;
+
+        .arrow {
+          position: absolute;
+          top: -10px;
+          left: 121px;
+          width: 0;
+          height: 0;
+          border-left: 10px solid transparent;
+          border-right: 10px solid transparent;
+          border-bottom: 10px solid #fff;
+        }
+
+        .subitem {
+          width: 100%;
+          padding: 8px 12px;
+          border-bottom: 1px solid #e5e5e5;
+          border-radius: 5px;
+
+          &:hover {
+            background-color: #eeeeee;
+          }
+        }
+
+        .submenu {
+          background-color: #fff;
+          width: 160px;
+          -webkit-box-shadow: 1px 1px 18px 0px rgba(50, 50, 50, 0.33);
+          -moz-box-shadow: 1px 1px 18px 0px rgba(50, 50, 50, 0.33);
+          box-shadow: 1px 1px 18px 0px rgba(50, 50, 50, 0.33);
+          border-radius: 5px;
+
+          & .subitem {
+            color: $text2;
+            letter-spacing: 0.5px;
+            font-weight: 400;
+            font-size: 14px;
+            width: 100%;
+            border-radius: 5px;
+          }
+        }
+      }
+    }
+
+
+    .user-box:hover .user-dropdown {
       display: block;
     }
 

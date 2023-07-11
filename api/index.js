@@ -26,10 +26,7 @@ export const authSignup = async () => {
 //     "role": "ROLE_USER"
 // }
 export const authLogin = async (data) => {
-    return axios.post(`${baseUrl}/auth/login`, data).then(res => {
-        console.log('authLogin',res)
-        
-    });
+    return axios.post(`${baseUrl}/auth/login`, data)
 };
 
 
