@@ -6,22 +6,14 @@
                     <div class="btn-white" style="margin-bottom: 20px;">Email 帳號註冊</div>
                 </nuxt-link>
                 <div class="btn-white" @click="handleGoogleRegister">Google 帳號註冊</div>
-                <!-- <div id="g_id_onload"
-                    data-client_id="627626214928-g6bdl47d36qh9u4s34602hhtfa61s5uf.apps.googleusercontent.com"
-                    data-context="signup" data-ux_mode="popup" data-callback="googleLoginCallback" data-auto_prompt="false">
-                </div> -->
-
-                <!-- <div class="g_id_signin" data-type="standard" data-shape="rectangular" data-theme="outline"
-                    data-text="signin_with" data-size="large" data-logo_alignment="left">
-                </div> -->
                 <div class="separate"></div>
                 <div class="title">帳號登入</div>
                 <div class="item-title">帳號</div>
-                <div><input class="input" placeholder="請輸入 Email" type="email"></div>
+                <div><input v-model="email" class="input" placeholder="請輸入 Email" type="email"></div>
                 <div class="item-title">密碼</div>
-                <div><input class="input" placeholder="請輸入密碼" type="password"></div>
+                <div><input v-model="password" class="input" placeholder="請輸入密碼" type="password"></div>
                 <div class="forget">忘記密碼？</div>
-                <div class="btn-green">登入</div>
+                <div class="btn-green" @click="handleAuthLogin">登入</div>
                 <div class="or">或</div>
                 <div class="btn-green">Google 帳號登入</div>
             </div>
@@ -30,27 +22,29 @@
 </template>
 
 <script setup>
-import { googleRegister, authSignup } from "~/api/index";
+import { googleRegister, authLogin } from "~/api/index";
+import { useAuthStore } from '@/store/authStore';
+
+let email = ref('123@gmail.com')
+let password = ref('12345')
+const handleAuthLogin = async () => {
+    let data = {
+        "email": email.value,
+        "password": password.value,
+        "role": "ROLE_USER"
+    }
+    useAuthStore().login(data)
+    // console.log('useCartStore().cart',useCartStore().cart)
+    
+ 
+}
+
+
 
 const handleGoogleRegister = () => {
     googleRegister()
 }
 
-onMounted(() => {
-    if (process.client) {
-        window.googleLoginCallback = (...args) => {
-            console.log(args);
-        }
-    }
-})
-
-useHead({
-    script: [{
-        async: true,
-        src: 'https://accounts.google.com/gsi/client',
-        defer: true
-    }]
-})
 </script>
 
 <style lang="scss" scoped>

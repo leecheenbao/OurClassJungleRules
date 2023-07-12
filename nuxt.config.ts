@@ -6,6 +6,7 @@ export default defineNuxtConfig({
   // app: {
   //   baseURL: '/ourClass/',
   // },
+  modules: ['@pinia/nuxt'],
   vite: {
     css: {
       preprocessorOptions: {

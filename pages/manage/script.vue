@@ -101,7 +101,12 @@
 </template>
 
 <script setup>
+import { getScript } from "~/api/script";
 
+const handleGetScript = () => {
+    getScript()
+}
+handleGetScript()
 const router = useRouter();
 
 const dataAll = reactive([
