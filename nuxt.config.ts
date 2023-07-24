@@ -6,7 +6,7 @@ export default defineNuxtConfig({
   // app: {
   //   baseURL: '/ourClass/',
   // },
-  modules: ['@pinia/nuxt'],
+  modules: ['@pinia/nuxt','dayjs-nuxt'],
   vite: {
     css: {
       preprocessorOptions: {

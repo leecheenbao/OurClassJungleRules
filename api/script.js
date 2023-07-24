@@ -1,8 +1,4 @@
-import axios from 'axios';
-
 const baseUrl = 'http://wasupstudionobullying.com/wasupstudio'
 export const getScript = async () => {
-    axios.defaults.headers.common['Authorization'] ="Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjNAZ21haWwuY29tIiwibWVtYmVySW5mbyI6eyJpZCI6NCwiZW1haWwiOiIxMjNAZ21haWwuY29tIiwicHdkIjoiMjA3NjFEODhCMjc5QkVFMUQ0RUY3RkNDNTZGRUMzNjQiLCJyb2xlIjoiUk9MRV9BRE1JTiIsIm5hbWUiOiJKb2huIERvZSIsInBob25lIjoiMTIzNDU2Nzg5MCIsImJpcnRoZGF5Ijo5NDY2ODQ4MDAwMDAsIm9yZ2FuaXphdGlvbiI6IkFDTUUgSW5jLiIsImdyYWRlIjo5NSwicmVnaXN0aW9uVGltZSI6MTY4NzczNzYwMDAwMCwic3RhdHVzIjowLCJsYXN0SXAiOm51bGwsImxhc3RMb2dpbiI6MTY4Nzc1ODA4MzAwMCwidmVyaWZpY2F0aW9uQ29kZSI6IjYyMTJDMDlDNkE1NzBGMEIxQzY3NEI1NzY0OTk4Mjg5In0sImlzcyI6InNlY3VyaXR5IiwiaWF0IjoxNjg4MzczNjUzLCJhdWQiOiJzZWN1cml0eS1hbGwiLCJleHAiOjE2ODg5Nzg0NTN9.eTk8Z5ZQOdNrUOEhTBcaYnO8QhkWm13eNtT7mauaqVQ"
-
-    return axios.get(`${baseUrl}/api/script`);
+    return await useHttp.get(`${baseUrl}/api/script`);
 };
