@@ -37,14 +37,14 @@
         聯絡阿普蛙
         <div v-if="routeName == 'connection'" class="decoration"></div>
       </nuxt-link>
-      <nuxt-link to="/mission/list" class="link" :class="{ 'link-action': routeName == 'mission-list' }">
+      <nuxt-link to="/mission/myList" class="link" :class="{ 'link-action': routeName == 'mission-list' }">
         我的任務
         <div v-if="routeName == 'mission-list'" class="decoration"></div>
       </nuxt-link>
     </div>
 
     <div class="login-box">
-      <div v-if="isLogin" class="setting-box">
+      <div v-if="isLogin && permissions == 'ROLE_USER'" class="setting-box">
         <img class="setting-icon" src="~assets/images/Icon/setting.svg" alt="">
         <div class="setting-dropdown">
           <div class="arrow"></div>
@@ -55,7 +55,7 @@
             <nuxt-link to="/manage/code">
               <div class="subitem">註冊碼管理</div>
             </nuxt-link>
-            <nuxt-link to="/">
+            <nuxt-link to="/mission/list">
               <div class="subitem">任務總覽</div>
             </nuxt-link>
             <nuxt-link to="/manage/script">
@@ -73,10 +73,10 @@
         <div class="user-dropdown">
           <div class="arrow"></div>
           <div class="submenu">
-            <nuxt-link to="/manage/user">
+            <nuxt-link to="/manage/userInfoEdit">
               <div class="subitem">個人資料編輯</div>
             </nuxt-link>
-            <nuxt-link to="/manage/code">
+            <nuxt-link to="/manage/pwdEdit">
               <div class="subitem">密碼變更</div>
             </nuxt-link>
             <div class="subitem" @click="handleSignOut" style="border-bottom: none;">登出</div>
@@ -150,7 +150,8 @@ import { useAuthStore } from '@/store/authStore';
 import { storeToRefs } from 'pinia'
 
 let auth = useAuthStore()
-const { isLogin } = storeToRefs(auth)
+const { isLogin, permissions } = storeToRefs(auth)
+
 const handleSignOut = () => {
   useAuthStore().signOut()
 }
@@ -389,7 +390,7 @@ watch(route, value => {
   .login-box {
     margin-left: auto;
     display: flex;
-    position: relative;
+    
 
     @include respond-to('phone') {
       display: none;
@@ -405,6 +406,7 @@ watch(route, value => {
     .setting-box {
       display: flex;
       align-items: center;
+      position: relative;
 
       .setting-dropdown {
         position: absolute;
@@ -471,11 +473,12 @@ watch(route, value => {
     .user-box {
       display: flex;
       align-items: center;
+      position: relative;
 
       .user-dropdown {
         position: absolute;
         top: 41px;
-        left: -78px;
+        left: -115px;
         width: 160px;
         background-color: #fff;
         z-index: 999;
@@ -522,7 +525,6 @@ watch(route, value => {
         }
       }
     }
-
 
     .user-box:hover .user-dropdown {
       display: block;

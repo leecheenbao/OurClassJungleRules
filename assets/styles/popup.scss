@@ -6,15 +6,13 @@
     height: 100vh;
     background: rgba(0, 0, 0, 0.5);
     transform: translate(-50%, -0%);
-    z-index: 1;
+    z-index: 999;
 }
 
 .box {
     // background: $background2;
     padding-top: 32px;
-    height: 881px;
-    max-height: calc(100vh - 64px);
-    overflow: scroll;
+    height: 100vh;
 
     .block-box {
         width: 456px;

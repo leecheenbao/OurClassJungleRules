@@ -7,68 +7,32 @@
                     <div class="manage-num">項目數量：10</div>
                     <div @click="isShowAdd = true" class="manage-create">+ 新增註冊碼</div>
                 </div>
-                
+
             </div>
 
             <div class="Mtable">
-                <el-table
-                    :data="dataAll"
-                    style="width: 100%"
-                >
-                    <el-table-column
-                    prop="code"
-                    label="註冊碼"
-                    sortable
-                    min-width="12"
-                    >
+                <el-table :data="allData" style="width: 100%">
+                    <el-table-column prop="licenseKey" label="註冊碼" sortable min-width="12">
                     </el-table-column>
-                    <el-table-column
-                    prop="account"
-                    label="綁定使用者帳號"
-                    sortable
-                    min-width="12"
-                    >
+                    <el-table-column prop="customerEmail" label="綁定使用者帳號" sortable min-width="12">
                     </el-table-column>
-                    <el-table-column
-                    prop="name"
-                    label="使用者名稱"
-                    sortable
-                    min-width="12"
-                    >
+                    <el-table-column prop="customerName" label="使用者名稱" sortable min-width="12">
                     </el-table-column>
-                    <el-table-column
-                    prop="way"
-                    label="生成方式"
-                    sortable
-                    min-width="12"
-                    >
+                    <el-table-column prop="generateＦ" label="生成方式" sortable min-width="12">
                     </el-table-column>
-                    <el-table-column
-                    prop="usedTime"
-                    label="使用時間"
-                    sortable
-                    min-width="12"
-                    >
+                    <el-table-column prop="activationDate" label="使用時間" sortable min-width="12">
                     </el-table-column>
-                    <el-table-column
-                    prop="createTime"
-                    label="產生時間"
-                    sortable
-                    min-width="12"
-                    >
+                    <el-table-column prop="expirationDate" label="產生時間" sortable min-width="12">
                     </el-table-column>
-                    <el-table-column
-                    label="操作"
-                    sortable
-                    min-width="12"
-                    >
-                    <template #default="scope">
-                        <div class="Mtable-row">
-                            <div class="Mtable-icon-outer">
-                                <img @click.stop="deleteUser(scope.row)" class="Mtable-icon" src="@/assets/images/Icon/delete.svg" alt="close">
+                    <el-table-column label="操作" sortable min-width="12">
+                        <template #default="scope">
+                            <div class="Mtable-row">
+                                <div class="Mtable-icon-outer">
+                                    <img @click.stop="deleteUser(scope.row.id)" class="Mtable-icon"
+                                        src="@/assets/images/Icon/delete.svg" alt="close">
+                                </div>
                             </div>
-                        </div>
-                    </template>
+                        </template>
                     </el-table-column>
                 </el-table>
             </div>
@@ -105,34 +69,43 @@
 </template>
 
 <script setup>
+import { getAll, edit } from "~/api/license"
+import { ElMessage } from 'element-plus'
 
-const dataAll = reactive([
-  { code: 'awasd', account: 'user1@gmail.com', name: 'frank', way: '管理者建立', usedTime: '2023/03/01 12:22:22', createTime: '2023/03/01 12:22:22' },
-  { code: 'asdfadsf', account: 'user2@gmail.com', name: 'frank', way: '管理者建立', usedTime: '2023/03/01 12:22:22', createTime: '2023/03/01 12:22:22' },
-  { code: 'sgg', account: 'user3@gmail.com', name: 'frank', way: '管理者建立', usedTime: '2023/03/01 12:22:22', createTime: '2023/03/01 12:22:22' },
-  { code: 'jfh', account: 'user4@gmail.com', name: 'frank', way: '管理者建立', usedTime: '2023/03/01 12:22:22', createTime: '2023/03/01 12:22:22' },
-  { code: 'jdfhd', account: 'user5@gmail.com', name: 'frank', way: '管理者建立', usedTime: '2023/03/01 12:22:22', createTime: '2023/03/01 12:22:22' },
-  { code: 'rwerer', account: 'user6@gmail.com', name: 'frank', way: '管理者建立', usedTime: '2023/03/01 12:22:22', createTime: '2023/03/01 12:22:22' },
-  { code: 'asdfadfa', account: 'user7@gmail.com', name: 'frank', way: '管理者建立', usedTime: '2023/03/01 12:22:22', createTime: '2023/03/01 12:22:22' },
-])
+const allData = reactive([])
+async function init() {
+    allData.length = 0
+    const { data } = await getAll()
+    let list = data.value.data.list
+    list = list.filter(o => o.activated !== 2)
+    allData.push(...list)
+    console.log("allData", allData)
+}
+init()
 
 const isShowAdd = ref(false)
 const isShowDelete = ref(false)
 
-const addData = ref({})
-const deleteData = ref({})
+const current = {}
 
-function addUser(row) {
-    isShowAdd.value = true
-}
-
-function deleteUser(row) {
+function deleteUser(id) {
     isShowDelete.value = true
-    deleteData.value = row
+    let filter = allData.filter(o => o.id == id)[0]
+    Object.assign(current, filter)
 }
 
 function deleteCurrentData() {
     isShowDelete.value = false
+    current.activated = 2
+    edit(current.id, current).catch(() => {
+        ElMessage.error('刪除失敗')
+    }).then(() => {
+        ElMessage({
+            message: '刪除成功',
+            type: 'success',
+        })
+        init()
+    })
 }
 
 </script>
@@ -143,6 +116,5 @@ function deleteCurrentData() {
 @import '~/assets/styles/manage.scss';
 @import '~/assets/styles/table.scss';
 
-.box {
-}
+.box {}
 </style>

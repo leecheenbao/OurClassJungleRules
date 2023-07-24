@@ -1,13 +1,11 @@
-import axios from 'axios';
-
 const baseUrl = 'http://wasupstudionobullying.com/wasupstudio'
 
 export const googleRegister = async () => {
-    return axios.get(`${baseUrl}/auth/google-signup`);
+    return useFetch().get(`${baseUrl}/auth/google-signup`);
 };
 
 export const authSignup = async () => {
-    return axios.post(`${baseUrl}/auth/signup`, {
+    return useHttp.post(`${baseUrl}/auth/signup`, {
         "email": "123@gmail.com",
         "pwd": "12345",
         "name": "John Doe",
@@ -26,7 +24,7 @@ export const authSignup = async () => {
 //     "role": "ROLE_USER"
 // }
 export const authLogin = async (data) => {
-    return axios.post(`${baseUrl}/auth/login`, data)
+    return await useHttp.post(`${baseUrl}/auth/login`, data)
 };
 
 

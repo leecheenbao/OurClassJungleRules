@@ -12,7 +12,10 @@
                 <div><input v-model="email" class="input" placeholder="請輸入 Email" type="email"></div>
                 <div class="item-title">密碼</div>
                 <div><input v-model="password" class="input" placeholder="請輸入密碼" type="password"></div>
-                <div class="forget">忘記密碼？</div>
+                <nuxt-link to="/forgetPwd">
+                    <div class="forget">忘記密碼？</div>
+
+                </nuxt-link>
                 <div class="btn-green" @click="handleAuthLogin">登入</div>
                 <div class="or">或</div>
                 <div class="btn-green">Google 帳號登入</div>
