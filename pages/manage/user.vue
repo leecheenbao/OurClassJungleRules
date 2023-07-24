@@ -7,24 +7,24 @@
 
             <div class="Mtable">
                 <el-table :data="allData" @row-click="editUser" style="width: 100%">
-                    <el-table-column prop="email" label="帳號" sortable min-width="12">
+                    <el-table-column prop="email" label="帳號" sortable min-width="160">
                     </el-table-column>
-                    <el-table-column prop="name" label="姓名" sortable min-width="6">
+                    <el-table-column prop="name" label="姓名" sortable min-width="160">
                     </el-table-column>
-                    <el-table-column label="性別" sortable min-width="6">
+                    <el-table-column label="性別" sortable min-width="160">
                         <template #default="scope">
                             {{ genderMap[scope.row.gender] }}
                         </template>
                     </el-table-column>
-                    <el-table-column prop="birthday" label="生日" sortable min-width="8">
+                    <el-table-column prop="birthday" label="生日" sortable min-width="160">
                     </el-table-column>
-                    <el-table-column prop="organization" label="機構" sortable min-width="8">
+                    <el-table-column prop="organization" label="機構" sortable min-width="160">
                     </el-table-column>
-                    <el-table-column prop="category" label="機構類別" sortable min-width="7">
+                    <el-table-column prop="category" label="機構類別" sortable min-width="160">
                     </el-table-column>
-                    <el-table-column prop="registionTime" label="註冊時間" sortable min-width="12">
+                    <el-table-column prop="registionTime" label="註冊時間" sortable min-width="160">
                     </el-table-column>
-                    <el-table-column label="操作" sortable min-width="12">
+                    <el-table-column label="操作" sortable min-width="260">
                         <template #default="scope">
                             <div class="Mtable-row">
                                 <div class="Mtable-icon-outer">

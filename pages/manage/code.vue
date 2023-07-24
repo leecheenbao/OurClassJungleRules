@@ -12,19 +12,19 @@
 
             <div class="Mtable">
                 <el-table :data="allData" style="width: 100%">
-                    <el-table-column prop="licenseKey" label="註冊碼" sortable min-width="12">
+                    <el-table-column prop="licenseKey" label="註冊碼" sortable min-width="160">
                     </el-table-column>
-                    <el-table-column prop="customerEmail" label="綁定使用者帳號" sortable min-width="12">
+                    <el-table-column prop="customerEmail" label="綁定使用者帳號" sortable min-width="160">
                     </el-table-column>
-                    <el-table-column prop="customerName" label="使用者名稱" sortable min-width="12">
+                    <el-table-column prop="customerName" label="使用者名稱" sortable min-width="160">
                     </el-table-column>
-                    <el-table-column prop="generateＦ" label="生成方式" sortable min-width="12">
+                    <el-table-column prop="generateＦ" label="生成方式" sortable min-width="160">
                     </el-table-column>
-                    <el-table-column prop="activationDate" label="使用時間" sortable min-width="12">
+                    <el-table-column prop="activationDate" label="使用時間" sortable min-width="160">
                     </el-table-column>
-                    <el-table-column prop="expirationDate" label="產生時間" sortable min-width="12">
+                    <el-table-column prop="expirationDate" label="產生時間" sortable min-width="160">
                     </el-table-column>
-                    <el-table-column label="操作" sortable min-width="12">
+                    <el-table-column label="操作" sortable min-width="260">
                         <template #default="scope">
                             <div class="Mtable-row">
                                 <div class="Mtable-icon-outer">

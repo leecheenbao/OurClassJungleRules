@@ -44,7 +44,7 @@
     </div>
 
     <div class="login-box">
-      <div v-if="isLogin && permissions == 'ROLE_USER'" class="setting-box">
+      <div v-if="isLogin && permissions !== 'ROLE_USER'" class="setting-box">
         <img class="setting-icon" src="~assets/images/Icon/setting.svg" alt="">
         <div class="setting-dropdown">
           <div class="arrow"></div>
@@ -122,23 +122,55 @@
             </nuxt-link>
           </div>
         </div>
+
         <nuxt-link to="/about" class="link" :class="{ 'link-action': routeName == 'about' }">
           關於阿普蛙
         </nuxt-link>
         <nuxt-link to="/connection" class="link" :class="{ 'link-action': routeName == 'connection' }">
           聯絡阿普蛙
         </nuxt-link>
-        <nuxt-link to="/mission/list" class="link" :class="{ 'link-action': routeName == 'mission-list' }">
+        <nuxt-link to="/mission/myList" class="link" :class="{ 'link-action': routeName == 'mission-myList' }">
           我的任務
         </nuxt-link>
+
+        <div v-if="isLogin && permissions !== 'ROLE_USER'">
+          <nuxt-link to="/manage/user" style="margin-top: 16px;" class="link"
+            :class="{ 'link-action': routeName == 'manage-user' }">
+            使用者管理
+          </nuxt-link>
+          <nuxt-link to="/manage/code" class="link" :class="{ 'link-action': routeName == 'manage-code' }">
+            註冊碼管理
+          </nuxt-link>
+          <nuxt-link to="/mission/list" class="link" :class="{ 'link-action': routeName == 'mission-list' }">
+            任務總覽
+          </nuxt-link>
+          <nuxt-link to="/manage/script" class="link" :class="{ 'link-action': routeName == 'manage-script' }">
+            劇本教材管理
+          </nuxt-link>
+          <nuxt-link to="/" class="link" :class="{ 'link-action': routeName == 'none' }">
+            資料統計
+          </nuxt-link>
+        </div>
+        
+        <div v-if="isLogin">
+          <nuxt-link to="/manage/userInfoEdit" style="margin-top: 16px;" class="link"
+            :class="{ 'link-action': routeName == 'manage-userInfoEdit' }">
+            個人資料編輯
+          </nuxt-link>
+          <nuxt-link to="/manage/pwdEdit" class="link" :class="{ 'link-action': routeName == 'manage-pwdEdit' }">
+            密碼變更
+          </nuxt-link>
+        </div>
       </div>
       <div class="login-btn-box">
-        <nuxt-link to="/login">
+        <nuxt-link v-if="!isLogin" to="/login">
           <div class="login-box">
             登入 / 註冊
           </div>
         </nuxt-link>
-
+        <div v-if="isLogin" @click="handleSignOut" class="signOut-box">
+          登出
+        </div>
       </div>
     </div>
   </div>
@@ -166,7 +198,6 @@ const route = useRoute();
 
 watch(route, value => {
   routeName.value = route.name
-  console.log(routeName.value)
 }, { deep: true, immediate: true })
 </script>
 
@@ -272,6 +303,20 @@ watch(route, value => {
         height: 36px;
         margin: 0;
         margin-top: 28px;
+      }
+
+      .signOut-box {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50px;
+        padding: 8px 12px;
+        color: $primary1;
+        width: 311px;
+        height: 36px;
+        margin: 0;
+        margin-top: 28px;
+        border: 1px solid $primary1;
       }
     }
 
@@ -390,7 +435,7 @@ watch(route, value => {
   .login-box {
     margin-left: auto;
     display: flex;
-    
+
 
     @include respond-to('phone') {
       display: none;
