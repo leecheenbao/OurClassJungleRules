@@ -23,7 +23,7 @@ RUN npm run generate
 FROM nginx:stable-alpine as production-stage
 
 # 複製 Vue.js 專案的建構結果到 Nginx 的目錄中
-COPY --from=build-stage /app/.output/public /usr/share/nginx/html
+COPY --from=build-stage /app/.output/public /etc/nginx/html
 
 # 設定 Nginx 的配置檔
 COPY conf.d /etc/nginx/conf.d
