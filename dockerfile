@@ -17,7 +17,8 @@ RUN npm install
 COPY . .
 
 # 建構專案
-RUN npm run generate
+# RUN npm run generate
+RUN npm run build
 
 # 指定執行時的指令
 FROM nginx:stable-alpine as production-stage
