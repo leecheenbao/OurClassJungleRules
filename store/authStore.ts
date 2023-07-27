@@ -38,10 +38,8 @@ export const useAuthStore = defineStore("auth", {
           this.reloadPage()
         },
         reloadPage(){
-          reloadNuxtApp({
-            path: "/",
-            ttl: 1000, 
-          });
+          const router = useRouter();
+          router.push({ path: '/' })
         }
       }
 })
