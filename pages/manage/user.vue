@@ -158,7 +158,7 @@ async function init() {
     allData.length = 0
     let { data: apiAllData } = await getAll();
     let list = apiAllData.value.data.list
-    list = list.filter(o => o.status == 1)
+    list = list.filter(o => o.status != 2)
     allData.push(...list)
     allData.map(o => o.birthday = o.birthday.split(' ')[0])
     console.log("user allData", allData)
@@ -189,7 +189,6 @@ function editUser(id) {
 function saveChanges() {
     currentUser.birthday = dayjs(currentUser.birthday).format('YYYY-MM-DD HH:mm:ss')
     editInfoById(currentUser.id, currentUser).then((res) => {
-        console.log("res", res)
         ElMessage({
             message: res.data.value.data,
             type: 'success',
