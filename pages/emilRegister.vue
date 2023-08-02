@@ -4,15 +4,18 @@
             <div class="block-box">
                 <div class="title">Email 帳號註冊</div>
                 <div class="item-title">*帳號</div>
-                <div><input class="input" placeholder="請輸入 Email" type="email"></div>
+                <div><input v-model="email" class="input" placeholder="請輸入 Email" type="email"></div>
                 <div class="item-title">*密碼</div>
-                <div><input class="input" style="margin-bottom: 8px;" placeholder="請輸入密碼" type="password"></div>
+                <div><input v-model="password" class="input" style="margin-bottom: 8px;" placeholder="請輸入密碼"
+                        type="password"></div>
                 <div class="remark">建議為 6 - 30 位英文數字組成</div>
                 <div class="item-title">*確認密碼</div>
-                <div><input style="margin-bottom: 32px;" class="input" placeholder="請再次輸入新密碼" type="password"></div>
-                <nuxt-link to="/verificationCode">
+                <div><input v-model="passwordAgain" style="margin-bottom: 32px;" class="input" placeholder="請再次輸入新密碼"
+                        type="password"></div>
+                <div @click="register" class="btn-green">註冊</div>
+                <!-- <nuxt-link to="/verificationCode">
                     <div class="btn-green">註冊</div>
-                </nuxt-link>
+                </nuxt-link> -->
             </div>
             <nuxt-link to="/login">
                 <div class="btn-white">返回登入</div>
@@ -20,6 +23,90 @@
         </div>
     </NuxtLayout>
 </template>
+
+<script setup>
+import { signup } from "~/api/login";
+import { authLogin } from "~/api/index";
+import { ElMessage } from 'element-plus'
+import { useAuthStore } from '@/store/authStore';
+import { ElLoading } from 'element-plus'
+
+const email = ref("")
+const password = ref("")
+const passwordAgain = ref("")
+const dayjs = useDayjs()
+const router = useRouter();
+
+const register = async () => {
+    if (verify()) {
+        const loading = ElLoading.service({
+            lock: true,
+            text: 'Loading',
+            background: 'rgba(0, 0, 0, 0.7)',
+        })
+        await signup({
+            "birthday": dayjs().format('YYYY-MM-DD HH:mm:ss'),
+            "category": "",
+            "email": email.value,
+            "gender": 0,
+            "grade": 0,
+            "id": 0,
+            "lastIp": "",
+            "lastLogin": dayjs().format('YYYY-MM-DD HH:mm:ss'),
+            "name": "",
+            "organization": "",
+            "phone": "",
+            "pwd": password.value,
+            "registionTime": dayjs().format('YYYY-MM-DD HH:mm:ss'),
+            "role": "ROLE_USER",
+            "status": 0,
+            "verificationCode": ""
+        })
+
+        loading.close()
+        ElMessage({
+            message: '註冊成功！',
+            type: 'success',
+        })
+
+        await handleAuthLogin()
+    }
+
+}
+
+const handleAuthLogin = async () => {
+    let data = {
+        "email": email.value,
+        "password": password.value,
+    }
+    useAuthStore().login(data)
+}
+
+const verify = () => {
+    let verify = false
+    if (email.value === '') {
+        ElMessage({
+            message: '請填寫email！',
+            type: 'warning',
+        })
+    } else if (password.value === '') {
+        ElMessage({
+            message: '請填寫密碼！',
+            type: 'warning',
+        })
+    } else if (password.value !== passwordAgain.value) {
+        ElMessage({
+            message: '請確認密碼！',
+            type: 'warning',
+        })
+    } else {
+        verify = true
+    }
+
+    return verify
+
+}
+</script>
 
 <style lang="scss" scoped>
 @import '~/assets/styles/form.scss';
