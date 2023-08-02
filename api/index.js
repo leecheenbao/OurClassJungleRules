@@ -1,11 +1,11 @@
-const baseUrl = 'http://wasupstudionobullying.com/wasupstudio'
+const categoryBaseUrl = '/auth';
 
 export const googleRegister = async () => {
-    return useFetch().get(`${baseUrl}/auth/google-signup`);
+    return useFetch().get(`${categoryBaseUrl}/google-signup`);
 };
 
 export const authSignup = async () => {
-    return useHttp.post(`${baseUrl}/auth/signup`, {
+    return useHttp.post(`${categoryBaseUrl}/signup`, {
         "email": "123@gmail.com",
         "pwd": "12345",
         "name": "John Doe",
@@ -24,7 +24,7 @@ export const authSignup = async () => {
 //     "role": "ROLE_USER"
 // }
 export const authLogin = async (data) => {
-    return await useHttp.post(`${baseUrl}/auth/login`, data)
+    return await useHttp.post(`${categoryBaseUrl}/login`, data)
 };
 
 

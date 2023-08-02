@@ -4,27 +4,24 @@
             <div class="manage-between">
                 <div class="manage-head">劇本教材管理</div>
                 <div class="manage-row">
-                    <div class="manage-num">項目數量：10</div>
+                    <div class="manage-num">項目數量：{{ allData.length }}</div>
                     <nuxt-link to="/manage/stepInfo" class="manage-create">+ 建立劇本教材</nuxt-link>
                 </div>
 
             </div>
 
             <div class="Mtable">
-                <el-table :data="dataAll" style="width: 100%">
-                    <el-table-column prop="account" label="帳號" sortable min-width="160">
+                <el-table :data="allData" style="width: 100%">
+                    <el-table-column prop="title" label="劇本名稱" sortable min-width="160">
                     </el-table-column>
-                    <el-table-column prop="name" label="姓名" sortable min-width="160">
+                    <el-table-column prop="scriptPeriod" label="劇本時長" sortable min-width="160">
+                        <template #default="scope">
+                            {{ scope.row.scriptPeriod }}
+                        </template>
                     </el-table-column>
-                    <el-table-column prop="gender" label="性別" sortable min-width="160">
+                    <el-table-column prop="statusStr" label="啟用狀態" sortable min-width="160">
                     </el-table-column>
-                    <el-table-column prop="birth" label="生日" sortable min-width="160">
-                    </el-table-column>
-                    <el-table-column prop="organization" label="機構" sortable min-width="160">
-                    </el-table-column>
-                    <el-table-column prop="type" label="機構類別" sortable min-width="160">
-                    </el-table-column>
-                    <el-table-column prop="registerTime" label="註冊時間" sortable min-width="160">
+                    <el-table-column prop="createTime" label="建立日期" sortable min-width="160">
                     </el-table-column>
                     <el-table-column label="操作" sortable min-width="260">
                         <template #default="scope">
@@ -62,23 +59,26 @@
 <script setup>
 import { getScript } from "~/api/script";
 
-const handleGetScript = () => {
-    getScript()
+const statusMap = {
+    0: '正常',
+    1: '關閉'
 }
-handleGetScript()
-const router = useRouter();
 
-const dataAll = reactive([
-    { account: 'user1@gmail.com', name: 'frank', gender: '女', birth: '1992/02/01', organization: '森林國小', type: '學校', registerTime: '2022/02/03 12:22:11' },
-    { account: 'user2@gmail.com', name: 'frank', gender: '女', birth: '1992/02/01', organization: '森林國小', type: '學校', registerTime: '2022/02/03 12:22:11' },
-    { account: 'user3@gmail.com', name: 'frank', gender: '女', birth: '1992/02/01', organization: '森林國小', type: '學校', registerTime: '2022/02/03 12:22:11' },
-    { account: 'user4@gmail.com', name: 'frank', gender: '女', birth: '1992/02/01', organization: '森林國小', type: '學校', registerTime: '2022/02/03 12:22:11' },
-    { account: 'user5@gmail.com', name: 'frank', gender: '女', birth: '1992/02/01', organization: '森林國小', type: '學校', registerTime: '2022/02/03 12:22:11' },
-    { account: 'user6@gmail.com', name: 'frank', gender: '女', birth: '1992/02/01', organization: '森林國小', type: '學校', registerTime: '2022/02/03 12:22:11' },
-    { account: 'user7@gmail.com', name: 'frank', gender: '女', birth: '1992/02/01', organization: '森林國小', type: '學校', registerTime: '2022/02/03 12:22:11' },
-    { account: 'user8@gmail.com', name: 'frank', gender: '女', birth: '1992/02/01', organization: '森林國小', type: '學校', registerTime: '2022/02/03 12:22:11' },
-    { account: 'user9@gmail.com', name: 'frank', gender: '女', birth: '1992/02/01', organization: '森林國小', type: '學校', registerTime: '2022/02/03 12:22:11' },
-])
+const allData = reactive([])
+async function init() {
+    const { data } = await getScript()
+    let list = JSON.parse(JSON.stringify(data.value.data.list))
+    // list = list.filter(o => o.status !== 2)
+    list.map((o) => {
+        o.statusStr = statusMap[o.status]
+    })
+    allData.length = 0
+    allData.push(...list)
+    console.log("劇本 all data", allData)
+}
+init()
+
+const router = useRouter();
 
 const isShowDelete = ref(false)
 
@@ -87,7 +87,7 @@ const deleteData = ref({})
 
 function editUser(row) {
     console.log(row)
-    router.push({ path: '/manage/scriptSetting' })
+    router.push({ path: `/manage/scriptSetting-${row.scriptId}` })
 }
 
 function deleteUser(row) {

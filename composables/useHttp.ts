@@ -1,6 +1,9 @@
 import { useAuthStore } from '@/store/authStore';
 import { storeToRefs } from 'pinia'
 
+// const baseUrl = 'http://wasupstudionobullying.com/wasupstudio'
+const baseUrl = 'http://feifeistoryhouse.org:8080/wasupstudio'
+
 const fetch = async (url, option) => {
   return await useFetch(url, {
     // 请求拦截器
@@ -19,7 +22,7 @@ const fetch = async (url, option) => {
         options.headers = new Headers(options.headers)
         options.headers.set('Authorization', `Bearer ${token}`)
       }
-      
+
     },
     ...option,
   })
@@ -28,18 +31,18 @@ const fetch = async (url, option) => {
 // 自动导出
 export const useHttp = {
   get: (url, params?: any, option?: any): any => {
-    return fetch(url, { method: 'get', params, ...option })
+    return fetch(baseUrl + url, { method: 'get', params, ...option })
   },
 
   post: (url, body?: any, option?: any): any => {
-    return fetch(url, { method: 'post', body: body, ...option })
+    return fetch(baseUrl + url, { method: 'post', body: body, ...option })
   },
 
   put: (url, body?: any, option?: any): any => {
-    return fetch(url, { method: 'put', body, ...option })
+    return fetch(baseUrl + url, { method: 'put', body, ...option })
   },
 
   delete: (url, body?: any, option?: any): any => {
-    return fetch(url, { method: 'delete', body, ...option })
+    return fetch(baseUrl + url, { method: 'delete', body, ...option })
   },
 }

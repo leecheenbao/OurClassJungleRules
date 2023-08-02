@@ -147,7 +147,7 @@ const scriptOption = reactive([])
 async function setAllScript() {
     const { data } = await getScript()
     let list = JSON.parse(JSON.stringify(data.value.data.list))
-    list = list.filter(o => o.status !== 0)
+    // list = list.filter(o => o.status !== 0)
     allScript.length = 0
     allScript.push(...list)
     scriptOption.length = 0

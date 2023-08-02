@@ -180,6 +180,7 @@ const dayjs = useDayjs()
 const currentUser = reactive({})
 function editUser(id) {
     let filterUser = allData.filter(o => o.id == id)[0]
+    console.log("filterUser",filterUser)
     filterUser.birthday = filterUser.birthday.split(' ')[0]
     Object.assign(currentUser, filterUser)
     isShowEdit.value = true
