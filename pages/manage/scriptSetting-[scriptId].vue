@@ -82,7 +82,7 @@
                     <img v-if="scriptData.hasImg" :src="imgUrl" alt="">
                 </div>
                 <div @click="chooseFile" class="choose-file-btn">
-                    <img src="~assets/images/icon/upload.svg" alt="">
+                    <img src="@/assets/images/Icon/upload.svg" alt="">
                     <span>上傳圖片</span>
                 </div>
 
