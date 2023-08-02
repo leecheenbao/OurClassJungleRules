@@ -133,7 +133,7 @@
           我的任務
         </nuxt-link>
 
-        <div v-if="isLogin && permissions !== 'ROLE_USER'">
+        <div v-if="isLogin && permissions == 'ROLE_USER'">
           <nuxt-link to="/manage/user" style="margin-top: 16px;" class="link"
             :class="{ 'link-action': routeName == 'manage-user' }">
             使用者管理

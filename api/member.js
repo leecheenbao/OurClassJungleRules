@@ -1,13 +1,13 @@
-const baseUrl = 'http://wasupstudionobullying.com/wasupstudio/api/member'
+const categoryBaseUrl = '/api/member';
 
 export const editInfoById = async (id,data) => {
-    return await useHttp.put(`${baseUrl}/${id}`,data);
+    return await useHttp.put(`${categoryBaseUrl}/${id}`,data);
 };
 
 export const getInfoById = async (id) => {
-    return await useHttp.get(`${baseUrl}/${id}`);
+    return await useHttp.get(`${categoryBaseUrl}/${id}`);
 };
 
 export const getAll = async () => {
-    return await useHttp.get(`${baseUrl}`);
+    return await useHttp.get(`${categoryBaseUrl}`);
 };
