@@ -15,3 +15,11 @@ export const editScriptById = async (scriptId,data) => {
 export const uploadFileById = async (scriptId,data) => {
     return await useHttp.post(`${categoryBaseUrl}/upload/${scriptId}`,data);
 };
+
+export const uploadDetail = async (data) => {
+    return await useHttp.post(`${categoryBaseUrl}/detail`,data);
+};
+
+export const addOne = async (data) => {
+    return await useHttp.post(`${categoryBaseUrl}`,data);
+};

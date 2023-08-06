@@ -60,8 +60,8 @@
 import { getScript } from "~/api/script";
 
 const statusMap = {
-    0: '正常',
-    1: '關閉'
+    0: '進行中',
+    1: '已結束'
 }
 
 const allData = reactive([])

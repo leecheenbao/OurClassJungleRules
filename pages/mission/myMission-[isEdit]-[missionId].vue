@@ -2,35 +2,39 @@
     <NuxtLayout name="custom">
         <div class="mission">
             <div class="mission-head">
-                <nuxt-link to="/mission/list" class="mission-head-leave">＜- 返回列表</nuxt-link>
+                <nuxt-link v-if="isEdit" to="/mission/myList" class="mission-head-leave">＜- 返回列表</nuxt-link>
+                <nuxt-link v-else to="/mission/list" class="mission-head-leave">＜- 返回列表</nuxt-link>
                 <div class="mission-head-text">1年二班虎兔篇</div>
-                <div @click="isShowEdit = true" class="mission-head-edit">
+                <div v-if="isEdit" @click="isShowEdit = true" class="mission-head-edit">
                     <img class="mission-head-img" src="~assets/images/Icon/edit.svg" alt="">
                 </div>
+                <div v-if="!isEdit"></div>
             </div>
 
             <div class="mission-basic">
-                <div class="mission-basic-bg"></div>
+                <div class="mission-basic-bg">
+                    <img v-if="scriptData.hasImg" :src="scriptData.imgUrl" alt="">
+                </div>
                 <div class="mission-basic-row">
                     <div>
-                        <div class="mission-basic-head">虎兔篇</div>
+                        <div class="mission-basic-head">{{ scriptData.title }}</div>
                         <div class="mission-basic-sub">教學重點</div>
-                        <div class="mission-basic-text">當我們了解每個人的獨特之處，我們可以試著協助他人。</div>
-                        <div class="mission-basic-text">讓學生認識有些人會因為不同的生理需求，例如過動症，而難以控制自己的情緒及行為。</div>
-                        <div class="mission-basic-sub">給老師的話</div>
-                        <div class="mission-basic-text">學生情緒高張時，須提供學生沈澱情緒的時間與空間，另外也不宜在其他同學們面前直接談話，學生會礙於其他同學的眼光，而難以冷靜及理性回應。</div>
-                        <div class="mission-basic-text">跟孩子對話時，請保持跟孩子一樣的高度，降低壓迫感、拉近與學生的距離。</div>
-                        <div class="mission-basic-text">衝突事件發生，需給予孩子說明的機會，避免直接判斷，或只聽某一方的說法。</div>
-                        <div class="mission-basic-text">面對過動症或較容易衝動的學生，避免只是懲罰，因為他們礙於生理需求，懲罰容易加重他們的挫折感、自信心低落，特別是限制他們的行動，更易適得其反;他們需要獲得更多的活動、消耗精力的空間，因此平時可以給予相關的任務，以提升他們的自信心，亦能使他們產生較高的自我控制感，從中學習控制自己的情緒。</div>
+                        <div class="mission-basic-text" v-for="(item, index) in scriptData.goal" :key="index">
+                            {{ index + 1 }}. {{ item }}
+                        </div>
+                        <div class="mission-basic-sub">給老師的提醒</div>
+                        <div class="mission-basic-text" v-for="(item, index) in scriptData.tips" :key="index">
+                            {{ index + 1 }}. {{ item }}
+                        </div>
                     </div>
                     <div class="mission-basic-line"></div>
                     <div>
                         <div class="mission-basic-grey">任務狀態</div>
-                        <div class="mission-basic-text2">進行中</div>
+                        <div class="mission-basic-text2">{{ statusMap[taskData.status] }}</div>
                         <div class="mission-basic-grey">結束時間</div>
-                        <div class="mission-basic-text2">2023/03/11</div>
+                        <div class="mission-basic-text2">{{ taskData.endTimeStr }}</div>
                         <div class="mission-basic-grey">建立時間</div>
-                        <div class="mission-basic-text2">2023/03/01</div>
+                        <div class="mission-basic-text2">{{ taskData.createTimeStr }}</div>
                     </div>
                 </div>
             </div>
@@ -40,11 +44,9 @@
                     <img class="mission-desc-img" src="~assets/images/Icon/notice.svg" alt="">
                     <div class="mission-desc-pre">前導說明</div>
                 </div>
-                <div class="mission-desc-text">本教材會使用 2 日。</div>
-                <div class="mission-desc-text">回家後要跟家長討論選項，隔天要在班上討論。</div>
-                <div class="mission-desc-text">討論出來的選項會影響結局。</div>
-                <div class="mission-desc-text">結局有 4 種，每種會以不同老師出面處理的方式呈現。</div>
-                <div class="mission-desc-text">可以試著想想看，故事中的主角們分別有哪些感受及需求。</div>
+                <div class="mission-desc-text" v-for="(item, index) in scriptData.preamble" :key="index">
+                    {{ index + 1 }}. {{ item }}
+                </div>
             </div>
 
             <div class="mission-day">
@@ -101,21 +103,22 @@
                                     <div class="mission-body-box-answer">A</div>
                                     <div class="mission-body-box-text">溫和堅定地制止張萌虎。</div>
                                 </div>
-                               <img @click="isShowInfo = true" class="mission-body-box-info" src="~assets/images/Icon/information.svg" alt="">
+                                <img @click="isShowInfo = true" class="mission-body-box-info"
+                                    src="~assets/images/Icon/information.svg" alt="">
                             </div>
                             <div class="mission-body-box-row1">
                                 <div class="mission-body-box-row2">
                                     <div class="mission-body-box-answer">B</div>
                                     <div class="mission-body-box-text">溫和堅定地制止張萌虎。</div>
                                 </div>
-                               <img class="mission-body-box-info" src="~assets/images/Icon/information.svg" alt="">
+                                <img class="mission-body-box-info" src="~assets/images/Icon/information.svg" alt="">
                             </div>
                             <div class="mission-body-box-row1">
                                 <div class="mission-body-box-row2">
                                     <div class="mission-body-box-answer">C</div>
                                     <div class="mission-body-box-text">溫和堅定地制止張萌虎。</div>
                                 </div>
-                               <img class="mission-body-box-info" src="~assets/images/Icon/information.svg" alt="">
+                                <img class="mission-body-box-info" src="~assets/images/Icon/information.svg" alt="">
                             </div>
                         </div>
                         <!-- 右側 -->
@@ -129,21 +132,21 @@
                                     <div class="mission-body-box-answer">A</div>
                                     <div class="mission-body-box-text">溫和堅定地制止張萌虎。</div>
                                 </div>
-                               <img class="mission-body-box-info" src="~assets/images/Icon/information.svg" alt="">
+                                <img class="mission-body-box-info" src="~assets/images/Icon/information.svg" alt="">
                             </div>
                             <div class="mission-body-box-row1">
                                 <div class="mission-body-box-row2">
                                     <div class="mission-body-box-answer">B</div>
                                     <div class="mission-body-box-text">溫和堅定地制止張萌虎。</div>
                                 </div>
-                               <img class="mission-body-box-info" src="~assets/images/Icon/information.svg" alt="">
+                                <img class="mission-body-box-info" src="~assets/images/Icon/information.svg" alt="">
                             </div>
                             <div class="mission-body-box-row1">
                                 <div class="mission-body-box-row2">
                                     <div class="mission-body-box-answer">C</div>
                                     <div class="mission-body-box-text">溫和堅定地制止張萌虎。</div>
                                 </div>
-                               <img class="mission-body-box-info" src="~assets/images/Icon/information.svg" alt="">
+                                <img class="mission-body-box-info" src="~assets/images/Icon/information.svg" alt="">
                             </div>
                         </div>
                     </div>
@@ -309,7 +312,7 @@
                         </div>
                         <div class="mission-count-num3">+4</div>
                     </div>
-                    
+
 
                     <div class="mission-body-line"></div>
 
@@ -350,32 +353,20 @@
                     <div @click.stop class="block-box">
                         <div class="title">編輯任務</div>
                         <div class="item-title">*任務名稱</div>
-                        <div><input class="input" placeholder="請輸入文字" type="text"></div>
+                        <div><input v-model="taskEditData.taskName" class="input" placeholder="請輸入文字" type="text"></div>
                         <div class="item-title">*選擇劇本</div>
-                        <div class="select-container">
-                            <select class="select">
-                                <option value="">請選擇</option>
-                                <option value="volvo">Volvo</option>
-                                <option value="saab">Saab</option>
-                                <option value="mercedes">Mercedes</option>
-                                <option value="audi">Audi</option>
-                            </select>
-                        </div>
-                        <div class="item-title">*學習對象</div>
-                        <div class="select-container">
-                            <select class="select">
-                                <option value="">請選擇</option>
-                                <option value="volvo">Volvo</option>
-                                <option value="saab">Saab</option>
-                                <option value="mercedes">Mercedes</option>
-                                <option value="audi">Audi</option>
+                        <div style="margin-bottom: 16px;" class="select-container">
+                            <select v-model="taskEditData.scriptId" class="select">
+                                <option :value="item.value" v-for="item of scriptOption" :key="item.value">{{ item.text }}
+                                </option>
                             </select>
                         </div>
                         <div class="item-title">*預期參與人數/組數</div>
-                        <div><input class="input" placeholder="請輸入數字" type="text"></div>
+                        <div><input v-model="taskEditData.estimatedParticipants" class="input" placeholder="請輸入數字"
+                                type="number"></div>
                         <div class="item-title">*結束日期</div>
-                        <div><input class="input" type="date"></div>
-                        <div class="btn-green">確認</div>
+                        <div><input v-model="taskEditData.endTime" class="input" type="date"></div>
+                        <div @click="saveTaskEdit" class="btn-green">確認</div>
                     </div>
                 </div>
             </div>
@@ -461,6 +452,103 @@
 </template>
 
 <script setup>
+import { getScriptById,getScript } from "~/api/script";
+import { getTaskById ,edit as editTask} from "~/api/task";
+import { ElMessage } from 'element-plus'
+
+const route = useRoute();
+const missionId = route.params.missionId
+const taskData = reactive({})
+const taskEditData = reactive({})
+const scriptId = ref('')
+const init = async () => {
+    const { data } = await getTaskById(missionId)
+    Object.assign(taskData, JSON.parse(JSON.stringify(data.value.data)))
+    Object.assign(taskEditData, JSON.parse(JSON.stringify(data.value.data)))
+    taskEditData.endTime = taskEditData.endTime.split(' ')[0]
+    taskData.createTimeStr = dayjs(taskData.createTime).format('YYYY/MM/DD')
+    taskData.endTimeStr = dayjs(taskData.endTime).format('YYYY/MM/DD')
+    console.log('taskData', taskData)
+    scriptId.value = taskData.scriptId
+    await setScriptData()
+}
+init()
+const isEdit = JSON.parse(route.params.isEdit)
+console.log('isEdit', isEdit.value)
+const scriptData = reactive({})
+const statusMap = {
+    0: '開啟任務',
+    1: '進行中',
+    2: '完成(包含結束)',
+}
+const dayjs = useDayjs()
+const setScriptData = async () => {
+    const { data } = await getScriptById(scriptId.value)
+    Object.assign(scriptData, JSON.parse(JSON.stringify(data.value.data)))
+    scriptData.hasImg = scriptData.mediaDTO.length > 0
+    if (scriptData.hasImg) {
+        scriptData.imgUrl = scriptData.mediaDTO[scriptData.mediaDTO.length - 1].filePath
+    }
+
+    console.log("scriptData", scriptData)
+}
+
+const allScript = reactive([])
+const scriptOption = reactive([])
+async function setAllScript() {
+    const { data } = await getScript()
+    let list = JSON.parse(JSON.stringify(data.value.data.list))
+    // list = list.filter(o => o.status !== 0)
+    allScript.length = 0
+    allScript.push(...list)
+    scriptOption.length = 0
+    allScript.forEach(res => {
+        scriptOption.push({
+            text: res.title,
+            value: res.scriptId
+        })
+    })
+    console.log("我的劇本 all data", scriptOption)
+}
+setAllScript()
+
+async function saveTaskEdit() {
+    isShowEdit.value = false
+
+    taskEditData.endTime = dayjs(taskEditData.endTime).format('YYYY-MM-DD HH:mm:ss')
+    if (taskEditData.taskName === '') {
+        ElMessage({
+            message: '請輸入任務名稱！',
+            type: 'warning',
+        })
+    } else if (taskEditData.scriptId === '') {
+        ElMessage({
+            message: '請選擇劇本！',
+            type: 'warning',
+        })
+    } else if (taskEditData.estimatedParticipants === '') {
+        ElMessage({
+            message: '請輸入預期參與人數/組數！',
+            type: 'warning',
+        })
+    } else if (taskEditData.endTime === '') {
+        ElMessage({
+            message: '請輸入結束日期！',
+            type: 'warning',
+        })
+    } else {
+        await editTask(taskEditData.taskId, taskEditData).then((res) => {
+            ElMessage({
+                message: '更新成功',
+                type: 'success',
+            })
+            init()
+        }).catch(() => {
+            ElMessage.error('更新失敗')
+        })
+    }
+}
+
 
 const isShowEdit = ref(false)
 const isShowVideo = ref(false)
@@ -504,11 +592,10 @@ const isShowWrite = ref(false)
             padding: 10px;
             border: 1px solid #008B77;
             border-radius: 100%;
+            cursor: pointer;
         }
 
-        &-img {
-            
-        }
+        &-img {}
 
     }
 
@@ -521,8 +608,12 @@ const isShowWrite = ref(false)
 
         &-bg {
             width: 100%;
-            height: 145px;
             background-color: beige;
+
+            img {
+                width: 100%;
+                height: auto;
+            }
         }
 
         &-row {
@@ -561,7 +652,7 @@ const isShowWrite = ref(false)
             font-size: 13px;
             color: #999999;
         }
-        
+
     }
 
     // desc 前導說明
@@ -580,9 +671,7 @@ const isShowWrite = ref(false)
             margin-bottom: 8px;
         }
 
-        &-img {
-            
-        }
+        &-img {}
 
         &-pre {
             margin: 0px 0px 0px 5px;
@@ -592,7 +681,7 @@ const isShowWrite = ref(false)
             font-size: 14px;
             color: #666666;
         }
-        
+
     }
 
     // 第一日
@@ -614,7 +703,7 @@ const isShowWrite = ref(false)
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color:#008B77;
+            background-color: #008B77;
             color: white;
         }
 
@@ -632,7 +721,7 @@ const isShowWrite = ref(false)
             margin-top: 4px;
             color: #999999;
         }
-        
+
     }
 
     &-body {
@@ -691,7 +780,7 @@ const isShowWrite = ref(false)
                 font-size: 14px;
                 color: #CCCCCC;
             }
-            
+
         }
 
         &-row {
@@ -766,7 +855,7 @@ const isShowWrite = ref(false)
                 width: 16px;
                 height: 16px;
             }
-            
+
         }
 
         // 額外資訊
@@ -847,7 +936,7 @@ const isShowWrite = ref(false)
             border-radius: 100%;
             cursor: pointer;
         }
-        
+
     }
 
     // 本日計分
@@ -894,9 +983,7 @@ const isShowWrite = ref(false)
             color: white;
         }
 
-        &-choose {
-            
-        }
+        &-choose {}
 
         &-sub1 {
             font-size: 14px;

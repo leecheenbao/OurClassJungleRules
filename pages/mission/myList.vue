@@ -41,7 +41,7 @@
                     <el-table-column label="操作" sortable min-width="260">
                         <template #default="scope">
                             <div class="Mtable-row">
-                                <div @click.stop="router.push({ path: '/mission/myMission' })" class="Mtable-look">查看 ->
+                                <div @click.stop="checkMission(scope.row.taskId)" class="Mtable-look">查看 ->
                                 </div>
                                 <div class="Mtable-icon-outer">
                                     <img @click.stop="handleEdit(scope.row)" class="Mtable-icon"
@@ -141,6 +141,9 @@ import { getMyTask, edit, add } from "~/api/task";
 import { ElMessage } from 'element-plus'
 import { getScript } from "~/api/script";
 
+const checkMission = (taskId) => {
+    router.push({ path: `/mission/myMission-${true}-${taskId}` })
+}
 
 const allScript = reactive([])
 const scriptOption = reactive([])
@@ -194,7 +197,13 @@ async function init() {
 init()
 
 const getScriptNameById = (id) => {
-    return scriptOption.filter(o => o.value == id)[0].text
+    if (scriptOption.length > 0) {
+        if (scriptOption.filter(o => o.value == id).length > 0) {
+            return scriptOption.filter(o => o.value == id)[0].text
+        }
+
+    }
+    return id
 }
 
 const router = useRouter();
@@ -211,9 +220,9 @@ const current = reactive({})
 const dayjs = useDayjs()
 
 const addData = reactive({
-    "author": "string",
+    "author": "",
     "createTime": dayjs().format('YYYY-MM-DD HH:mm:ss'),
-    "description": "string",
+    "description": "",
     "endTime": "",
     "estimatedParticipants": 0,
     "learning": 0,

@@ -52,13 +52,13 @@
                     <div @click="addPreamble" class="step-body-add">＋增加</div>
                 </div>
                 <div v-for="(item, value) in preamble" :key="value" class="step-body-row2">
-                    <input class="input step-body-input3" placeholder="請輸入文字" type="text">
+                    <input v-model="item.value" class="input step-body-input3" placeholder="請輸入文字" type="text">
                     <div @click="deletePreamble(item.id)" class="step-body-close">-</div>
                 </div>
             </div>
 
             <div class="step-next">
-                <nuxt-link to="/manage/stepDetail" class="step-next-next">下一步</nuxt-link>
+                <div @click="handleAddOne" class="step-next-next">下一步</div>
                 <nuxt-link to="/" class="step-next-cancel">取消</nuxt-link>
             </div>
         </div>
@@ -66,15 +66,88 @@
 </template>
 
 <script setup>
+import { addOne, uploadFileById } from "~/api/script";
+import { ElMessage } from 'element-plus'
 
+const dayjs = useDayjs()
+let formDataImg
+const router = useRouter();
+const handleAddOne = async () => {
+    if (verify()) {
+        let addScriptData = {
+            author: "",
+            createTime: dayjs().format('YYYY-MM-DD HH:mm:ss'),
+            description: scriptDescription.value,
+            goal: teachingFocus.map(o => o.value),
+            mediaDTO: [],
+            parentConfig: null,
+            preamble: preamble.map(o => o.value),
+            scriptDetail: [],
+            scriptPeriod: scriptDuration.value,
+            status: 0,
+            tips: remindertoTeacher.map(o => o.value),
+            title: scriptName.value,
+            updateTime: dayjs().format('YYYY-MM-DD HH:mm:ss')
+        }
+        
+        let { data } = await addOne(addScriptData)
+        let scriptId = data.value.data.scriptId
+
+        console.log("formDataImg",formDataImg)
+        if (formDataImg) {
+            await uploadFileById(scriptId, formDataImg)
+        }
+        router.push({ path: `/manage/stepDetail-${scriptId}` })
+    }
+
+}
+const verify = () => {
+    let verify = false
+    if (scriptName.value === '') {
+        ElMessage({
+            message: '請輸入劇本名稱！',
+            type: 'warning',
+        })
+    } else if (scriptDescription.value === '') {
+        ElMessage({
+            message: '請輸入劇本簡述！',
+            type: 'warning',
+        })
+    } else if (scriptDuration.value === '') {
+        ElMessage({
+            message: '請輸入劇本時長！',
+            type: 'warning',
+        })
+    } else if (teachingFocus.length == 0) {
+        ElMessage({
+            message: '請增加教學重點！',
+            type: 'warning',
+        })
+    } else if (remindertoTeacher.length == 0) {
+        ElMessage({
+            message: '請增加給老師的提醒！',
+            type: 'warning',
+        })
+    } else if (preamble.length == 0) {
+        ElMessage({
+            message: '請增加前導說明！',
+            type: 'warning',
+        })
+    } else {
+        verify = true
+    }
+
+    return verify
+
+}
 const isPhoto = ref(false)
 const scriptName = ref('')
 const scriptDescription = ref('')
 const scriptDuration = ref(2)
 const teachingFocus = reactive([{
-        value: "",
-        id: Math.random().toString(36)
-    }])
+    value: "",
+    id: Math.random().toString(36)
+}])
 
 const addTeachingFocus = () => {
     teachingFocus.push({
@@ -91,9 +164,9 @@ const deleteTeachingFocus = (id) => {
 
 
 const remindertoTeacher = reactive([{
-        value: "",
-        id: Math.random().toString(36)
-    }])
+    value: "",
+    id: Math.random().toString(36)
+}])
 
 const addRemindertoTeacher = () => {
     remindertoTeacher.push({
@@ -101,7 +174,7 @@ const addRemindertoTeacher = () => {
         id: Math.random().toString(36)
     })
 }
-const deleteRemindertoTeacher  = (id) => {
+const deleteRemindertoTeacher = (id) => {
     const index = remindertoTeacher.findIndex(item => item.id === id);
     if (index !== -1) {
         remindertoTeacher.splice(index, 1);
@@ -109,16 +182,16 @@ const deleteRemindertoTeacher  = (id) => {
 }
 
 const preamble = reactive([{
-        value: "",
-        id: Math.random().toString(36)
-    }])
-    const addPreamble = () => {
-        preamble.push({
+    value: "",
+    id: Math.random().toString(36)
+}])
+const addPreamble = () => {
+    preamble.push({
         value: "",
         id: Math.random().toString(36)
     })
 }
-const deletePreamble  = (id) => {
+const deletePreamble = (id) => {
     const index = preamble.findIndex(item => item.id === id);
     if (index !== -1) {
         preamble.splice(index, 1);
@@ -129,12 +202,20 @@ const fileInput = ref(null);
 const triggerFileUpload = () => {
     fileInput.value.click();
 };
+
+
 const previewImage = ref('');
 const handleFileUpload = (event) => {
     const file = event.target.files[0];
+    console.log("handleFileUpload",file)
     const validTypes = ['image/jpeg', 'image/png'];
 
     if (validTypes.includes(file.type)) {
+        const formData = new FormData();
+        formData.append('file',file)
+        formData.append('description','cover')
+        formDataImg = formData
+        console.log("formDataImg",formDataImg)
         // 將 file 轉換為 URL 並預覽
         previewImage.value = URL.createObjectURL(file);
         isPhoto.value = true;
