@@ -24,6 +24,9 @@
                     <el-table-column prop="taskName" label="任務名稱" sortable min-width="160">
                     </el-table-column>
                     <el-table-column prop="script" label="劇本" sortable min-width="160">
+                        <template #default="scope">
+                            {{ getScriptNameById(scope.row.scriptId) }}
+                        </template>
                     </el-table-column>
                     <el-table-column prop="learningStr" label="學習對象" sortable min-width="160">
                     </el-table-column>
@@ -36,7 +39,7 @@
                     <el-table-column label="操作" sortable min-width="260">
                         <template #default="scope">
                             <div class="Mtable-row">
-                                <div @click.stop="router.push({ path: '/mission/myMission' })" class="Mtable-look">查看 ->
+                                <div @click.stop="checkMission(scope.row.taskId)" class="Mtable-look">查看 ->
                                 </div>
                             </div>
                         </template>
@@ -49,6 +52,11 @@
 
 <script setup>
 import { getMyTask } from "~/api/task";
+import { getScript } from "~/api/script";
+
+const checkMission = (taskId) => {
+    router.push({ path: `/mission/myMission-${false}-${taskId}` })
+}
 
 const isFirst = ref(false)
 const learningMap =
@@ -68,7 +76,34 @@ const statusMap = {
     2: '完成(包含結束)'
 }
 
+const allScript = reactive([])
+const scriptOption = reactive([])
+async function setAllScript() {
+    const { data } = await getScript()
+    let list = JSON.parse(JSON.stringify(data.value.data.list))
+    // list = list.filter(o => o.status !== 0)
+    allScript.length = 0
+    allScript.push(...list)
+    scriptOption.length = 0
+    allScript.forEach(res => {
+        scriptOption.push({
+            text: res.title,
+            value: res.scriptId
+        })
+    })
+    console.log("我的劇本 all data", scriptOption)
+}
+setAllScript()
 
+const getScriptNameById = (id) => {
+    if (scriptOption.length > 0){
+        if(scriptOption.filter(o => o.value == id).length > 0){
+            return scriptOption.filter(o => o.value == id)[0].text
+        }
+        
+    }
+    return id
+}
 
 const allData = reactive([])
 async function init() {

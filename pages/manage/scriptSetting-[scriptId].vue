@@ -4,8 +4,8 @@
             <div class="step-script-head">
                 <nuxt-link to="/manage/script" class="step-script-head-leave">＜- 返回列表</nuxt-link>
                 <div class="step-script-head-route">
-                    <nuxt-link to="/manage/script" class="step-script-head-route1">基本設定</nuxt-link>
-                    <nuxt-link to="/manage/scriptDetail" class="step-script-head-route2">詳細內容</nuxt-link>
+                    <nuxt-link :to='`/manage/scriptSetting-${scriptId}`' class="step-script-head-route1">基本設定</nuxt-link>
+                    <nuxt-link :to='`/manage/scriptDetail-${scriptId}`' class="step-script-head-route2">詳細內容</nuxt-link>
                 </div>
                 <div class="step-script-head-setting">
                     <div class="step-script-head-sub">啟用狀態：</div>
@@ -30,7 +30,7 @@
                 <div class="step-day-row">
                     <div class="step-day-title5">劇本封面</div>
                     <div class="step-day-img">
-                        <img v-if="scriptData.hasImg" :src="scriptData.mediaDTO[scriptData.mediaDTO.length - 1].filePath"
+                        <img v-if="scriptData.hasImg" :src="imgUrl"
                             alt="">
                     </div>
                 </div>
@@ -57,7 +57,7 @@
                 <div class="step-day-row">
                     <div class="step-day-title5">給老師的提醒</div>
                     <div class="step-day-text">
-                        <div v-for="(item, index) in scriptData.goal" :key="index">
+                        <div v-for="(item, index) in scriptData.tips" :key="index">
                             {{ index + 1 }}. {{ item }}
                         </div>
                     </div>
@@ -77,7 +77,7 @@
                 <div class="step-body-title">*劇本封面</div>
                 <div v-if="!isPhoto" class="step-body-upload">上傳圖片</div>
                 <div v-if="!isPhoto" class="step-body-upload-hint">尺寸建議為 1920 x 300px</div>
-                <input type="file" ref="fileInput" style="display: none;" @change="changeFile" name="" id="">
+                <input type="file" accept=".jpg,.jpeg,.png" ref="fileInput" style="display: none;" @change="changeFile" name="" id="">
                 <div class="step-body-img">
                     <img v-if="scriptData.hasImg" :src="imgUrl" alt="">
                 </div>
@@ -161,16 +161,16 @@ const setScriptData = async () => {
     const { data } = await getScriptById(scriptId)
     // userInfo.birthday = userInfo.birthday.split(' ')[0]
     Object.assign(scriptData, JSON.parse(JSON.stringify(data.value.data)))
+    console.log("scriptData",scriptData)
     scriptData.hasImg = scriptData.mediaDTO.length > 0
     if (scriptData.hasImg) {
-        imgUrl.value = scriptData.mediaDTO[scriptData.mediaDTO.length - 1].filePath
+        imgUrl.value = scriptData.mediaDTO.filter(o => o.description == "cover")[0].filePath
     }
     Object.assign(editData, JSON.parse(JSON.stringify(data.value.data)))
     setEditList(editData.goal, editGoalList)
     setEditList(editData.tips, editTipsList)
     setEditList(editData.preamble, editPreambleList)
     isUsed.value = scriptData.status == 0
-    console.log('scriptData', scriptData)
 }
 setScriptData()
 
@@ -180,7 +180,7 @@ const setImgUrl = async () => {
     let script = JSON.parse(JSON.stringify(data.value.data))
     scriptData.hasImg = script.mediaDTO.length > 0
     if (scriptData.hasImg) {
-        imgUrl.value = script.mediaDTO[script.mediaDTO.length - 1].filePath
+        imgUrl.value = script.mediaDTO.filter(o => o.description == "cover")[0].filePath
     }
 }
 
@@ -228,6 +228,7 @@ const changeFile = async (el) => {
     console.log('changeFile', el.target.files[0])
     const formData = new FormData();
     formData.append('file', el.target.files[0])
+    formData.append('description','cover')
     await uploadFileById(scriptId, formData)
     await setImgUrl()
 }

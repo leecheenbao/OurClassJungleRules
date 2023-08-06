@@ -37,9 +37,9 @@
         聯絡阿普蛙
         <div v-if="routeName == 'connection'" class="decoration"></div>
       </nuxt-link>
-      <nuxt-link to="/mission/myList" class="link" :class="{ 'link-action': routeName == 'mission-list' }">
+      <nuxt-link to="/mission/myList" class="link" :class="{ 'link-action': routeName == 'mission-myList' }">
         我的任務
-        <div v-if="routeName == 'mission-list'" class="decoration"></div>
+        <div v-if="routeName == 'mission-myList'" class="decoration"></div>
       </nuxt-link>
     </div>
 
@@ -133,7 +133,7 @@
           我的任務
         </nuxt-link>
 
-        <div v-if="isLogin && permissions == 'ROLE_USER'">
+        <div v-if="isLogin && permissions !== 'ROLE_USER'">
           <nuxt-link to="/manage/user" style="margin-top: 16px;" class="link"
             :class="{ 'link-action': routeName == 'manage-user' }">
             使用者管理
@@ -198,6 +198,7 @@ const route = useRoute();
 
 watch(route, value => {
   routeName.value = route.name
+  console.log("routeName",routeName.value)
 }, { deep: true, immediate: true })
 </script>
 

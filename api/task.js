@@ -8,6 +8,10 @@ export const getMyTask = async () => {
     return await useHttp.get(`${categoryBaseUrl}/mytask`);
 };
 
+export const getTaskById = async (id) => {
+    return await useHttp.get(`${categoryBaseUrl}/${id}`);
+};
+
 export const edit = async (id,data) => {
     return await useHttp.put(`${categoryBaseUrl}/${id}`,data);
 };
