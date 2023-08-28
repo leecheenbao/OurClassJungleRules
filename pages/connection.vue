@@ -13,18 +13,24 @@
                         <input class="input" placeholder="姓氏" type="text">
                     </div>
                     <div class="item-title">*Email</div>
-                    <div><input class="input" placeholder="名字" type="text"></div>
+                    <div><input class="input" placeholder="Email" type="text"></div>
                     <div class="item-title">*想說的話</div>
                     <div>
-                        <textarea class="textarea" placeholder="請輸入文字"></textarea>
+                        <textarea v-model="body" class="textarea" placeholder="請輸入文字"></textarea>
                     </div>
                     <div class="check-box"><input class="checkbox" type="checkbox">我同意接收營銷和宣傳材料</div>
-                    <div class="submit">提交</div>
+                    <a class="submit" :href="`mailto:wasupstudio@gmail.com?&body=${body}`">提交</a>
                 </div>
             </div>
         </div>
     </NuxtLayout>
 </template>
+
+<script setup>
+    // const subject = ref('')
+    const body = ref('')
+    body.value = ''
+</script>
 
 <style lang="scss" scoped>
 .box {

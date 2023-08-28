@@ -14,17 +14,8 @@
         <div class="subbox">
           <div class="arrow"></div>
           <div class="submenu">
-            <nuxt-link to="/chapter">
-              <div class="subitem">虎兔篇</div>
-            </nuxt-link>
-            <nuxt-link to="/chapter">
-              <div class="subitem">鼠牛篇</div>
-            </nuxt-link>
-            <nuxt-link to="/chapter">
-              <div class="subitem">馬羊篇</div>
-            </nuxt-link>
-            <nuxt-link to="/chapter">
-              <div class="subitem" style="border-bottom: none;">龍虎篇</div>
+            <nuxt-link v-for="data in allScript" :key="data.scriptId" :to="`/chapter-${data.scriptId}`">
+              <div class="subitem">{{ data.title }}</div>
             </nuxt-link>
           </div>
         </div>
@@ -108,17 +99,8 @@
         <div v-if="isOpenSubbox" class="subbox">
           <div class="arrow"></div>
           <div class="submenu">
-            <nuxt-link to="/chapter">
-              <div class="subitem">虎兔篇</div>
-            </nuxt-link>
-            <nuxt-link to="/chapter">
-              <div class="subitem">鼠牛篇</div>
-            </nuxt-link>
-            <nuxt-link to="/chapter">
-              <div class="subitem">馬羊篇</div>
-            </nuxt-link>
-            <nuxt-link to="/chapter">
-              <div class="subitem" style="border-bottom: none;">龍虎篇</div>
+            <nuxt-link v-for="data in allScript" :key="data.scriptId" :to="`/chapter-${data.scriptId}`">
+              <div class="subitem">{{ data.title }}</div>
             </nuxt-link>
           </div>
         </div>
@@ -180,6 +162,7 @@
 import { Search } from '@element-plus/icons-vue'
 import { useAuthStore } from '@/store/authStore';
 import { storeToRefs } from 'pinia'
+import { getScript } from "~/api/script";
 
 let auth = useAuthStore()
 const { isLogin, permissions } = storeToRefs(auth)
@@ -187,6 +170,16 @@ const { isLogin, permissions } = storeToRefs(auth)
 const handleSignOut = () => {
   useAuthStore().signOut()
 }
+
+const allScript = reactive([])
+const setAllScript = async () => {
+  const { data } = await getScript()
+  let list = JSON.parse(JSON.stringify(data.value.data.list))
+  // list = list.filter(o => o.status !== 0)
+  allScript.length = 0
+  allScript.push(...list)
+}
+setAllScript()
 
 let routeName = ref("")
 

@@ -1,7 +1,7 @@
 const categoryBaseUrl = '/auth';
 
 export const googleRegister = async () => {
-    return useFetch().get(`${categoryBaseUrl}/google-signup`);
+    return useHttp.get(`${categoryBaseUrl}/google-signup`)
 };
 
 export const authSignup = async () => {

@@ -25,7 +25,7 @@
 </template>
 
 <script setup>
-import { signup } from "~/api/login";
+import { signup ,sendVerificationLetter} from "~/api/login";
 import { authLogin } from "~/api/index";
 import { ElMessage } from 'element-plus'
 import { useAuthStore } from '@/store/authStore';
@@ -38,13 +38,7 @@ const dayjs = useDayjs()
 const router = useRouter();
 
 const register = async () => {
-    if (verify()) {
-        const loading = ElLoading.service({
-            lock: true,
-            text: 'Loading',
-            background: 'rgba(0, 0, 0, 0.7)',
-        })
-        await signup({
+    let data = {
             "birthday": dayjs().format('YYYY-MM-DD HH:mm:ss'),
             "category": "",
             "email": email.value,
@@ -61,7 +55,15 @@ const register = async () => {
             "role": "ROLE_USER",
             "status": 0,
             "verificationCode": ""
+        }
+    if (verify()) {
+        const loading = ElLoading.service({
+            lock: true,
+            text: 'Loading',
+            background: 'rgba(0, 0, 0, 0.7)',
         })
+        await signup(data)
+        await sendVerificationLetter(data)
 
         loading.close()
         ElMessage({
@@ -69,7 +71,7 @@ const register = async () => {
             type: 'success',
         })
 
-        await handleAuthLogin()
+        // await handleAuthLogin()
     }
 
 }

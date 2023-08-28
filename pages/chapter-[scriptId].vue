@@ -1,9 +1,11 @@
 <template>
     <NuxtLayout name="default">
         <div class="main-box">
-            <div class="top-bg"></div>
+            <div class="top-bg">
+                <img :src="imgUrl" alt="">
+            </div>
             <div class="content-box">
-                <div class="top-title">虎兔篇</div>
+                <div class="top-title">{{ scriptData.title }}</div>
                 <div class="explain-box">
                     <div class="notice-title">
                         <img class="notice-svg" src="~assets/images/Icon/notice.svg" alt="">
@@ -11,34 +13,25 @@
                     </div>
                     <div class="item-box">
                         <ol>
-                            <li>本教材會使用 2 日。</li>
-                            <li>回家後要跟家長討論選項，隔天要在班上討論。</li>
-                            <li>討論出來的選項會影響結局。</li>
-                            <li>結局有 4 種，每種會以不同老師出面處理的方式呈現。</li>
-                            <li>可以試著想想看，故事中的主角們分別有哪些感受及需求。</li>
+                            <li v-for="item, index in scriptData.preamble" :key="index">{{ item }}</li>
                         </ol>
                     </div>
 
                 </div>
-                <div class="course-box">
-                    <div class="title-box">
-                        <div class="course-title">第 1 日</div>
+                <div v-for="detail in scriptData.scriptDetail" class="course-box">
+                    <div @click="toggleContent(detail.period)" class="title-box">
+                        <div class="course-title">第 {{ detail.period }} 日</div>
                         <div class="arrow">
                             <img class="arrow-svg" src="~assets/images/Icon/arrow-up-2.svg" alt="">
                         </div>
                     </div>
-                    <div class="course-content">
+                    <div class="course-content" :id="`content-${detail.period}`">
                         <div class="course-content-h2">帶領方式說明</div>
                         <div class="illustrate">
-                            <ol>
-                                <li>簡介本教材進行方式。</li>
-                                <li>在課堂上發布第 1 日的影片: 虎兔篇 Day1。</li>
-                                <li>發布虎兔篇「額外資訊」。</li>
-                                <li>發下第一日的學習單，請同學回家填寫。</li>
-                            </ol>
+                            {{ detail.description }}
                         </div>
                         <div class="course-content-h2">建議進行時間</div>
-                        <div class="item-text">10 分鐘</div>
+                        <div class="item-text">{{ detail.advisoryTime }} 分鐘</div>
                         <div class="course-content-h2">劇情影片</div>
                         <div class="player-box">
                             <div class="player">
@@ -48,28 +41,6 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-
-                <div class="course-box course-day2">
-                    <div class="title-box">
-                        <div class="course-title">第 2 日</div>
-                        <div class="arrow">
-                            <img class="arrow-svg" src="~assets/images/Icon/arrow-up-2.svg" alt="">
-                        </div>
-                    </div>
-                    <div class="course-content">
-                        <div class="course-content-h2">帶領方式說明</div>
-                        <div class="illustrate">
-                            <ol>
-                                <li>讓學生分組討論，以組為單位給出選項答案。</li>
-                                <li>統計各組學生及家長答案。</li>
-                                <li>依照計分結果公結局影片: 結局一 / 二 / 三 / 四。</li>
-                                <li>帶領學生進行最終討論。</li>
-                            </ol>
-                        </div>
-                        <div class="course-content-h2">建議進行時間</div>
-                        <div class="item-text">1 節課</div>
                     </div>
                 </div>
 
@@ -124,7 +95,29 @@
         </div>
     </NuxtLayout>
 </template>
-<script lang="ts" setup>
+<script setup>
+import { getScriptById, editScriptById, uploadFileById } from "~/api/script";
+
+const route = useRoute();
+const scriptId = route.params.scriptId
+
+const imgUrl = ref("")
+const scriptData = reactive({})
+const setScriptData = async () => {
+    const { data } = await getScriptById(scriptId)
+    Object.assign(scriptData, JSON.parse(JSON.stringify(data.value.data)))
+    console.log("scriptData", scriptData)
+    scriptData.hasImg = scriptData.mediaDTO.length > 0
+    if (scriptData.hasImg) {
+        imgUrl.value = scriptData.mediaDTO.filter(o => o.description == "cover")[0].filePath
+    }
+}
+setScriptData()
+
+const toggleContent = (id) => {
+    var contentElement = document.getElementById(`content-${id}`);
+    contentElement.classList.toggle("course-content-expanded");
+}
 </script>
 
 <style lang="scss" scoped>
@@ -134,11 +127,8 @@
     .top-bg {
         width: 100%;
         height: 225px;
-        background-image: url('../assets/images/script_cover_image.png');
-        background-repeat: no-repeat;
-        background-size: cover;
-        background-position-x: center;
-        background-position-y: center;
+        display: flex;
+        justify-content: center;
     }
 
     .content-box {
@@ -201,7 +191,6 @@
 
         .course-box {
             width: 928px;
-            height: 880px;
             margin-top: 32px;
             border-radius: 15px;
             background: $secondary2;
@@ -219,6 +208,7 @@
                 background: $background3;
                 height: 58px;
                 padding: 0 32px;
+                cursor: pointer;
 
                 .course-title {
                     font-weight: 700;
@@ -230,6 +220,13 @@
 
             .course-content {
                 padding: 32px;
+                height: auto;
+            overflow: hidden;
+
+                &-expanded {
+                        padding: 0px;
+                        height: 0;
+                    }
 
                 &-h2 {
                     font-weight: 500;
@@ -296,6 +293,8 @@
                     &-svg {
                         margin-right: 3.5px;
                     }
+
+                    
                 }
             }
 
