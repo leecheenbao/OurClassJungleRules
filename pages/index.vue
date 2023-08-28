@@ -44,42 +44,16 @@
           並帶著學生討論及教導他們「適當」滿足需求的方式，我們不只教導孩子方法，我們亦在培養孩子自我覺察及關懷他人的能力，霸凌的發生，往往就是因為有許多冷漠或害怕的旁觀
           者，而使得衝突演變成霸凌，我們期待孩子能夠成為正義的助人者，共創和諧的班級文化。</div>
         <div class="item-box">
-          <div class="item">
+          <div v-for="data in allScript" :key="data.scriptId" class="item">
             <div class="background"></div>
-            <div class="item-title">虎兔篇</div>
-            <div class="item-content">潛在霸凌者需求:生理需求</div>
-            <nuxt-link to="/manage/script" class="item-btn">
+            <div class="item-title">{{ data.title }}</div>
+            <div class="item-content">{{ data.description }}</div>
+            <nuxt-link :to="`/chapter-${data.scriptId}`" class="item-btn">
               <span class="btn-span">劇本介紹</span>
               <span class="arrowIcon">➔</span>
             </nuxt-link>
           </div>
-          <div class="item">
-            <div class="background"></div>
-            <div class="item-title">虎兔篇</div>
-            <div class="item-content">潛在霸凌者需求:生理需求</div>
-            <nuxt-link to="/manage/script" class="item-btn">
-              <span class="btn-span">劇本介紹</span>
-              <span class="arrowIcon">➔</span>
-            </nuxt-link>
-          </div>
-          <div class="item">
-            <div class="background"></div>
-            <div class="item-title">虎兔篇</div>
-            <div class="item-content">潛在霸凌者需求:生理需求</div>
-            <nuxt-link to="/manage/script" class="item-btn">
-              <span class="btn-span">劇本介紹</span>
-              <span class="arrowIcon">➔</span>
-            </nuxt-link>
-          </div>
-          <div class="item">
-            <div class="background"></div>
-            <div class="item-title">虎兔篇</div>
-            <div class="item-content">潛在霸凌者需求:生理需求</div>
-            <nuxt-link to="/manage/script" class="item-btn">
-              <span class="btn-span">劇本介紹</span>
-              <span class="arrowIcon">➔</span>
-            </nuxt-link>
-          </div>
+
         </div>
         <div class="content">每篇長度不同( 2-5 天版本)，可依教學需求選擇。劇本會以每天發布一段故事的方式呈現，並附有選項讓學生回家跟家長討論，隔日回到班上後再和同
           組成員做出選擇。每個選項會有各自的計分，引導劇本走向不同結局。進入結局後，會由老師帶領學生進行最終討論。</div>
@@ -88,6 +62,49 @@
     <getTextbooks></getTextbooks>
   </NuxtLayout>
 </template>
+
+<script setup>
+import { getMyTask, edit, add } from "~/api/task";
+import { ElMessage } from 'element-plus'
+import { getScript } from "~/api/script";
+
+const allScript = reactive([])
+const setAllScript = async () => {
+  const { data } = await getScript()
+  let list = JSON.parse(JSON.stringify(data.value.data.list))
+  // list = list.filter(o => o.status !== 0)
+  allScript.length = 0
+  allScript.push(...list)
+  console.log("我的任務 all data", allScript)
+
+}
+
+const allMissionData = reactive([])
+const init = async () => {
+  await setAllScript()
+  // const { data } = await getMyTask()
+  // let list = JSON.parse(JSON.stringify(data.value.data.list))
+  // list = list.filter(o => o.status !== 2)
+  // allMissionData.length = 0
+  // list.forEach(mission => {
+  //   console.log('mission', mission)
+  //   allMissionData.push(getScriptById(mission.scriptId))
+  // });
+
+
+}
+init()
+
+const getScriptById = (id) => {
+  if (allScript.length > 0) {
+    if (allScript.filter(o => o.scriptId == id).length > 0) {
+      return allScript.filter(o => o.scriptId == id)[0]
+    }
+    return null
+  }
+  return null
+}
+</script>
 
 <style lang="scss" scoped>
 .box {
@@ -335,14 +352,15 @@
   .third {
     &-block {
       width: 100%;
-      height: 769px;
+      margin-bottom: 50px;
       background-color: $background2;
       display: flex;
       justify-content: center;
       align-items: center;
+
       @include respond-to('phone') {
         height: auto;
-        }
+      }
 
       .content-box {
         width: 1, 164px;
@@ -384,14 +402,21 @@
         }
 
         .item-box {
+          width: 1180px;
           margin-top: 30px;
           display: flex;
+          flex-wrap: wrap;
+
           @include respond-to('phone') {
             flex-direction: column;
             width: 90%;
+            align-items: center;
           }
+
           .item {
-            width: 279px;
+            min-width: 279px;
+            max-width: 279px;
+            margin-bottom: 15px;
             height: 327px;
             background: $secondary2;
             border: 3px solid $border4;
@@ -401,10 +426,11 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+
             @include respond-to('phone') {
               width: 100%;
               margin-bottom: 16px;
-          }
+            }
 
             .background {
               background-color: #fffbf4;
@@ -432,7 +458,11 @@
               color: $text2;
               margin-top: 12px;
               letter-spacing: 0.5px;
-             
+              overflow: hidden;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+              width: 80%;
+
             }
 
             &-btn {
@@ -475,11 +505,12 @@
           margin-top: 32px;
           letter-spacing: 0.5px;
           padding: 32px;
+
           @include respond-to('phone') {
-              width: 90%;
-              height: auto;
-              padding: 32px;
-              margin-bottom: 80px;
+            width: 90%;
+            height: auto;
+            padding: 32px;
+            margin-bottom: 80px;
           }
         }
       }

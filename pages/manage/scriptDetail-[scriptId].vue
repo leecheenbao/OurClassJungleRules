@@ -48,7 +48,8 @@
                     <div class="step-day-row3">
                         <div class="step-day-title5">額外資訊</div>
                         <div>
-                            <div v-for="info, index in detail.additionalInfo" :key="index" class="step-day-text">資訊{{ index
+                            <div v-for="info, index in detail.additionalInfo" :key="index" class="step-day-text">資訊{{
+                                index + 1
                             }}
                                 {{ info }}</div>
                         </div>
@@ -103,22 +104,26 @@
                         <div class="step-day-net">
                             <div class="step-day-row">
                                 <div class="step-day-title3">劇情影片</div>
-                                <div class="step-day-video">第1日教學影片.mp4</div>
+                                <img v-if="judgeHasFile(`drama-${detail.period}`)" class="step-day-icon"
+                                    src="~/assets/images/Icon/available.svg" alt="available">
                             </div>
                             <div class="step-day-line"></div>
                             <div class="step-day-row">
                                 <div class="step-day-title3">學習單</div>
-                                <div class="step-day-video">第1日學習單.mp4</div>
+                                <img v-if="judgeHasFile(`sheet-${detail.period}`)" class="step-day-icon"
+                                    src="~/assets/images/Icon/available.svg" alt="available">
                             </div>
                             <div class="step-day-line"></div>
                             <div class="step-day-row">
                                 <div class="step-day-title3">教學簡報</div>
-                                <div class="step-day-video">第1日教學簡報.mp4</div>
+                                <img v-if="judgeHasFile(`bulletin-${detail.period}`)" class="step-day-icon"
+                                    src="~/assets/images/Icon/available.svg" alt="available">
                             </div>
                             <div class="step-day-line"></div>
                             <div class="step-day-row">
                                 <div class="step-day-title3">額外資訊</div>
-                                <div class="step-day-video">第1日額外資訊.mp4</div>
+                                <img v-if="judgeHasFile(`information-${detail.period}`)" class="step-day-icon"
+                                    src="~/assets/images/Icon/available.svg" alt="available">
                             </div>
                         </div>
                     </div>
@@ -129,34 +134,34 @@
             <!-- 結局日 -->
             <div v-if="isEdited" class="step-day">
                 <div class="step-day-head-row">
-                    <div class="step-day-head">第 2 日 (結局日)</div>
+                    <div class="step-day-head">第 {{ scriptData.scriptPeriod }} 日 (結局日)</div>
                     <div class="step-day-up">^</div>
                 </div>
 
                 <div class="step-day-box">
                     <div class="step-day-row3">
                         <div class="step-day-title5">建議時間</div>
-                        <div class="step-day-text">10 分鐘</div>
+                        <div class="step-day-text">{{ scriptEnding.advisoryTime }} 分鐘</div>
                     </div>
                     <div class="step-day-row3">
                         <div class="step-day-title5">帶領方式說明</div>
-                        <div class="step-day-text">統計各組學生及家長答案</div>
+                        <div class="step-day-text">{{ scriptEnding.endingDescription }}</div>
                     </div>
                     <div class="step-day-row3">
                         <div class="step-day-title5">結局一描述 (鴞老師)</div>
-                        <div class="step-day-text">統計各組學生及家長答案</div>
+                        <div class="step-day-text">{{ scriptEnding.endingOne }}</div>
                     </div>
                     <div class="step-day-row3">
-                        <div class="step-day-title5">結局一描述 (鴿老師)</div>
-                        <div class="step-day-text">統計各組學生及家長答案</div>
+                        <div class="step-day-title5">結局二描述 (鴿老師)</div>
+                        <div class="step-day-text">{{ scriptEnding.endingTwo }}</div>
                     </div>
                     <div class="step-day-row3">
-                        <div class="step-day-title5">結局一描述 (鴉老師)</div>
-                        <div class="step-day-text">統計各組學生及家長答案</div>
+                        <div class="step-day-title5">結局三描述 (鴉老師)</div>
+                        <div class="step-day-text">{{ scriptEnding.endingThree }}</div>
                     </div>
                     <div class="step-day-row3">
-                        <div class="step-day-title5">結局一描述 (鷹老師)</div>
-                        <div class="step-day-text">統計各組學生及家長答案</div>
+                        <div class="step-day-title5">結局四描述 (鷹老師)</div>
+                        <div class="step-day-text">{{ scriptEnding.endingFour }}</div>
                     </div>
 
                     <div class="step-day-row3">
@@ -164,22 +169,26 @@
                         <div class="step-day-net">
                             <div class="step-day-row">
                                 <div class="step-day-title">結局一 (鴞老師) 影片</div>
-                                <div class="step-day-video">結局一.mp4</div>
+                                <img v-if="judgeHasFile(`endingMovie1`)" class="step-day-icon"
+                                    src="~/assets/images/Icon/available.svg" alt="available">
                             </div>
                             <div class="step-day-line"></div>
                             <div class="step-day-row">
                                 <div class="step-day-title">結局二 (鴿老師) 影片</div>
-                                <div class="step-day-video">結局二.mp4</div>
+                                <img v-if="judgeHasFile(`endingMovie2`)" class="step-day-icon"
+                                    src="~/assets/images/Icon/available.svg" alt="available">
                             </div>
                             <div class="step-day-line"></div>
                             <div class="step-day-row">
                                 <div class="step-day-title">結局三 (鴉老師) 影片</div>
-                                <div class="step-day-video">結局三.mp4</div>
+                                <img v-if="judgeHasFile(`endingMovie3`)" class="step-day-icon"
+                                    src="~/assets/images/Icon/available.svg" alt="available">
                             </div>
                             <div class="step-day-line"></div>
                             <div class="step-day-row">
                                 <div class="step-day-title">結局四 (鷹老師) 影片</div>
-                                <div class="step-day-video">結局四.mp4</div>
+                                <img v-if="judgeHasFile(`endingMovie4`)" class="step-day-icon"
+                                    src="~/assets/images/Icon/available.svg" alt="available">
                             </div>
                         </div>
                     </div>
@@ -189,12 +198,14 @@
                         <div class="step-day-net">
                             <div class="step-day-row">
                                 <div class="step-day-title">學習單</div>
-                                <div class="step-day-video">學習單.mp4</div>
+                                <img v-if="judgeHasFile(`endingSheet`)" class="step-day-icon"
+                                    src="~/assets/images/Icon/available.svg" alt="available">
                             </div>
                             <div class="step-day-line"></div>
                             <div class="step-day-row">
                                 <div class="step-day-title">學習簡報</div>
-                                <div class="step-day-video">學習簡報.mp4</div>
+                                <img v-if="judgeHasFile(`endingBulletin`)" class="step-day-icon"
+                                    src="~/assets/images/Icon/available.svg" alt="available">
                             </div>
                         </div>
                     </div>
@@ -206,9 +217,10 @@
                                 <div class="step-day-title">結局一 (鴞老師)</div>
                                 <div class="step-day-row2">
                                     <div class="step-day-test2">秩序：</div>
-                                    <div class="step-day-test3">正面</div>
+                                    <div class="step-day-test3" style="margin-right: 10px;">{{
+                                        plusOrMinus[scriptEnding.orderlyOne] }}</div>
                                     <div class="step-day-test2">關係：</div>
-                                    <div class="step-day-test3">正面</div>
+                                    <div class="step-day-test3">{{ plusOrMinus[scriptEnding.relationOne] }}</div>
                                 </div>
                             </div>
                             <div class="step-day-line"></div>
@@ -216,9 +228,10 @@
                                 <div class="step-day-title">結局二 (鴿老師)</div>
                                 <div class="step-day-row2">
                                     <div class="step-day-test2">秩序：</div>
-                                    <div class="step-day-test3">正面</div>
+                                    <div class="step-day-test3" style="margin-right: 10px;">{{
+                                        plusOrMinus[scriptEnding.orderlyTwo] }}</div>
                                     <div class="step-day-test2">關係：</div>
-                                    <div class="step-day-test3">正面</div>
+                                    <div class="step-day-test3">{{ plusOrMinus[scriptEnding.relationTwo] }}</div>
                                 </div>
                             </div>
                             <div class="step-day-line"></div>
@@ -226,9 +239,10 @@
                                 <div class="step-day-title">結局三 (鴉老師)</div>
                                 <div class="step-day-row2">
                                     <div class="step-day-test2">秩序：</div>
-                                    <div class="step-day-test3">正面</div>
+                                    <div class="step-day-test3" style="margin-right: 10px;">{{
+                                        plusOrMinus[scriptEnding.orderlyThree] }}</div>
                                     <div class="step-day-test2">關係：</div>
-                                    <div class="step-day-test3">正面</div>
+                                    <div class="step-day-test3">{{ plusOrMinus[scriptEnding.relationThree] }}</div>
                                 </div>
                             </div>
                             <div class="step-day-line"></div>
@@ -236,9 +250,10 @@
                                 <div class="step-day-title">結局四 (鷹老師)</div>
                                 <div class="step-day-row2">
                                     <div class="step-day-test2">秩序：</div>
-                                    <div class="step-day-test3">正面</div>
+                                    <div class="step-day-test3" style="margin-right: 10px;">{{
+                                        plusOrMinus[scriptEnding.orderlyFour] }}</div>
                                     <div class="step-day-test2">關係：</div>
-                                    <div class="step-day-test3">正面</div>
+                                    <div class="step-day-test3">{{ plusOrMinus[scriptEnding.relationFour] }}</div>
                                 </div>
                             </div>
                         </div>
@@ -375,41 +390,55 @@
             <!-- 結局日 -->
             <div v-if="!isEdited" class="step-day">
                 <div class="step-day-head-row">
-                    <div class="step-day-head-text">第 2 日 (結局日)</div>
+                    <div class="step-day-head-text">第 {{ scriptData.scriptPeriod }} 日 (結局日)</div>
                     <div class="step-day-head-up">^</div>
                 </div>
 
                 <div class="step-day-box">
                     <div class="step-day-title">*建議進行時間</div>
-                    <input class="input step-day-input" placeholder="ex.1 節課" type="text">
+                    <input v-model="editEnding.advisoryTime" class="input step-day-input" placeholder="ex.1 節課"
+                        type="number">
                     <div class="step-day-title">*帶領方式說明</div>
-                    <textarea class="input step-day-textarea" placeholder="ex.10 分鐘" type="text"></textarea>
-                    <div class="step-day-title">*結局二描述 (鴿老師)</div>
-                    <textarea class="input step-day-textarea" placeholder="請輸入描述內容" type="text"></textarea>
+                    <textarea v-model="editEnding.endingDescription" class="input step-day-textarea" placeholder="請輸入帶領方式說明"
+                        type="text"></textarea>
                     <div class="step-day-title">*結局一描述 (鴞老師)</div>
-                    <textarea class="input step-day-textarea" placeholder="請輸入描述內容" type="text"></textarea>
+                    <textarea v-model="editEnding.endingOne" class="input step-day-textarea" placeholder="請輸入描述內容"
+                        type="text"></textarea>
+                    <div class="step-day-title">*結局二描述 (鴿老師)</div>
+                    <textarea v-model="editEnding.endingTwo" class="input step-day-textarea" placeholder="請輸入描述內容"
+                        type="text"></textarea>
                     <div class="step-day-title">*結局三描述 (鴉老師)</div>
-                    <textarea class="input step-day-textarea" placeholder="請輸入描述內容" type="text"></textarea>
+                    <textarea v-model="editEnding.endingThree" class="input step-day-textarea" placeholder="請輸入描述內容"
+                        type="text"></textarea>
                     <div class="step-day-title">*結局四描述 (鷹老師)</div>
-                    <textarea class="input step-day-textarea" placeholder="請輸入描述內容" type="text"></textarea>
+                    <textarea v-model="editEnding.endingFour" class="input step-day-textarea" placeholder="請輸入描述內容"
+                        type="text"></textarea>
 
                     <div class="step-day-title2">結局影片</div>
                     <div class="step-day-net">
                         <div class="step-day-row">
                             <div class="step-day-title3">結局一 (鴞老師) 影片</div>
-                            <div class="step-day-upload">上傳</div>
+                            <div @click="chooseFile('endingMovie1', 'end')" class="step-day-upload">上傳</div>
+                            <input type="file" id="endingMovie1" style="display: none;"
+                                @change="changeFile" data-period="end" data-ref="endingMovie1">
                         </div>
                         <div class="step-day-row">
                             <div class="step-day-title3">結局二 (鴿老師) 影片</div>
-                            <div class="step-day-upload">上傳</div>
+                            <div @click="chooseFile('endingMovie2', 'end')" class="step-day-upload">上傳</div>
+                            <input type="file" id="endingMovie2" style="display: none;"
+                                @change="changeFile" data-period="end" data-ref="endingMovie2">
                         </div>
                         <div class="step-day-row">
                             <div class="step-day-title3">結局三 (鴉老師) 影片</div>
-                            <div class="step-day-upload">上傳</div>
+                            <div @click="chooseFile('endingMovie3', 'end')" class="step-day-upload">上傳</div>
+                            <input type="file" id="endingMovie3" style="display: none;"
+                                @change="changeFile" data-period="end" data-ref="endingMovie3">
                         </div>
                         <div class="step-day-row">
                             <div class="step-day-title3">結局四 (鷹老師) 影片</div>
-                            <div class="step-day-upload">上傳</div>
+                            <div @click="chooseFile('endingMovie4', 'end')" class="step-day-upload">上傳</div>
+                            <input type="file" id="endingMovie4" style="display: none;"
+                                @change="changeFile" data-period="end" data-ref="endingMovie4">
                         </div>
                     </div>
 
@@ -417,11 +446,15 @@
                     <div class="step-day-net">
                         <div class="step-day-row">
                             <div class="step-day-title3">學習單</div>
-                            <div class="step-day-upload">上傳</div>
+                            <div @click="chooseFile('endingSheet', 'end')" class="step-day-upload">上傳</div>
+                            <input type="file" id="endingSheet" style="display: none;"
+                                @change="changeFile" data-period="end" data-ref="endingSheet">
                         </div>
                         <div class="step-day-row">
                             <div class="step-day-title3">教學簡報</div>
-                            <div class="step-day-upload">上傳</div>
+                            <div @click="chooseFile('endingBulletin', 'end')" class="step-day-upload">上傳</div>
+                            <input type="file" id="endingBulletin" style="display: none;"
+                                @change="changeFile" data-period="end" data-ref="endingBulletin">
                         </div>
                     </div>
 
@@ -432,16 +465,16 @@
                             <div class="step-day-row">
                                 <div class="step-day-title3">秩序</div>
                                 <div class="step-day-container">
-                                    <select class="select">
-                                        <option value="">計分</option>
-                                        <option value="volvo">不計分</option>
+                                    <select v-model="editEnding.orderlyOne" class="select">
+                                        <option :value="0">正面</option>
+                                        <option :value="1">負面</option>
                                     </select>
                                 </div>
                                 <div class="step-day-title3">關係</div>
                                 <div class="step-day-container">
-                                    <select class="select">
-                                        <option value="">計分</option>
-                                        <option value="volvo">不計分</option>
+                                    <select v-model="editEnding.relationOne" class="select">
+                                        <option :value="0">正面</option>
+                                        <option :value="1">負面</option>
                                     </select>
                                 </div>
                             </div>
@@ -451,16 +484,16 @@
                             <div class="step-day-row">
                                 <div class="step-day-title3">秩序</div>
                                 <div class="step-day-container">
-                                    <select class="select">
-                                        <option value="">計分</option>
-                                        <option value="volvo">不計分</option>
+                                    <select v-model="editEnding.orderlyTwo" class="select">
+                                        <option :value="0">正面</option>
+                                        <option :value="1">負面</option>
                                     </select>
                                 </div>
                                 <div class="step-day-title3">關係</div>
                                 <div class="step-day-container">
-                                    <select class="select">
-                                        <option value="">計分</option>
-                                        <option value="volvo">不計分</option>
+                                    <select v-model="editEnding.relationTwo" class="select">
+                                        <option :value="0">正面</option>
+                                        <option :value="1">負面</option>
                                     </select>
                                 </div>
                             </div>
@@ -470,16 +503,16 @@
                             <div class="step-day-row">
                                 <div class="step-day-title3">秩序</div>
                                 <div class="step-day-container">
-                                    <select class="select">
-                                        <option value="">計分</option>
-                                        <option value="volvo">不計分</option>
+                                    <select v-model="editEnding.orderlyThree" class="select">
+                                        <option :value="0">正面</option>
+                                        <option :value="1">負面</option>
                                     </select>
                                 </div>
                                 <div class="step-day-title3">關係</div>
                                 <div class="step-day-container">
-                                    <select class="select">
-                                        <option value="">計分</option>
-                                        <option value="volvo">不計分</option>
+                                    <select v-model="editEnding.relationThree" class="select">
+                                        <option :value="0">正面</option>
+                                        <option :value="1">負面</option>
                                     </select>
                                 </div>
                             </div>
@@ -489,16 +522,16 @@
                             <div class="step-day-row">
                                 <div class="step-day-title3">秩序</div>
                                 <div class="step-day-container">
-                                    <select class="select">
-                                        <option value="">計分</option>
-                                        <option value="volvo">不計分</option>
+                                    <select v-model="editEnding.orderlyFour" class="select">
+                                        <option :value="0">正面</option>
+                                        <option :value="1">負面</option>
                                     </select>
                                 </div>
                                 <div class="step-day-title3">關係</div>
                                 <div class="step-day-container">
-                                    <select class="select">
-                                        <option value="">計分</option>
-                                        <option value="volvo">不計分</option>
+                                    <select v-model="editEnding.relationFour" class="select">
+                                        <option :value="0">正面</option>
+                                        <option :value="1">負面</option>
                                     </select>
                                 </div>
                             </div>
@@ -509,30 +542,37 @@
                 </div>
             </div>
 
-
-
         </div>
     </NuxtLayout>
 </template>
 
 <script setup>
-import { getScriptById, uploadDetail, editScriptById ,uploadFileById} from "~/api/script";
+import { getScriptById, uploadDetail, editScriptById, uploadFileById, uploadEnding } from "~/api/script";
 import { ElMessage } from 'element-plus'
+
 
 const fractionOption = {
     0: "加分",
     1: "不加分"
 }
+const plusOrMinus = {
+    0: "正面",
+    1: "負面"
+}
 const route = useRoute();
 const scriptId = route.params.scriptId
 const scriptData = reactive({})
 const scriptDetail = reactive([])
+const scriptEnding = reactive({})
+const editEnding = reactive({})
 const editScriptDetail = reactive([])
 const isUsed = ref(false)
 const setScriptData = async () => {
     const { data } = await getScriptById(scriptId)
     Object.assign(scriptData, JSON.parse(JSON.stringify(data.value.data)))
     Object.assign(scriptDetail, JSON.parse(JSON.stringify(data.value.data.scriptDetail)))
+    Object.assign(scriptEnding, JSON.parse(JSON.stringify(data.value.data.scriptEndingDTO)))
+    Object.assign(editEnding, JSON.parse(JSON.stringify(data.value.data.scriptEndingDTO)))
     Object.assign(editScriptDetail, JSON.parse(JSON.stringify(data.value.data.scriptDetail)))
     console.log("editScriptDetail", editScriptDetail)
     editScriptDetail.forEach(o => {
@@ -552,6 +592,20 @@ const setScriptData = async () => {
     console.log('scriptData', scriptData)
 }
 setScriptData()
+
+const judgeHasFile = (description) => {
+    if (scriptData.mediaDTO) {
+        let filterFile = scriptData.mediaDTO.filter(o => o.description == description)
+        return filterFile.length > 0
+    }
+    return false
+}
+
+const fileList = reactive({})
+const setFileList = () => {
+    let fileMediaDTO = scriptData.mediaDTO.filter(o => o.description !== "cover")
+    let fileLength = scriptData.scriptPeriod - 1
+}
 
 const addOneItem = (day, item) => {
     let dayData = editScriptDetail.filter(o => o.period == day)[0]
@@ -614,8 +668,7 @@ const toggleContent = (id) => {
     contentElement.classList.toggle("step-day-box-expanded");
 }
 
-const store = async () => {
-    isEdited.value = true
+const handleUploadDetail = async () => {
     for (let index = 0; index < editScriptDetail.length; index++) {
         editScriptDetail[index].additionalInfo = editScriptDetail[index].additionalInfo.map(o => o.text)
         editScriptDetail[index].studentConfigs.forEach(obj => {
@@ -627,6 +680,17 @@ const store = async () => {
         console.log("store", editScriptDetail[index])
         await uploadDetail(editScriptDetail[index])
     }
+}
+
+const handleUploadEnding = async () => {
+    console.log("editEnding", editEnding)
+    await uploadEnding(editEnding)
+}
+
+const store = async () => {
+    isEdited.value = true
+    await handleUploadDetail()
+    await handleUploadEnding()
     ElMessage({
         message: '儲存成功',
         type: 'success',
@@ -635,17 +699,24 @@ const store = async () => {
 }
 
 const chooseFile = (ref, period) => {
-    const myButton = document.getElementById(`${ref}-${period}`);
-    myButton.click();
+    let button = document.getElementById(`${ref}-${period}`);
+    if (period == 'end') {
+        button = document.getElementById(ref);
+    }
+    button.click();
 }
-
 
 const changeFile = async (el) => {
     const period = el.target.dataset.period;
     const elRef = el.target.dataset.ref;
     const formData = new FormData();
     formData.append('file', el.target.files[0])
-    formData.append('description', `${elRef}-${period}`)
+    if(period == 'end'){
+        formData.append('description', elRef)
+    }else {
+        formData.append('description', `${elRef}-${period}`)
+    }
+    
     await uploadFileById(scriptId, formData)
     ElMessage({
         message: '上傳成功',

@@ -23,3 +23,7 @@ export const uploadDetail = async (data) => {
 export const addOne = async (data) => {
     return await useHttp.post(`${categoryBaseUrl}`,data);
 };
+
+export const uploadEnding = async (data) => {
+    return await useHttp.post(`${categoryBaseUrl}/ending`,data);
+};

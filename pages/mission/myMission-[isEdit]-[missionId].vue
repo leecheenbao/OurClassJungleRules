@@ -4,7 +4,7 @@
             <div class="mission-head">
                 <nuxt-link v-if="isEdit" to="/mission/myList" class="mission-head-leave">＜- 返回列表</nuxt-link>
                 <nuxt-link v-else to="/mission/list" class="mission-head-leave">＜- 返回列表</nuxt-link>
-                <div class="mission-head-text">1年二班虎兔篇</div>
+                <div class="mission-head-text">{{ scriptData.title }}</div>
                 <div v-if="isEdit" @click="isShowEdit = true" class="mission-head-edit">
                     <img class="mission-head-img" src="~assets/images/Icon/edit.svg" alt="">
                 </div>
@@ -51,40 +51,44 @@
 
             <div class="mission-day">
                 <div class="mission-head2">
-                    <div class="mission-head2-selected">第 1 日</div>
+                    <div v-for="i in (scriptData.day)" :id="`mission-head2-${i}`" @click="missionHeadClick(i)"
+                        class="mission-head2-last">第
+                        {{ i }} 日</div>
                     <!-- <div class="mission-head-unselect"></div> -->
-                    <div class="mission-head2-last">
-                        <div>第 2 日</div>
+                    <div :id="`mission-head2-${scriptData.dayEnd}`" @click="missionHeadClick(scriptData.dayEnd)"
+                        class="mission-head2-last">
+                        <div>第 {{ scriptData.dayEnd }} 日</div>
                         <div class="mission-head2-hint">(結局日)</div>
                     </div>
                 </div>
 
-                <div class="mission-body">
+                <div v-if="currentPeriod !== scriptData.dayEnd" class="mission-body">
                     <div class="mission-body-head">帶領方式說明</div>
-                    <div class="mission-body-text">簡介本教材進行方式。</div>
-                    <div class="mission-body-text">在課堂上發布第 1 日的影片: 虎兔篇 Day1。</div>
-                    <div class="mission-body-text">發布虎兔篇「額外資訊」。</div>
-                    <div class="mission-body-text">發下第一日的學習單，請同學回家填寫。</div>
+                    <div class="mission-body-text">{{ currentDetail.description }}</div>
                     <div class="mission-body-head">建議進行時間</div>
-                    <div class="mission-body-text">10分鐘</div>
+                    <div class="mission-body-text">{{ currentDetail.advisoryTime }}分鐘</div>
                     <div class="mission-body-line"></div>
 
                     <div class="mission-body-head">本日劇情影片</div>
-                    <div class="mission-body-video">
-                        <div class="mission-body-video-head">虎兔篇 第 1 日</div>
-                        <div class="mission-body-video-play">
-                            <img class="mission-body-video-img" src="~assets/images/Icon/play.svg" alt="">
-                            <div>播放影片</div>
-                        </div>
-                        <div class="mission-body-video-text">
-                            <img class="mission-body-video-img" src="~assets/images/Icon/detail.svg" alt="">
-                            <div>閱讀文字版</div>
-                        </div>
-                        <div class="mission-body-video-text">
-                            <img class="mission-body-video-img" src="~assets/images/Icon/download.svg" alt="">
-                            <div>影片 QR code 下載</div>
+                    <div class="mission-body-videoBox" :style="`background: no-repeat center url(${scriptData.imgUrl})`">
+                        <div class="mission-body-video">
+                            <div class="mission-body-video-head">{{ scriptData.title }} 第 {{ currentDetail.period }} 日</div>
+                            <div @click="videoPlay(currentDetail.drama)" class="mission-body-video-play">
+                                <img class="mission-body-video-img" src="~assets/images/Icon/play.svg" alt="">
+                                <div>播放影片</div>
+                            </div>
+                            <div @click="openContentPopup(currentDetail.todayScript)" class="mission-body-video-text">
+                                <img class="mission-body-video-img" src="~assets/images/Icon/detail.svg" alt="">
+                                <div>閱讀文字版</div>
+                            </div>
+                            <div @click="qrDownload(currentDetail.drama, `第${currentDetail.period}日劇情`)"
+                                class="mission-body-video-text">
+                                <img class="mission-body-video-img" src="~assets/images/Icon/download.svg" alt="">
+                                <div>影片 QR code 下載</div>
+                            </div>
                         </div>
                     </div>
+
 
                     <div class="mission-body-row">
                         <div class="mission-body-box">學生問題討論</div>
@@ -96,76 +100,44 @@
                         <div class="mission-body-box">
                             <div class="mission-body-box-header">
                                 <div class="mission-body-box-question">?</div>
-                                <div class="mission-body-box-head">如果你是他們的同學，當下你會怎麼做?</div>
+                                <div class="mission-body-box-head">{{ currentDetail.stuContent }}</div>
                             </div>
-                            <div class="mission-body-box-row1">
+                            <div v-for="config, index in currentDetail.studentConfigs" class="mission-body-box-row1">
                                 <div class="mission-body-box-row2">
-                                    <div class="mission-body-box-answer">A</div>
-                                    <div class="mission-body-box-text">溫和堅定地制止張萌虎。</div>
+                                    <div class="mission-body-box-answer">{{ numberToLetter(index + 1) }}</div>
+                                    <div class="mission-body-box-text">{{ config.stuDescription }}</div>
                                 </div>
-                                <img @click="isShowInfo = true" class="mission-body-box-info"
+                                <img @click="openContentPopup(currentDetail.todayScript)" class="mission-body-box-info"
                                     src="~assets/images/Icon/information.svg" alt="">
                             </div>
-                            <div class="mission-body-box-row1">
-                                <div class="mission-body-box-row2">
-                                    <div class="mission-body-box-answer">B</div>
-                                    <div class="mission-body-box-text">溫和堅定地制止張萌虎。</div>
-                                </div>
-                                <img class="mission-body-box-info" src="~assets/images/Icon/information.svg" alt="">
-                            </div>
-                            <div class="mission-body-box-row1">
-                                <div class="mission-body-box-row2">
-                                    <div class="mission-body-box-answer">C</div>
-                                    <div class="mission-body-box-text">溫和堅定地制止張萌虎。</div>
-                                </div>
-                                <img class="mission-body-box-info" src="~assets/images/Icon/information.svg" alt="">
-                            </div>
+
                         </div>
                         <!-- 右側 -->
                         <div class="mission-body-box">
                             <div class="mission-body-box-header">
                                 <div class="mission-body-box-question">?</div>
-                                <div class="mission-body-box-head">如果你是他們的同學，當下你會怎麼做?</div>
+                                <div class="mission-body-box-head">{{ currentDetail.parContent }}</div>
                             </div>
-                            <div class="mission-body-box-row1">
+                            <div v-for="config, index in currentDetail.parentConfigs" class="mission-body-box-row1">
                                 <div class="mission-body-box-row2">
-                                    <div class="mission-body-box-answer">A</div>
-                                    <div class="mission-body-box-text">溫和堅定地制止張萌虎。</div>
+                                    <div class="mission-body-box-answer">{{ numberToLetter(index + 1) }}</div>
+                                    <div class="mission-body-box-text">{{ config.parDescription }}</div>
                                 </div>
-                                <img class="mission-body-box-info" src="~assets/images/Icon/information.svg" alt="">
+                                <img @click="openContentPopup(currentDetail.todayScript)" class="mission-body-box-info"
+                                    src="~assets/images/Icon/information.svg" alt="">
                             </div>
-                            <div class="mission-body-box-row1">
-                                <div class="mission-body-box-row2">
-                                    <div class="mission-body-box-answer">B</div>
-                                    <div class="mission-body-box-text">溫和堅定地制止張萌虎。</div>
-                                </div>
-                                <img class="mission-body-box-info" src="~assets/images/Icon/information.svg" alt="">
-                            </div>
-                            <div class="mission-body-box-row1">
-                                <div class="mission-body-box-row2">
-                                    <div class="mission-body-box-answer">C</div>
-                                    <div class="mission-body-box-text">溫和堅定地制止張萌虎。</div>
-                                </div>
-                                <img class="mission-body-box-info" src="~assets/images/Icon/information.svg" alt="">
-                            </div>
+
                         </div>
                     </div>
 
                     <!-- 額外資訊 -->
 
                     <div class="mission-body-head2">額外資訊</div>
-                    <div class="mission-body-row2">
-                        <div class="mission-body-sub">資訊 1</div>
-                        <div class="mission-body-text">張萌虎是個靜不下來的孩子，下課時就往操場跑，不是去打球就是去跑步。</div>
+                    <div class="mission-body-row2" v-for="info, index in currentDetail.additionalInfo">
+                        <div class="mission-body-sub">資訊 {{ index + 1 }}</div>
+                        <div class="mission-body-text">{{ info }}</div>
                     </div>
-                    <div class="mission-body-row2">
-                        <div class="mission-body-sub">資訊 2</div>
-                        <div class="mission-body-text">在班上的時候，張猛虎總是坐不太住，常常動來動去，右腳也常常在抖。</div>
-                    </div>
-                    <div class="mission-body-row2">
-                        <div class="mission-body-sub">資訊 3</div>
-                        <div class="mission-body-text">你曾經問過張萌虎為什麼一直抖腳，他回答你說:「我也不知道!就是忍不住想要抖腳，我有試著不要抖，但就感覺很煩躁、很想生氣。」</div>
-                    </div>
+
                     <div class="mission-body-line"></div>
 
                     <!-- 本日計分 -->
@@ -322,26 +294,168 @@
                         <div class="mission-body-row3">
                             <div class="mission-body-row4">
                                 <div class="mission-body-head3">學習單</div>
-                                <img class="mission-body-icon" src="~assets/images/Icon/download.svg" alt="">
+                                <a v-if="currentDetail.sheet" target="_blank" :href="currentDetail.sheet" download="sheet">
+                                    <img class="mission-body-icon" src="~assets/images/Icon/download.svg" alt="">
+                                </a>
                             </div>
                             <div class="mission-body-row4">
                                 <div class="mission-body-head3">教學簡報</div>
-                                <img class="mission-body-icon" src="~assets/images/Icon/download.svg" alt="">
+                                <a v-if="currentDetail.bulletin" target="_blank" :href="currentDetail.bulletin"
+                                    download="sheet">
+                                    <img class="mission-body-icon" src="~assets/images/Icon/download.svg" alt="">
+                                </a>
                             </div>
                         </div>
                         <div class="mission-body-line2"></div>
                         <div class="mission-body-row3">
                             <div class="mission-body-row4">
                                 <div class="mission-body-head3">額外資訊</div>
-                                <img class="mission-body-icon" src="~assets/images/Icon/download.svg" alt="">
+                                <div v-if="currentDetail.information" @click="downloadFile(currentDetail.bulletin)">
+                                    <img class="mission-body-icon" src="~assets/images/Icon/download.svg" alt="">
+                                </div>
                             </div>
                             <div class="mission-body-row4">
                                 <div class="mission-body-head3">本日影片 QR code </div>
-                                <img class="mission-body-icon" src="~assets/images/Icon/download.svg" alt="">
+                                <div v-if="currentDetail.sheet"
+                                    @click="qrDownload(currentDetail.drama, `第${currentDetail.period}日劇情`)">
+                                    <img class="mission-body-icon" src="~assets/images/Icon/download.svg" alt="">
+                                </div>
                             </div>
                         </div>
                     </div>
 
+                </div>
+                <div v-if="currentPeriod == scriptData.dayEnd" class="mission-body">
+                    <div class="mission-body-head">帶領方式說明</div>
+                    <div class="mission-body-text">{{ currentDetail.endingDescription }}</div>
+                    <div class="mission-body-head">建議進行時間</div>
+                    <div class="mission-body-text">{{ currentDetail.advisoryTime }}分鐘</div>
+                    <div class="mission-body-line"></div>
+
+                    <div class="mission-body-head">計分總覽</div>
+                    <div class="mission-body-scoring">
+                        <div class="mission-body-scoring-titleBox">
+                            <div style="width: 40%;">項目</div>
+                            <div style="width: 25%;">秩序</div>
+                            <div style="width: 25%;">關係</div>
+                            <div style="width: 10%;">編輯</div>
+                        </div>
+                        <div class="mission-body-scoring-itemBox">
+                            <div style="width: 40%;">第 1 日得分小計</div>
+                            <div style="width: 25%;">+7</div>
+                            <div style="width: 25%;">+3</div>
+                            <div style="width: 10%;">
+                                <div data-v-61f7ac3a="" class="icon-outer"><img data-v-61f7ac3a="" class="icon"
+                                        src="/_nuxt/assets/images/Icon/edit.svg" alt="close"></div>
+                            </div>
+                        </div>
+                        <div class="mission-body-scoring-totalScore">
+                            <div class="score-title" style="width: 40%;">分數總計</div>
+                            <div style="width: 25%;">7</div>
+                            <div style="width: 25%;">3</div>
+                            <div style="width: 10%;">
+                            </div>
+                        </div>
+                        <div class="mission-body-scoring-end">
+                            <div class="score-title" style="width: 40%;">本次結局</div>
+                            <div class="score-endText" style="width: 25%;">虎兔篇 結局一</div>
+                            <div style="width: 25%;"></div>
+                            <div style="width: 10%;">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div @click="centerDialogVisible = true" class="mission-body-head">本次結局</div>
+                    <div class="mission-body-videoBox" :style="`background: no-repeat center url(${scriptData.imgUrl})`">
+                        <div v-if="!isVideoPlay" class="mission-body-video">
+                            <div class="mission-body-video-head">結局一</div>
+                            <div @click="videoPlay(currentDetail.endingMovie1)" class="mission-body-video-play">
+                                <img class="mission-body-video-img" src="~assets/images/Icon/play.svg" alt="">
+                                <div>播放影片</div>
+                            </div>
+                            <div @click="isShowInfo = true" class="mission-body-video-text">
+                                <img class="mission-body-video-img" src="~assets/images/Icon/detail.svg" alt="">
+                                <div>閱讀文字版</div>
+                            </div>
+                            <div class="mission-body-video-text">
+                                <img class="mission-body-video-img" src="~assets/images/Icon/download.svg" alt="">
+                                <div>影片 QR code 下載</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mission-body-line"></div>
+
+                    <!-- 全部結局 -->
+                    <div class="mission-body-head">全部結局</div>
+                    <div class="mission-body-net2">
+                        <div class="mission-body-row3">
+                            <div class="mission-body-row4">
+                                <div class="mission-body-head3">{{ scriptData.title }} 結局一</div>
+                                <div style="display: flex;">
+                                    <img v-if="currentDetail.endingMovie1" @click="videoPlay(currentDetail.endingMovie1)" class="mission-body-bgIcon" style="margin-right: 12px;"
+                                        src="~assets/images/Icon/play.svg" alt="">
+                                    <img @click="openContentPopup(currentDetail.endingOne)" class="mission-body-icon" style="margin-right: 12px;"
+                                        src="~assets/images/Icon/detail.svg" alt="">
+                                    <img v-if="currentDetail.endingMovie1" @click="qrDownload(currentDetail.endingMovie1, `結局日結局一`)" class="mission-body-icon" src="~assets/images/Icon/download.svg" alt="">
+                                </div>
+                                <!-- <a v-if="currentDetail.sheet" :href="currentDetail.sheet" download="sheet">
+                                    <img class="mission-body-icon" src="~assets/images/Icon/download.svg" alt="">
+                                </a> -->
+                            </div>
+                            <div class="mission-body-row4">
+                                <div class="mission-body-head3">{{ scriptData.title }} 結局二</div>
+                                <div style="display: flex;">
+                                    <img v-if="currentDetail.endingMovie2" @click="videoPlay(currentDetail.endingMovie2)" class="mission-body-bgIcon" style="margin-right: 12px;"
+                                        src="~assets/images/Icon/play.svg" alt="">
+                                    <img @click="openContentPopup(currentDetail.endingTwo)" class="mission-body-icon" style="margin-right: 12px;"
+                                        src="~assets/images/Icon/detail.svg" alt="">
+                                    <img v-if="currentDetail.endingMovie2" @click="qrDownload(currentDetail.endingMovie2, `結局日結局二`)" class="mission-body-icon" src="~assets/images/Icon/download.svg" alt="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mission-body-line2"></div>
+                        <div class="mission-body-row3">
+                            <div class="mission-body-row4">
+                                <div class="mission-body-head3">{{ scriptData.title }} 結局三</div>
+                                <div style="display: flex;">
+                                    <img v-if="currentDetail.endingMovie3" @click="videoPlay(currentDetail.endingMovie3)" class="mission-body-bgIcon" style="margin-right: 12px;"
+                                        src="~assets/images/Icon/play.svg" alt="">
+                                    <img @click="openContentPopup(currentDetail.endingThree)" class="mission-body-icon" style="margin-right: 12px;"
+                                        src="~assets/images/Icon/detail.svg" alt="">
+                                    <img v-if="currentDetail.endingMovie3" @click="qrDownload(currentDetail.endingMovie3, `結局日結局三`)" class="mission-body-icon" src="~assets/images/Icon/download.svg" alt="">
+                                </div>
+                            </div>
+                            <div class="mission-body-row4">
+                                <div class="mission-body-head3">{{ scriptData.title }} 結局四 </div>
+                                <div style="display: flex;">
+                                    <img v-if="currentDetail.endingMovie4" @click="videoPlay(currentDetail.endingMovie4)" class="mission-body-bgIcon" style="margin-right: 12px;"
+                                        src="~assets/images/Icon/play.svg" alt="">
+                                    <img @click="openContentPopup(currentDetail.endingFour)" class="mission-body-icon" style="margin-right: 12px;"
+                                        src="~assets/images/Icon/detail.svg" alt="">
+                                    <img v-if="currentDetail.endingMovie4" @click="qrDownload(currentDetail.endingMovie4, `結局日結局四`)" class="mission-body-icon" src="~assets/images/Icon/download.svg" alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mission-body-line"></div>
+                    <div class="mission-body-head">教材檔案</div>
+                    <div class="mission-body-net2">
+                        <div class="mission-body-row3">
+                            <div class="mission-body-row4">
+                                <div class="mission-body-head3">學習單</div>
+                                <a v-if="currentDetail.endingSheet" target="_blank" :href="currentDetail.endingSheet" download="sheet">
+                                    <img class="mission-body-icon" src="~assets/images/Icon/download.svg" alt="">
+                                </a>
+                            </div>
+                            <div class="mission-body-row4">
+                                <div class="mission-body-head3">教學簡報</div>
+                                <a v-if="currentDetail.endingBulletin" target="_blank" :href="currentDetail.endingBulletin" download="sheet">
+                                    <img class="mission-body-icon" src="~assets/images/Icon/download.svg" alt="">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <!-- day end -->
@@ -376,8 +490,8 @@
                 <div @click="isShowInfo = false" class="box">
                     <div @click.stop class="block-box">
                         <div class="title">劇情內容</div>
-                        <div class="text">某天，在童話國小的叢林班上，事情發生了......</div>
-                        <div class="text">砰!一聲巨大的聲響，蓋過下課時教室裡嘈雜的人聲，同學們紛紛轉過頭去尋找聲音的來源。</div>
+                        <div class="text">{{ showContent }}</div>
+                        <!-- <div class="text">砰!一聲巨大的聲響，蓋過下課時教室裡嘈雜的人聲，同學們紛紛轉過頭去尋找聲音的來源。</div>
                         <div class="text">「好痛......」只見嬌小瘦弱的林曉兔跌坐在地上，正撫摸著自己瘀青的膝蓋，一旁是倒掉的課桌椅，看來就是她造成了剛剛那聲巨響。</div>
                         <div class="text">一個龐大的身影突然籠罩著林曉兔，她抬起頭，臉上浮現了害怕的表情。</div>
                         <div class="text">黑影的主人，是身型壯碩的張萌虎，正惡狠狠地瞪著林曉兔，，右腳也不斷地抖著。</div>
@@ -386,7 +500,7 @@
                         <div class="text">「等、等一下，」林曉兔微微顫抖地說:「我剛剛只是在開玩笑，我不是故意——」</div>
                         <div class="text">砰!不等林曉兔說玩，張萌虎又踹倒了旁邊一張椅子，林曉兔發出一聲驚恐的尖叫。</div>
                         <div class="text">「開玩笑?」張萌虎咬牙切齒地說著:「所以你是在笑我?妳覺得很好玩、很好笑囉?」</div>
-                        <div class="text">林曉兔嚇得低下頭，張萌虎怒吼一聲，又掀翻了一張桌子。同學們你看我、我看你，但一時沒有任何人敢有動作......</div>
+                        <div class="text">林曉兔嚇得低下頭，張萌虎怒吼一聲，又掀翻了一張桌子。同學們你看我、我看你，但一時沒有任何人敢有動作......</div> -->
                     </div>
                 </div>
             </div>
@@ -446,15 +560,58 @@
                     </div>
                 </div>
             </div>
-
+        </div>
+        <div class="centerDialog">
+            <client-only>
+                <el-dialog v-model="centerDialogVisible">
+                    <video v-if="centerDialogVisible" :src="currentVideoUrl" controls></video>
+                </el-dialog>
+            </client-only>
         </div>
     </NuxtLayout>
 </template>
 
 <script setup>
-import { getScriptById,getScript } from "~/api/script";
-import { getTaskById ,edit as editTask} from "~/api/task";
+import { getScriptById, getScript } from "~/api/script";
+import { getTaskById, edit as editTask } from "~/api/task";
 import { ElMessage } from 'element-plus'
+import QRCode from 'qrcode'
+
+const qrDownload = (url, fileName) => {
+    QRCode.toDataURL(url)
+        .then(QRCodeUrl => {
+            console.log(url)
+            const elt = document.createElement('a');
+            elt.setAttribute('href', QRCodeUrl);
+            elt.setAttribute('download', fileName);
+            elt.style.display = 'none';
+            document.body.appendChild(elt);
+            elt.click();
+            document.body.removeChild(elt);
+
+        })
+        .catch(err => {
+            console.error(err)
+        })
+}
+
+const downloadFile = (url) => {
+    fetch('https://storage.cloud.google.com/wasupstudio-bucket/1692752760483.png', {
+        mode: 'no-cors', // 必要设置，解决跨域
+    }).then(async res => {
+        let blob = await res.blob()
+        return blob
+    }).then((blob) => {
+        const a = document.createElement('a')
+        a.style.display = 'none'
+        a.href = URL.createObjectURL(blob)
+        a.download = 'filename'
+        a.target = '_blank'
+        document.body.appendChild(a)
+        a.click()
+        document.body.removeChild(a)
+    })
+}
 
 const route = useRoute();
 const missionId = route.params.missionId
@@ -473,6 +630,17 @@ const init = async () => {
     await setScriptData()
 }
 init()
+
+const numberToLetter = (number) => {
+    if (Number.isInteger(number) && number >= 1 && number <= 26) {
+        const charCode = number + 64;
+        const letter = String.fromCharCode(charCode);
+        return letter;
+    } else {
+        return number;
+    }
+}
+
 const isEdit = JSON.parse(route.params.isEdit)
 console.log('isEdit', isEdit.value)
 const scriptData = reactive({})
@@ -485,12 +653,105 @@ const dayjs = useDayjs()
 const setScriptData = async () => {
     const { data } = await getScriptById(scriptId.value)
     Object.assign(scriptData, JSON.parse(JSON.stringify(data.value.data)))
-    scriptData.hasImg = scriptData.mediaDTO.length > 0
+    scriptData.hasImg = getFileUrl(scriptData.mediaDTO, 'cover') !== false
+    scriptData.day = parseInt(scriptData.scriptPeriod, 10) - 1;
+    scriptData.dayEnd = parseInt(scriptData.scriptPeriod, 10);
     if (scriptData.hasImg) {
-        scriptData.imgUrl = scriptData.mediaDTO[scriptData.mediaDTO.length - 1].filePath
+        scriptData.imgUrl = getFileUrl(scriptData.mediaDTO, 'cover')
     }
+    scriptData.scriptDetail.forEach(detail => {
+        detail.sheet = getFileUrl(scriptData.mediaDTO, `sheet-${detail.period}`)
+        detail.bulletin = getFileUrl(scriptData.mediaDTO, `bulletin-${detail.period}`)
+        detail.information = getFileUrl(scriptData.mediaDTO, `information-${detail.period}`)
+        detail.drama = getFileUrl(scriptData.mediaDTO, `drama-${detail.period}`)
+
+    });
+
+    scriptData.scriptEndingDTO.endingMovie1 = getFileUrl(scriptData.mediaDTO, `endingMovie1`)
+    scriptData.scriptEndingDTO.endingMovie2 = getFileUrl(scriptData.mediaDTO, `endingMovie2`)
+    scriptData.scriptEndingDTO.endingMovie3 = getFileUrl(scriptData.mediaDTO, `endingMovie3`)
+    scriptData.scriptEndingDTO.endingMovie4 = getFileUrl(scriptData.mediaDTO, `endingMovie4`)
+    scriptData.scriptEndingDTO.endingSheet = getFileUrl(scriptData.mediaDTO, `endingSheet`)
+    scriptData.scriptEndingDTO.endingBulletin = getFileUrl(scriptData.mediaDTO, `endingBulletin`)
+
+    nextTick(() => {
+        missionHeadClick(1)
+        setCurrentDetail(1)
+    })
 
     console.log("scriptData", scriptData)
+}
+
+const isShowInfo = ref(false)
+const showContent = ref("")
+const openContentPopup = (content) => {
+    isShowInfo.value = true
+    showContent.value = content
+}
+
+const isVideoPlay = ref(false)
+const onVideoPlay = () => {
+    isVideoPlay.value = true
+}
+
+const onVideoPause = () => {
+    isVideoPlay.value = false
+}
+
+const currentVideoUrl = ref("")
+const centerDialogVisible = ref(false)
+const videoPlay = (url) => {
+    console.log("videoPlay", url)
+    currentVideoUrl.value = url
+    centerDialogVisible.value = true
+}
+
+const getFileUrl = (fileList, target) => {
+    let filterFile = fileList.filter(o => o.description == target)
+    if (filterFile.length > 0) {
+        return filterFile[0].filePath
+    }
+    return false
+}
+
+const selectedMission = ref(0)
+const missionHeadClick = (id) => {
+    if (selectedMission.value === id) {
+        return;
+    }
+
+    var contentElement = document.getElementById(`mission-head2-${selectedMission.value}`);
+    if (contentElement) {
+        contentElement.classList.remove("mission-head2-selected");
+    }
+
+    selectedMission.value = id;
+    contentElement = document.getElementById(`mission-head2-${id}`);
+    if (contentElement) {
+        contentElement.classList.add("mission-head2-selected");
+    }
+
+    setCurrentDetail(id)
+}
+
+const currentPeriod = ref(1)
+const currentDetail = reactive({})
+const setCurrentDetail = (period) => {
+
+    for (let key in currentDetail) {
+        delete currentDetail[key];
+    }
+    currentPeriod.value = period
+    if (period == scriptData.dayEnd) {
+        console.log("scriptData.scriptEndingDTO", scriptData.scriptEndingDTO)
+        Object.assign(currentDetail, scriptData.scriptEndingDTO)
+    } else {
+        let filterData = scriptData.scriptDetail.filter(o => o.period == period)
+        if (filterData.length > 0) {
+            Object.assign(currentDetail, filterData[0])
+        }
+    }
+
 }
 
 const allScript = reactive([])
@@ -552,7 +813,7 @@ async function saveTaskEdit() {
 
 const isShowEdit = ref(false)
 const isShowVideo = ref(false)
-const isShowInfo = ref(false)
+
 const isShowWrite = ref(false)
 
 </script>
@@ -562,6 +823,32 @@ const isShowWrite = ref(false)
 @import '~/assets/styles/form.scss';
 @import '~/assets/styles/manage.scss';
 @import '~/assets/styles/table.scss';
+
+.centerDialog :deep(.el-dialog__header) {
+    height: 0px;
+    padding: 0px;
+}
+
+.centerDialog :deep(.el-dialog__body) {
+    padding: 0px;
+    display: flex;
+}
+
+.centerDialog :deep(.el-dialog) {
+    width: 900px;
+    border-radius: 12px;
+}
+
+.centerDialog :deep(.el-dialog__headerbtn) {
+    z-index: 9999;
+}
+
+.centerDialog video {
+    width: 900px;
+    border-radius: 12px;
+}
+
+
 
 .mission {
     display: flex;
@@ -696,16 +983,10 @@ const isShowWrite = ref(false)
         height: 80px;
         margin-top: 20px;
         display: flex;
+        cursor: pointer;
         justify-content: space-between;
 
-        &-selected {
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: #008B77;
-            color: white;
-        }
+
 
         &-last {
             width: 100%;
@@ -715,11 +996,25 @@ const isShowWrite = ref(false)
             align-items: center;
             border-top: 4px solid #008B77;
             background-color: white;
+
+            &-hint {
+                margin-top: 4px;
+                color: #999999;
+            }
         }
 
-        &-hint {
-            margin-top: 4px;
-            color: #999999;
+        &-selected {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #008B77;
+            color: white;
+
+            &-hint {
+                margin-top: 4px;
+                color: white;
+            }
         }
 
     }
@@ -733,6 +1028,90 @@ const isShowWrite = ref(false)
             color: #008B77;
         }
 
+        &-scoring {
+            border-radius: 12px;
+            overflow: hidden;
+
+            &-titleBox {
+                display: flex;
+                height: 40px;
+                padding: 8px 16px;
+                align-items: center;
+                gap: 16px;
+                align-self: stretch;
+                border: 1px solid var(--border-color-color-3, #E7E7E7);
+                background: var(--background-color-3, #333);
+
+                div {
+                    color: #FFF;
+                }
+            }
+
+            &-itemBox {
+                display: flex;
+                padding: 12px 16px;
+                align-items: center;
+                gap: 16px;
+                align-self: stretch;
+                border: 1px solid var(--border-color-color-3, #E7E7E7);
+                background: var(--secondary-color-2, #FFF);
+
+                .icon-outer {
+                    width: 40px;
+                    height: 40px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    border: 1px solid #008B77;
+                    border-radius: 50px;
+                    margin-right: 4px;
+                    cursor: pointer;
+
+                    img {}
+                }
+            }
+
+            &-totalScore {
+                display: flex;
+                height: 40px;
+                padding: 24px 16px;
+                align-items: center;
+                gap: 16px;
+                align-self: stretch;
+                border: 1px solid var(--border-color-color-3, #E7E7E7);
+                background: var(--background-color-2, #EFEFEF);
+
+                .score-title {
+                    display: flex;
+                    justify-content: flex-end;
+                }
+            }
+
+            &-end {
+                display: flex;
+                padding: 12px 16px;
+                align-items: center;
+                gap: 16px;
+                align-self: stretch;
+                background: var(--secondary-color-1, #FFC300);
+
+                .score-title {
+                    display: flex;
+                    justify-content: flex-end;
+                }
+
+                .score-endText {
+                    color: var(--text-color-color-1, #333);
+                    font-family: Noto Sans TC;
+                    font-size: 24px;
+                    font-style: normal;
+                    font-weight: 500;
+                    line-height: 30px;
+                    letter-spacing: 0.5px;
+                }
+            }
+        }
+
         &-text {
             font-size: 14px;
             color: #666666;
@@ -743,6 +1122,24 @@ const isShowWrite = ref(false)
             margin: 24px 0px;
             background-color: #E7E7E7;
         }
+
+        &-videoBox {
+            width: 100%;
+            height: 500px;
+            position: relative;
+
+            video {
+                width: 100%;
+                height: 500px;
+            }
+
+            .mission-body-video {
+                position: absolute;
+                top: 0;
+            }
+        }
+
+
 
         &-video {
             width: 100%;
@@ -765,6 +1162,8 @@ const isShowWrite = ref(false)
                 padding: 16px 55px;
                 color: white;
                 cursor: pointer;
+                border-radius: 50px;
+                background: var(--primary-color-1, #008B77);
             }
 
             &-img {
@@ -779,6 +1178,7 @@ const isShowWrite = ref(false)
                 margin: 16px 0px;
                 font-size: 14px;
                 color: #CCCCCC;
+                cursor: pointer;
             }
 
         }
@@ -931,10 +1331,18 @@ const isShowWrite = ref(false)
         }
 
         &-icon {
-            padding: 12px;
+            padding: 5px;
             border: 1px solid #008B77;
             border-radius: 100%;
             cursor: pointer;
+        }
+
+        &-bgIcon {
+            padding: 5px;
+            border: 1px solid #008B77;
+            border-radius: 100%;
+            cursor: pointer;
+            background-color: #008B77;
         }
 
     }
@@ -1123,5 +1531,4 @@ const isShowWrite = ref(false)
         }
     }
 
-}
-</style>
+}</style>

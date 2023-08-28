@@ -5,7 +5,7 @@
                 <div class="manage-head">劇本教材管理</div>
                 <div class="manage-row">
                     <div class="manage-num">項目數量：{{ allData.length }}</div>
-                    <nuxt-link to="/manage/stepInfo" class="manage-create">+ 建立劇本教材</nuxt-link>
+                    <nuxt-link to="/manage/buildScript" class="manage-create">+ 建立劇本教材</nuxt-link>
                 </div>
 
             </div>
