@@ -3,7 +3,7 @@
     <div class="content-box">
       <div class="content content1">
         <div class="title">劇情介紹</div>
-        <nuxt-link to="/chapter" class="link-item">虎兔篇</nuxt-link>
+        <nuxt-link to="/" class="link-item">虎兔篇</nuxt-link>
         <nuxt-link to="/" class="link-item">鼠牛篇</nuxt-link>
         <nuxt-link to="/" class="link-item">馬羊篇</nuxt-link>
         <nuxt-link to="/" class="link-item">龍虎篇</nuxt-link>

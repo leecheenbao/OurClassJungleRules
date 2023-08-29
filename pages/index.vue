@@ -71,11 +71,21 @@ import { getScript } from "~/api/script";
 const allScript = reactive([])
 const setAllScript = async () => {
   const { data } = await getScript()
-  let list = JSON.parse(JSON.stringify(data.value.data.list))
-  // list = list.filter(o => o.status !== 0)
-  allScript.length = 0
-  allScript.push(...list)
-  console.log("我的任務 all data", allScript)
+  // let list = JSON.parse(JSON.stringify(data.value.data.list))
+  // // list = list.filter(o => o.status !== 0)
+  // allScript.length = 0
+  // allScript.push(...list)
+  // console.log("我的任務 all data", allScript)
+
+  if (data && data.value && data.value.data && Array.isArray(data.value.data.list)) {
+    let list = JSON.parse(JSON.stringify(data.value.data.list));
+    // list = list.filter(o => o.status !== 0);
+    allScript.length = 0;
+    allScript.push(...list);
+    console.log("我的任務 all data", allScript);
+  } else {
+    console.log("無法獲取有效的數據。");
+  }
 
 }
 
@@ -518,4 +528,5 @@ const getScriptById = (id) => {
 
   }
 
-}</style>
+}
+</style>
