@@ -346,7 +346,7 @@
                             <div style="width: 25%;">+3</div>
                             <div style="width: 10%;">
                                 <div data-v-61f7ac3a="" class="icon-outer"><img data-v-61f7ac3a="" class="icon"
-                                        src="/_nuxt/assets/images/Icon/edit.svg" alt="close"></div>
+                                        src="~assets/images/Icon/edit.svg" alt="close"></div>
                             </div>
                         </div>
                         <div class="mission-body-scoring-totalScore">

@@ -133,7 +133,7 @@
             資料統計
           </nuxt-link>
         </div>
-        
+
         <div v-if="isLogin">
           <nuxt-link to="/manage/userInfoEdit" style="margin-top: 16px;" class="link"
             :class="{ 'link-action': routeName == 'manage-userInfoEdit' }">
@@ -174,10 +174,12 @@ const handleSignOut = () => {
 const allScript = reactive([])
 const setAllScript = async () => {
   const { data } = await getScript()
-  let list = JSON.parse(JSON.stringify(data.value.data.list))
-  // list = list.filter(o => o.status !== 0)
-  allScript.length = 0
-  allScript.push(...list)
+  if (data && data.value && data.value.data && Array.isArray(data.value.data.list)) {
+    let list = JSON.parse(JSON.stringify(data.value.data.list))
+    // list = list.filter(o => o.status !== 0)
+    allScript.length = 0
+    allScript.push(...list)
+  }
 }
 setAllScript()
 
@@ -191,7 +193,6 @@ const route = useRoute();
 
 watch(route, value => {
   routeName.value = route.name
-  console.log("routeName",routeName.value)
 }, { deep: true, immediate: true })
 </script>
 

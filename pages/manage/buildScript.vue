@@ -224,11 +224,16 @@ const addScriptEnding = async () => {
     }
 }
 
+const router = useRouter()
 const finished = async () => {
     await addScript()
     await addScriptDetail()
     await addScriptEnding()
-
+    ElMessage({
+        message: '建立成功',
+        type: 'success',
+    })
+    router.push("/manage/script")
 }
 </script>
 
