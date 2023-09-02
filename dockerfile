@@ -43,5 +43,5 @@ COPY conf.d /etc/nginx/conf.d
 EXPOSE 80
 
 # 開始 Nginx 伺服器
-CMD ["nginx", "-g", "daemon off;"]
 ENTRYPOINT ["pm2-runtime", "start", "/app/ecosystem.config.js"]
+CMD ["nginx", "-g", "daemon off;"]
