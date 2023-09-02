@@ -6,7 +6,7 @@ COPY . .
 
 RUN npm ci && npm cache clean --force
 RUN npm run build
-
+RUN npm install -g pm2
 
 FROM keymetrics/pm2:16-alpine
 
