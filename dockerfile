@@ -6,7 +6,7 @@ COPY . .
 
 RUN npm ci && npm cache clean --force
 RUN npm run build
-RUN npm install -g pm2
+
 
 FROM keymetrics/pm2:16-alpine
 
@@ -21,4 +21,4 @@ ENV NUXT_PORT=3000
 
 EXPOSE 3000 
 
-ENTRYPOINT ["pm2", "start", "/nuxt-app/ecosystem.config.js"]
+ENTRYPOINT ["pm2-runtime", "start", "/nuxt-app/ecosystem.config.js"]

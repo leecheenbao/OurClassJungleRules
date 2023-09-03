@@ -3,7 +3,7 @@ module.exports = {
       {
         name: 'ourclass',
         exec_mode: 'cluster',
-        instances: 'max',
+        instances: '2',
         script: './server/index.mjs'
       }
     ]
