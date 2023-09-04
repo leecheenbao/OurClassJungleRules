@@ -2,7 +2,7 @@ import { useAuthStore } from '@/store/authStore';
 import { storeToRefs } from 'pinia'
 
 // const baseUrl = 'http://wasupstudionobullying.com/wasupstudio'
-const baseUrl = 'http://feifeistoryhouse.org:8080/wasupstudio'
+const baseUrl = 'http://wasupstudionobullying.com:8080/wasupstudio'
 
 const fetch = async (url, option) => {
   return await useFetch(url, {
