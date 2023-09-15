@@ -18,6 +18,7 @@
                     </div>
 
                 </div>
+                <!-- 每日劇情 -->
                 <div v-for="detail in scriptData.scriptDetail" class="course-box">
                     <div @click="toggleContent(detail.period)" class="title-box">
                         <div class="course-title">第 {{ detail.period }} 日</div>
@@ -33,11 +34,22 @@
                         <div class="course-content-h2">建議進行時間</div>
                         <div class="item-text">{{ detail.advisoryTime }} 分鐘</div>
                         <div class="course-content-h2">劇情影片</div>
-                        <div class="player-box">
-                            <div class="player">
-                                <div class="player-btn">
-                                    <img class="player-svg" src="~assets/images/Icon/play.svg" alt="">
-                                    播放影片
+                        <div class="mission-body-videoBox"
+                            :style="`background: no-repeat center url(${scriptData.imgUrl})`">
+                            <div class="mission-body-video">
+                                <div class="mission-body-video-head">{{ scriptData.title }} 第 {{ detail.period }} 日</div>
+                                <div @click="videoPlay(detail.drama)" class="mission-body-video-play">
+                                    <img class="mission-body-video-img" src="~assets/images/Icon/play.svg" alt="">
+                                    <div>播放影片</div>
+                                </div>
+                                <div @click="openContentPopup(detail.todayScript)" class="mission-body-video-text">
+                                    <img class="mission-body-video-img" src="~assets/images/Icon/detail.svg" alt="">
+                                    <div>閱讀文字版</div>
+                                </div>
+                                <div @click="qrDownload(detail.drama, `第${detail.period}日劇情`)"
+                                    class="mission-body-video-text">
+                                    <img class="mission-body-video-img" src="~assets/images/Icon/download.svg" alt="">
+                                    <div>影片 QR code 下載</div>
                                 </div>
                             </div>
                         </div>
@@ -67,36 +79,55 @@
                             <img class="ending-item-img" src="~assets/images/teacher1.png" alt="">
                             <div class="ending-item-title">鴞老師</div>
                             <div class="ending-item-content">
-                                兼顧秩序與關係，除了讓學生為自己的行為負責外，也會找出潛在霸凌者背後的需求，並且讓同學們思考要如何以合適的方式滿足需求，是最理想的結局。</div>
+                                {{ scriptData.scriptEndingDTO.endingOne }}
+                                </div>
                         </div>
                         <div class="ending-item">
                             <img class="ending-item-img" src="~assets/images/teacher2.png" alt="">
                             <div class="ending-item-title">鴿老師</div>
                             <div class="ending-item-content">
-                                過度注重關係，但未顧及秩序，以勸和的方式來掩蓋衝突，是一種鄉愿式的結局。</div>
+                                {{ scriptData.scriptEndingDTO.endingTwo }}</div>
                         </div>
                         <div class="ending-item">
                             <img class="ending-item-img" src="~assets/images/teacher3.png" alt="">
                             <div class="ending-item-title">鴉老師</div>
                             <div class="ending-item-content">
-                                不注重秩序，也不顧及關係，讓學生感到痛苦且無所適從，是最糟糕的結局。</div>
+                                {{ scriptData.scriptEndingDTO.endingThree }}</div>
                         </div>
                         <div class="ending-item">
                             <img class="ending-item-img" src="~assets/images/teacher4.png" alt="">
                             <div class="ending-item-title">鷹老師</div>
                             <div class="ending-item-content">
-                                過度注重秩序，但未顧及關係，以嚴懲的方式來避免失序行為出現，是一種威權式的結局。</div>
+                                {{ scriptData.scriptEndingDTO.endingFour }}</div>
                         </div>
                     </div>
                     <div class="ending-bg"></div>
                 </div>
             </div>
             <getTextbooks></getTextbooks>
+
+            <div class="centerDialog">
+                <client-only>
+                    <el-dialog v-model="centerDialogVisible">
+                        <video v-if="centerDialogVisible" :src="currentVideoUrl" controls></video>
+                    </el-dialog>
+                </client-only>
+            </div>
+            <!-- 劇情內容 -->
+            <div v-if="isShowInfo" class="popup">
+                <div @click="isShowInfo = false" class="box">
+                    <div @click.stop class="block-box">
+                        <div class="title">劇情內容</div>
+                        <div class="text">{{ showContent }}</div>
+                    </div>
+                </div>
+            </div>
         </div>
     </NuxtLayout>
 </template>
 <script setup>
 import { getScriptById, editScriptById, uploadFileById } from "~/api/script";
+import QRCode from 'qrcode'
 
 const route = useRoute();
 const scriptId = route.params.scriptId
@@ -106,21 +137,97 @@ const scriptData = reactive({})
 const setScriptData = async () => {
     const { data } = await getScriptById(scriptId)
     Object.assign(scriptData, JSON.parse(JSON.stringify(data.value.data)))
-    console.log("scriptData", scriptData)
-    scriptData.hasImg = scriptData.mediaDTO.length > 0
+    scriptData.hasImg = getFileUrl(scriptData.mediaDTO, 'cover') !== false
     if (scriptData.hasImg) {
-        imgUrl.value = scriptData.mediaDTO.filter(o => o.description == "cover")[0].filePath
+        imgUrl.value = getFileUrl(scriptData.mediaDTO, 'cover')
     }
+    scriptData.scriptDetail.forEach(detail => {
+        detail.sheet = getFileUrl(scriptData.mediaDTO, `sheet-${detail.period}`)
+        detail.bulletin = getFileUrl(scriptData.mediaDTO, `bulletin-${detail.period}`)
+        detail.information = getFileUrl(scriptData.mediaDTO, `information-${detail.period}`)
+        detail.drama = getFileUrl(scriptData.mediaDTO, `drama-${detail.period}`)
+
+    });
+    console.log("scriptData", scriptData)
 }
 setScriptData()
+
+const getFileUrl = (fileList, target) => {
+    console.log("fileList", fileList)
+    console.log("target", target)
+    let filterFile = fileList.filter(o => o.description == target)
+    if (filterFile.length > 0) {
+        return filterFile[0].filePath
+    }
+    return false
+}
+
+const currentVideoUrl = ref("")
+const centerDialogVisible = ref(false)
+const videoPlay = (url) => {
+    console.log("videoPlay", url)
+    currentVideoUrl.value = url
+    centerDialogVisible.value = true
+}
+
+const isShowInfo = ref(false)
+const showContent = ref("")
+const openContentPopup = (content) => {
+    isShowInfo.value = true
+    showContent.value = content
+}
 
 const toggleContent = (id) => {
     var contentElement = document.getElementById(`content-${id}`);
     contentElement.classList.toggle("course-content-expanded");
 }
+
+const qrDownload = (url, fileName) => {
+    QRCode.toDataURL(url)
+        .then(QRCodeUrl => {
+            console.log(url)
+            const elt = document.createElement('a');
+            elt.setAttribute('href', QRCodeUrl);
+            elt.setAttribute('download', fileName);
+            elt.style.display = 'none';
+            document.body.appendChild(elt);
+            elt.click();
+            document.body.removeChild(elt);
+
+        })
+        .catch(err => {
+            console.error(err)
+        })
+}
 </script>
 
 <style lang="scss" scoped>
+@import '~/assets/styles/popup.scss';
+
+.centerDialog :deep(.el-dialog__header) {
+    height: 0px;
+    padding: 0px;
+}
+
+.centerDialog :deep(.el-dialog__body) {
+    padding: 0px;
+    display: flex;
+}
+
+.centerDialog :deep(.el-dialog) {
+    width: 900px;
+    border-radius: 12px;
+}
+
+.centerDialog :deep(.el-dialog__headerbtn) {
+    z-index: 9999;
+}
+
+.centerDialog video {
+    width: 900px;
+    border-radius: 12px;
+}
+
 .main-box {
     width: 100%;
 
@@ -221,12 +328,12 @@ const toggleContent = (id) => {
             .course-content {
                 padding: 32px;
                 height: auto;
-            overflow: hidden;
+                overflow: hidden;
 
                 &-expanded {
-                        padding: 0px;
-                        height: 0;
-                    }
+                    padding: 0px;
+                    height: 0;
+                }
 
                 &-h2 {
                     font-weight: 500;
@@ -294,7 +401,7 @@ const toggleContent = (id) => {
                         margin-right: 3.5px;
                     }
 
-                    
+
                 }
             }
 
@@ -437,5 +544,690 @@ const toggleContent = (id) => {
         }
 
     }
+}
+
+.mission {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 200px;
+    background-color: rgb(215, 220, 215);
+
+    &-head {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 19px 22px;
+        background: white;
+
+        &-leave {
+            font-weight: 700;
+            color: #008B77;
+        }
+
+        &-text {
+            font-weight: 700;
+            font-size: 20px;
+        }
+
+        &-edit {
+            padding: 10px;
+            border: 1px solid #008B77;
+            border-radius: 100%;
+            cursor: pointer;
+        }
+
+        &-img {}
+
+    }
+
+    // basic
+
+    &-basic {
+        width: 928px;
+        margin-top: 32px;
+        background-color: white;
+
+        &-bg {
+            width: 100%;
+            background-color: beige;
+
+            img {
+                width: 100%;
+                height: auto;
+            }
+        }
+
+        &-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 32px;
+        }
+
+        &-head {
+            font-weight: 700;
+            font-size: 20px;
+        }
+
+        &-sub {
+            margin: 16px 0px 4px;
+            color: #008B77;
+        }
+
+        &-text {
+            font-size: 12px;
+            color: #666666;
+        }
+
+        &-text2 {
+            padding: 4px 0px 16px;
+            color: #666666;
+        }
+
+        &-line {
+            width: 1px;
+            margin: 0px 24px;
+            background-color: #E7E7E7;
+        }
+
+        &-grey {
+            font-size: 13px;
+            color: #999999;
+        }
+
+    }
+
+    // desc 前導說明
+
+    &-desc {
+        width: 928px;
+        margin-top: 20px;
+        padding: 32px 56px;
+        background-color: #FFFBF4;
+        border: 3px solid #FFC300;
+        border-radius: 32px;
+
+        &-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        &-img {}
+
+        &-pre {
+            margin: 0px 0px 0px 5px;
+        }
+
+        &-text {
+            font-size: 14px;
+            color: #666666;
+        }
+
+    }
+
+    // 第一日
+
+    &-body {
+        width: 928px;
+        margin-top: 20px;
+    }
+
+    &-head2 {
+        width: 100%;
+        height: 80px;
+        margin-top: 20px;
+        display: flex;
+        cursor: pointer;
+        justify-content: space-between;
+
+
+
+        &-last {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border-top: 4px solid #008B77;
+            background-color: white;
+
+            &-hint {
+                margin-top: 4px;
+                color: #999999;
+            }
+        }
+
+        &-selected {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #008B77;
+            color: white;
+
+            &-hint {
+                margin-top: 4px;
+                color: white;
+            }
+        }
+
+    }
+
+    &-body {
+        padding: 8px 32px 32px;
+        background-color: white;
+
+        &-head {
+            margin: 24px 4px;
+            color: #008B77;
+        }
+
+        &-scoring {
+            border-radius: 12px;
+            overflow: hidden;
+
+            &-titleBox {
+                display: flex;
+                height: 40px;
+                padding: 8px 16px;
+                align-items: center;
+                gap: 16px;
+                align-self: stretch;
+                border: 1px solid var(--border-color-color-3, #E7E7E7);
+                background: var(--background-color-3, #333);
+
+                div {
+                    color: #FFF;
+                }
+            }
+
+            &-itemBox {
+                display: flex;
+                padding: 12px 16px;
+                align-items: center;
+                gap: 16px;
+                align-self: stretch;
+                border: 1px solid var(--border-color-color-3, #E7E7E7);
+                background: var(--secondary-color-2, #FFF);
+
+                .icon-outer {
+                    width: 40px;
+                    height: 40px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    border: 1px solid #008B77;
+                    border-radius: 50px;
+                    margin-right: 4px;
+                    cursor: pointer;
+
+                    img {}
+                }
+            }
+
+            &-totalScore {
+                display: flex;
+                height: 40px;
+                padding: 24px 16px;
+                align-items: center;
+                gap: 16px;
+                align-self: stretch;
+                border: 1px solid var(--border-color-color-3, #E7E7E7);
+                background: var(--background-color-2, #EFEFEF);
+
+                .score-title {
+                    display: flex;
+                    justify-content: flex-end;
+                }
+            }
+
+            &-end {
+                display: flex;
+                padding: 12px 16px;
+                align-items: center;
+                gap: 16px;
+                align-self: stretch;
+                background: var(--secondary-color-1, #FFC300);
+
+                .score-title {
+                    display: flex;
+                    justify-content: flex-end;
+                }
+
+                .score-endText {
+                    color: var(--text-color-color-1, #333);
+                    font-family: Noto Sans TC;
+                    font-size: 24px;
+                    font-style: normal;
+                    font-weight: 500;
+                    line-height: 30px;
+                    letter-spacing: 0.5px;
+                }
+            }
+        }
+
+        &-text {
+            font-size: 14px;
+            color: #666666;
+        }
+
+        &-line {
+            height: 1px;
+            margin: 24px 0px;
+            background-color: #E7E7E7;
+        }
+
+        &-videoBox {
+            width: 100%;
+            height: 500px;
+            position: relative;
+
+            video {
+                width: 100%;
+                height: 500px;
+            }
+
+            .mission-body-video {
+                position: absolute;
+                top: 0;
+            }
+        }
+
+
+
+        &-video {
+            width: 100%;
+            height: 500px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(black, 0.3);
+
+            &-head {
+                font-size: 24px;
+                color: white;
+            }
+
+            &-play {
+                display: flex;
+                align-items: center;
+                margin: 24px 0px 8px;
+                padding: 16px 55px;
+                color: white;
+                cursor: pointer;
+                border-radius: 50px;
+                background: var(--primary-color-1, #008B77);
+            }
+
+            &-img {
+                width: 12px;
+                height: 12px;
+                margin-right: 4px;
+            }
+
+            &-text {
+                display: flex;
+                align-items: center;
+                margin: 16px 0px;
+                font-size: 14px;
+                color: #CCCCCC;
+                cursor: pointer;
+            }
+
+        }
+
+        &-row {
+            width: 100%;
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        &-row0 {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        &-box {
+            width: 49%;
+
+            &-header {
+                margin-top: 8px;
+                padding: 10px;
+                display: flex;
+                align-items: center;
+                border-top-left-radius: 10px;
+                border-top-right-radius: 10px;
+                background: #E1E1E1;
+            }
+
+            &-question {
+                width: 20px;
+                height: 20px;
+                margin-right: 10px;
+                line-height: 20px;
+                text-align: center;
+                background: #008B77;
+                border-radius: 4px;
+                color: white;
+            }
+
+            &-head {
+                font-size: 14px;
+            }
+
+            &-row1 {
+                display: flex;
+                justify-content: space-between;
+                padding: 10px;
+                border-bottom: 1px solid white;
+                background: #EFEFEF;
+            }
+
+            &-row2 {
+                display: flex;
+            }
+
+            &-answer {
+                width: 20px;
+                height: 20px;
+                line-height: 20px;
+                margin-right: 10px;
+                text-align: center;
+                font-size: 13px;
+                color: #008B77;
+                border: 1px solid #008B77;
+            }
+
+            &-text {
+                font-size: 14px;
+            }
+
+            &-info {
+                width: 16px;
+                height: 16px;
+            }
+
+        }
+
+        // 額外資訊
+
+        &-head2 {
+            margin: 16px 0px 8px;
+            font-size: 14px;
+        }
+
+        &-row2 {
+            display: flex;
+            margin-bottom: 4px;
+        }
+
+        &-sub {
+            width: 64px;
+            font-size: 14px;
+        }
+
+        &-net {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 16px;
+            background: #FFFFFF;
+            border: 1px solid #E7E7E7;
+            border-radius: 12px;
+        }
+
+        &-net2 {
+            background: #FFFFFF;
+            border: 1px solid #E7E7E7;
+            border-radius: 12px;
+        }
+
+        &-write {
+            display: flex;
+            align-items: center;
+            padding: 8px 12px;
+            border-radius: 20px;
+            border: 1px solid #008B77;
+            font-weight: 700;
+            font-size: 14px;
+            color: #008B77;
+            cursor: pointer;
+        }
+
+        &-edit {
+            width: 12px;
+            height: 12px;
+            margin-right: 4px;
+        }
+
+        // 教材檔案
+
+        &-row3 {
+            width: 100%;
+            display: flex;
+            border-bottom: 1px solid #E7E7E7;
+        }
+
+        &-row4 {
+            width: 50%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            border-right: 1px solid #E7E7E7;
+        }
+
+        &-head3 {
+            font-size: 14px;
+        }
+
+        &-icon {
+            padding: 5px;
+            border: 1px solid #008B77;
+            border-radius: 100%;
+            cursor: pointer;
+        }
+
+        &-bgIcon {
+            padding: 5px;
+            border: 1px solid #008B77;
+            border-radius: 100%;
+            cursor: pointer;
+            background-color: #008B77;
+        }
+
+    }
+
+    // 本日計分
+
+    &-count {
+        margin-top: 10px;
+
+        &-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 16px;
+            background: #333333;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+
+        &-title {
+            font-size: 14px;
+            color: white;
+        }
+
+        &-row {
+            display: flex;
+        }
+
+        &-row2 {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 16px;
+            border-bottom: 1px solid #E7E7E7;
+            background-color: white;
+        }
+
+        &-row3 {
+            display: flex;
+            align-items: center;
+        }
+
+        &-text {
+            margin-right: 90px;
+            font-size: 14px;
+            color: white;
+        }
+
+        &-choose {}
+
+        &-sub1 {
+            font-size: 14px;
+        }
+
+        &-sub2 {
+            margin-top: 4px;
+            font-size: 12px;
+            color: #666666;
+        }
+
+        &-count {
+            width: 130px;
+            font-size: 14px;
+        }
+
+        &-sum {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            padding: 10px 0px;
+        }
+
+        &-sum1 {
+            display: flex;
+        }
+
+        &-title2 {
+            margin-right: 16px;
+        }
+
+        &-num {
+            margin-right: 90px;
+        }
+
+        &-sum2 {
+            margin-right: 100px;
+        }
+
+        &-total {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            padding: 12px 0px;
+            background-color: #008B77;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+        }
+
+        &-title3 {
+            margin-right: 16px;
+            font-size: 14px;
+            color: white;
+        }
+
+        &-num2 {
+            margin-right: 90px;
+            font-size: 24px;
+            color: white;
+        }
+
+        &-num3 {
+            margin-right: 90px;
+            font-size: 24px;
+            color: white;
+        }
+
+    }
+
+    &-pop {
+
+        &-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        &-title {
+            font-size: 20px;
+        }
+
+        &-add {
+            color: #008B77;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        &-row2 {
+            display: flex;
+            align-items: center;
+            margin-top: 16px;
+        }
+
+        &-answer {
+            margin: 0px 100px 0px 19px;
+            font-size: 14px;
+        }
+
+        &-row3 {
+            display: flex;
+            align-items: center;
+            padding: 12px 0px 15px;
+            border-bottom: 1px solid #CCCCCC;
+        }
+
+        &-select {
+            width: 153px;
+            margin: 0px 10px;
+            padding: 6px;
+            font-size: 14px;
+            border-radius: 10px;
+            background-color: #ebebeb;
+        }
+
+        &-num {
+            font-size: 14px;
+        }
+
+        &-close {
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            border: 1px solid #008B77;
+            border-radius: 100%;
+            color: #008B77;
+            cursor: pointer;
+        }
+
+        &-confirm {
+            margin-top: 40px;
+            padding: 6px 0px;
+            text-align: center;
+            color: white;
+            border-radius: 20px;
+            background-color: #008B77;
+            cursor: pointer;
+        }
+    }
+
 }
 </style>

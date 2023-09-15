@@ -47,15 +47,25 @@
                         <div class="step-day-title3">秩序</div>
                         <div class="step-day-container">
                             <select v-model="config.stuOrderly" class="select">
-                                <option :value="0">計分</option>
-                                <option :value="1">不計分</option>
+                                <option :value="3">3</option>
+                                <option :value="2">2</option>
+                                <option :value="1">1</option>
+                                <option :value="0">0</option>
+                                <option :value="-1">-1</option>
+                                <option :value="-2">-2</option>
+                                <option :value="-3">-3</option>
                             </select>
                         </div>
                         <div class="step-day-title3">關係</div>
                         <div class="step-day-container">
                             <select v-model="config.stuRelation" class="select">
-                                <option :value="0">計分</option>
-                                <option :value="1">不計分</option>
+                                <option :value="3">3</option>
+                                <option :value="2">2</option>
+                                <option :value="1">1</option>
+                                <option :value="0">0</option>
+                                <option :value="-1">-1</option>
+                                <option :value="-2">-2</option>
+                                <option :value="-3">-3</option>
                             </select>
                         </div>
                         <div @click="deleteOneItem(dayData.period, 'studentConfigs', config.id)" class="step-day-close">-
@@ -80,15 +90,25 @@
                         <div class="step-day-title3">秩序</div>
                         <div class="step-day-container">
                             <select v-model="config.parOrderly" class="select">
-                                <option :value="0">計分</option>
-                                <option :value="1">不計分</option>
+                                <option :value="3">3</option>
+                                <option :value="2">2</option>
+                                <option :value="1">1</option>
+                                <option :value="0">0</option>
+                                <option :value="-1">-1</option>
+                                <option :value="-2">-2</option>
+                                <option :value="-3">-3</option>
                             </select>
                         </div>
                         <div class="step-day-title3">關係</div>
                         <div class="step-day-container">
                             <select v-model="config.parRelation" class="select">
-                                <option :value="0">計分</option>
-                                <option :value="1">不計分</option>
+                                <option :value="3">3</option>
+                                <option :value="2">2</option>
+                                <option :value="1">1</option>
+                                <option :value="0">0</option>
+                                <option :value="-1">-1</option>
+                                <option :value="-2">-2</option>
+                                <option :value="-3">-3</option>
                             </select>
                         </div>
                         <div @click="deleteOneItem(dayData.period, 'parentConfigs', config.id)" class="step-day-close">-
@@ -177,41 +197,41 @@
                     <div class="step-day-row">
                         <div class="step-day-title3">結局一 (鴞老師) 影片</div>
                         <div class="step-day-btn">
-                            <img v-if="endingData.endingMovie1" class="step-day-icon" src="~/assets/images/Icon/available.svg"
-                                alt="available">
+                            <img v-if="endingData.endingMovie1" class="step-day-icon"
+                                src="~/assets/images/Icon/available.svg" alt="available">
                             <div @click="endingChooseFile('endingMovie1')" class="step-day-upload">上傳</div>
-                            <input type="file" id="endingMovie1-input" style="display: none;"
-                                @change="endingChangeFile" data-ref="endingMovie1">
+                            <input type="file" id="endingMovie1-input" style="display: none;" @change="endingChangeFile"
+                                data-ref="endingMovie1">
                         </div>
                     </div>
                     <div class="step-day-row">
                         <div class="step-day-title3">結局二 (鴿老師) 影片</div>
                         <div class="step-day-btn">
-                            <img v-if="endingData.endingMovie2" class="step-day-icon" src="~/assets/images/Icon/available.svg"
-                                alt="available">
+                            <img v-if="endingData.endingMovie2" class="step-day-icon"
+                                src="~/assets/images/Icon/available.svg" alt="available">
                             <div @click="endingChooseFile('endingMovie2')" class="step-day-upload">上傳</div>
-                            <input type="file" id="endingMovie2-input" style="display: none;"
-                                @change="endingChangeFile" data-ref="endingMovie2">
+                            <input type="file" id="endingMovie2-input" style="display: none;" @change="endingChangeFile"
+                                data-ref="endingMovie2">
                         </div>
                     </div>
                     <div class="step-day-row">
                         <div class="step-day-title3">結局三 (鴉老師) 影片</div>
                         <div class="step-day-btn">
-                            <img v-if="endingData.endingMovie3" class="step-day-icon" src="~/assets/images/Icon/available.svg"
-                                alt="available">
+                            <img v-if="endingData.endingMovie3" class="step-day-icon"
+                                src="~/assets/images/Icon/available.svg" alt="available">
                             <div @click="endingChooseFile('endingMovie3')" class="step-day-upload">上傳</div>
-                            <input type="file" id="endingMovie3-input" style="display: none;"
-                                @change="endingChangeFile" data-ref="endingMovie3">
+                            <input type="file" id="endingMovie3-input" style="display: none;" @change="endingChangeFile"
+                                data-ref="endingMovie3">
                         </div>
                     </div>
                     <div class="step-day-row">
                         <div class="step-day-title3">結局四 (鷹老師) 影片</div>
                         <div class="step-day-btn">
-                            <img v-if="endingData.endingMovie4" class="step-day-icon" src="~/assets/images/Icon/available.svg"
-                                alt="available">
+                            <img v-if="endingData.endingMovie4" class="step-day-icon"
+                                src="~/assets/images/Icon/available.svg" alt="available">
                             <div @click="endingChooseFile('endingMovie4')" class="step-day-upload">上傳</div>
-                            <input type="file" id="endingMovie4-input" style="display: none;"
-                                @change="endingChangeFile" data-ref="endingMovie4">
+                            <input type="file" id="endingMovie4-input" style="display: none;" @change="endingChangeFile"
+                                data-ref="endingMovie4">
                         </div>
                     </div>
                 </div>
@@ -221,21 +241,21 @@
                     <div class="step-day-row">
                         <div class="step-day-title3">學習單</div>
                         <div class="step-day-btn">
-                            <img v-if="endingData.endingSheet" class="step-day-icon" src="~/assets/images/Icon/available.svg"
-                                alt="available">
+                            <img v-if="endingData.endingSheet" class="step-day-icon"
+                                src="~/assets/images/Icon/available.svg" alt="available">
                             <div @click="endingChooseFile('endingSheet')" class="step-day-upload">上傳</div>
-                            <input type="file" id="endingSheet-input" style="display: none;"
-                                @change="endingChangeFile" data-ref="endingSheet">
+                            <input type="file" id="endingSheet-input" style="display: none;" @change="endingChangeFile"
+                                data-ref="endingSheet">
                         </div>
                     </div>
                     <div class="step-day-row">
                         <div class="step-day-title3">教學簡報</div>
                         <div class="step-day-btn">
-                            <img v-if="endingData.endingBulletin" class="step-day-icon" src="~/assets/images/Icon/available.svg"
-                                alt="available">
+                            <img v-if="endingData.endingBulletin" class="step-day-icon"
+                                src="~/assets/images/Icon/available.svg" alt="available">
                             <div @click="endingChooseFile('endingBulletin')" class="step-day-upload">上傳</div>
-                            <input type="file" id="endingBulletin-input" style="display: none;"
-                                @change="endingChangeFile" data-ref="endingBulletin">
+                            <input type="file" id="endingBulletin-input" style="display: none;" @change="endingChangeFile"
+                                data-ref="endingBulletin">
                         </div>
                     </div>
                 </div>
@@ -332,7 +352,7 @@
 import { getScriptById, uploadDetail } from "~/api/script";
 import { ElMessage } from 'element-plus'
 
-const emit = defineEmits(['detailDataEmit','endingDataEmit'])
+const emit = defineEmits(['detailDataEmit', 'endingDataEmit'])
 
 const props = defineProps({
     period: {
@@ -516,7 +536,7 @@ const endingChangeFile = (el) => {
     formData.append('file', el.target.files[0])
     formData.append('description', `${elRef}`)
     endingData[elRef] = formData
-    console.log("endingData",endingData)
+    console.log("endingData", endingData)
 }
 
 watch(endingData, () => {
