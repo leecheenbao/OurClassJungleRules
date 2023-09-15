@@ -144,7 +144,7 @@
                     <div class="mission-body-head">本日計分</div>
                     <div class="mission-body-net">
                         <div class="mission-body-text">目前還未填寫分數</div>
-                        <div @click="isShowWrite = true" class="mission-body-write">
+                        <div @click="openFillScoreModel" class="mission-body-write">
                             <img class="mission-body-edit" src="~assets/images/Icon/edit.svg" alt="">
                             <div>填寫分數</div>
                         </div>
@@ -161,57 +161,24 @@
                             </div>
                         </div>
 
-                        <div class="mission-count-row2">
+                        <div v-for="item in stuList" class="mission-count-row2">
                             <div class="mission-count-choose">
-                                <div class="mission-count-sub1">選項 A</div>
-                                <div class="mission-count-sub2">秩序效果：+1，關係效果：-2</div>
+                                <div class="mission-count-sub1">{{ item.text }}</div>
+                                <div class="mission-count-sub2">秩序效果：{{ item.orderly }}，關係效果：{{ item.relation }}</div>
                             </div>
                             <div class="mission-count-row3">
-                                <div class="mission-count-count">2</div>
-                                <div class="mission-count-count">+2</div>
-                                <div class="mission-count-count">+1</div>
-                            </div>
-                        </div>
-                        <div class="mission-count-row2">
-                            <div class="mission-count-choose">
-                                <div class="mission-count-sub1">選項 A</div>
-                                <div class="mission-count-sub2">秩序效果：+1，關係效果：-2</div>
-                            </div>
-                            <div class="mission-count-row3">
-                                <div class="mission-count-count">2</div>
-                                <div class="mission-count-count">+2</div>
-                                <div class="mission-count-count">+1</div>
-                            </div>
-                        </div>
-                        <div class="mission-count-row2">
-                            <div class="mission-count-choose">
-                                <div class="mission-count-sub1">選項 A</div>
-                                <div class="mission-count-sub2">秩序效果：+1，關係效果：-2</div>
-                            </div>
-                            <div class="mission-count-row3">
-                                <div class="mission-count-count">2</div>
-                                <div class="mission-count-count">+2</div>
-                                <div class="mission-count-count">+1</div>
-                            </div>
-                        </div>
-                        <div class="mission-count-row2">
-                            <div class="mission-count-choose">
-                                <div class="mission-count-sub1">選項 A</div>
-                                <div class="mission-count-sub2">秩序效果：+1，關係效果：-2</div>
-                            </div>
-                            <div class="mission-count-row3">
-                                <div class="mission-count-count">2</div>
-                                <div class="mission-count-count">+2</div>
-                                <div class="mission-count-count">+1</div>
+                                <div class="mission-count-count">{{ item.count }}</div>
+                                <div class="mission-count-count">{{ item.orderly * item.count }}</div>
+                                <div class="mission-count-count">{{ item.relation * item.count }}</div>
                             </div>
                         </div>
                     </div>
                     <div class="mission-count-sum">
                         <div class="mission-count-sum1">
                             <div class="mission-count-title2">小計</div>
-                            <div class="mission-count-num">+5</div>
+                            <div class="mission-count-num">{{ stuTotal.orderly }}</div>
                         </div>
-                        <div class="mission-count-sum2">+3</div>
+                        <div class="mission-count-sum2">{{ stuTotal.relation }}</div>
                     </div>
 
 
@@ -225,64 +192,31 @@
                             </div>
                         </div>
 
-                        <div class="mission-count-row2">
+                        <div v-for="item in parList" class="mission-count-row2">
                             <div class="mission-count-choose">
-                                <div class="mission-count-sub1">選項 A</div>
-                                <div class="mission-count-sub2">秩序效果：+1，關係效果：-2</div>
+                                <div class="mission-count-sub1">{{ item.text }}</div>
+                                <div class="mission-count-sub2">秩序效果：{{ item.orderly }}，關係效果：{{ item.relation }}</div>
                             </div>
                             <div class="mission-count-row3">
-                                <div class="mission-count-count">2</div>
-                                <div class="mission-count-count">+2</div>
-                                <div class="mission-count-count">+1</div>
-                            </div>
-                        </div>
-                        <div class="mission-count-row2">
-                            <div class="mission-count-choose">
-                                <div class="mission-count-sub1">選項 A</div>
-                                <div class="mission-count-sub2">秩序效果：+1，關係效果：-2</div>
-                            </div>
-                            <div class="mission-count-row3">
-                                <div class="mission-count-count">2</div>
-                                <div class="mission-count-count">+2</div>
-                                <div class="mission-count-count">+1</div>
-                            </div>
-                        </div>
-                        <div class="mission-count-row2">
-                            <div class="mission-count-choose">
-                                <div class="mission-count-sub1">選項 A</div>
-                                <div class="mission-count-sub2">秩序效果：+1，關係效果：-2</div>
-                            </div>
-                            <div class="mission-count-row3">
-                                <div class="mission-count-count">2</div>
-                                <div class="mission-count-count">+2</div>
-                                <div class="mission-count-count">+1</div>
-                            </div>
-                        </div>
-                        <div class="mission-count-row2">
-                            <div class="mission-count-choose">
-                                <div class="mission-count-sub1">選項 A</div>
-                                <div class="mission-count-sub2">秩序效果：+1，關係效果：-2</div>
-                            </div>
-                            <div class="mission-count-row3">
-                                <div class="mission-count-count">2</div>
-                                <div class="mission-count-count">+2</div>
-                                <div class="mission-count-count">+1</div>
+                                <div class="mission-count-count">{{ item.count }}</div>
+                                <div class="mission-count-count">{{ item.orderly * item.count }}</div>
+                                <div class="mission-count-count">{{ item.relation * item.count }}</div>
                             </div>
                         </div>
                     </div>
                     <div class="mission-count-sum">
                         <div class="mission-count-sum1">
                             <div class="mission-count-title2">小計</div>
-                            <div class="mission-count-num">+5</div>
+                            <div class="mission-count-num">{{ parTotal.orderly }}</div>
                         </div>
-                        <div class="mission-count-sum2">+3</div>
+                        <div class="mission-count-sum2">{{ parTotal.relation }}</div>
                     </div>
                     <div class="mission-count-total">
                         <div class="mission-count-total">
                             <div class="mission-count-title3">每日小計</div>
-                            <div class="mission-count-num2">+2</div>
+                            <div class="mission-count-num2">{{ stuTotal.orderly + parTotal.orderly }}</div>
                         </div>
-                        <div class="mission-count-num3">+4</div>
+                        <div class="mission-count-num3">{{ stuTotal.relation + parTotal.relation }}</div>
                     </div>
 
 
@@ -338,27 +272,26 @@
                             <div style="width: 40%;">項目</div>
                             <div style="width: 25%;">秩序</div>
                             <div style="width: 25%;">關係</div>
-                            <div style="width: 10%;">編輯</div>
+                            <div style="width: 10%;"></div>
                         </div>
-                        <div class="mission-body-scoring-itemBox">
-                            <div style="width: 40%;">第 1 日得分小計</div>
-                            <div style="width: 25%;">+7</div>
-                            <div style="width: 25%;">+3</div>
+                        <div v-for="total in totalList" class="mission-body-scoring-itemBox">
+                            <div style="width: 40%;">第 {{ total.period }} 日得分小計</div>
+                            <div style="width: 25%;">{{ total.orderly }}</div>
+                            <div style="width: 25%;">{{ total.relation }}</div>
                             <div style="width: 10%;">
-                                <div data-v-61f7ac3a="" class="icon-outer"><img data-v-61f7ac3a="" class="icon"
-                                        src="~assets/images/Icon/edit.svg" alt="close"></div>
+
                             </div>
                         </div>
                         <div class="mission-body-scoring-totalScore">
                             <div class="score-title" style="width: 40%;">分數總計</div>
-                            <div style="width: 25%;">7</div>
-                            <div style="width: 25%;">3</div>
+                            <div style="width: 25%;">{{ allTotal.orderly }}</div>
+                            <div style="width: 25%;">{{ allTotal.relation }}</div>
                             <div style="width: 10%;">
                             </div>
                         </div>
                         <div class="mission-body-scoring-end">
                             <div class="score-title" style="width: 40%;">本次結局</div>
-                            <div class="score-endText" style="width: 25%;">虎兔篇 結局一</div>
+                            <div class="score-endText" style="width: 25%;">{{ quadrantOption[quadrant] }}</div>
                             <div style="width: 25%;"></div>
                             <div style="width: 10%;">
                             </div>
@@ -368,8 +301,9 @@
                     <div @click="centerDialogVisible = true" class="mission-body-head">本次結局</div>
                     <div class="mission-body-videoBox" :style="`background: no-repeat center url(${scriptData.imgUrl})`">
                         <div v-if="!isVideoPlay" class="mission-body-video">
-                            <div class="mission-body-video-head">結局一</div>
-                            <div @click="videoPlay(currentDetail.endingMovie1)" class="mission-body-video-play">
+                            <div class="mission-body-video-head">結局{{ quadrant }}</div>
+                            <div @click="videoPlay(currentDetail[`endingMovie${quadrant}`])"
+                                class="mission-body-video-play">
                                 <img class="mission-body-video-img" src="~assets/images/Icon/play.svg" alt="">
                                 <div>播放影片</div>
                             </div>
@@ -393,11 +327,14 @@
                             <div class="mission-body-row4">
                                 <div class="mission-body-head3">{{ scriptData.title }} 結局一</div>
                                 <div style="display: flex;">
-                                    <img v-if="currentDetail.endingMovie1" @click="videoPlay(currentDetail.endingMovie1)" class="mission-body-bgIcon" style="margin-right: 12px;"
+                                    <img v-if="currentDetail.endingMovie1" @click="videoPlay(currentDetail.endingMovie1)"
+                                        class="mission-body-bgIcon" style="margin-right: 12px;"
                                         src="~assets/images/Icon/play.svg" alt="">
-                                    <img @click="openContentPopup(currentDetail.endingOne)" class="mission-body-icon" style="margin-right: 12px;"
-                                        src="~assets/images/Icon/detail.svg" alt="">
-                                    <img v-if="currentDetail.endingMovie1" @click="qrDownload(currentDetail.endingMovie1, `結局日結局一`)" class="mission-body-icon" src="~assets/images/Icon/download.svg" alt="">
+                                    <img @click="openContentPopup(currentDetail.endingOne)" class="mission-body-icon"
+                                        style="margin-right: 12px;" src="~assets/images/Icon/detail.svg" alt="">
+                                    <img v-if="currentDetail.endingMovie1"
+                                        @click="qrDownload(currentDetail.endingMovie1, `結局日結局一`)" class="mission-body-icon"
+                                        src="~assets/images/Icon/download.svg" alt="">
                                 </div>
                                 <!-- <a v-if="currentDetail.sheet" :href="currentDetail.sheet" download="sheet">
                                     <img class="mission-body-icon" src="~assets/images/Icon/download.svg" alt="">
@@ -406,11 +343,14 @@
                             <div class="mission-body-row4">
                                 <div class="mission-body-head3">{{ scriptData.title }} 結局二</div>
                                 <div style="display: flex;">
-                                    <img v-if="currentDetail.endingMovie2" @click="videoPlay(currentDetail.endingMovie2)" class="mission-body-bgIcon" style="margin-right: 12px;"
+                                    <img v-if="currentDetail.endingMovie2" @click="videoPlay(currentDetail.endingMovie2)"
+                                        class="mission-body-bgIcon" style="margin-right: 12px;"
                                         src="~assets/images/Icon/play.svg" alt="">
-                                    <img @click="openContentPopup(currentDetail.endingTwo)" class="mission-body-icon" style="margin-right: 12px;"
-                                        src="~assets/images/Icon/detail.svg" alt="">
-                                    <img v-if="currentDetail.endingMovie2" @click="qrDownload(currentDetail.endingMovie2, `結局日結局二`)" class="mission-body-icon" src="~assets/images/Icon/download.svg" alt="">
+                                    <img @click="openContentPopup(currentDetail.endingTwo)" class="mission-body-icon"
+                                        style="margin-right: 12px;" src="~assets/images/Icon/detail.svg" alt="">
+                                    <img v-if="currentDetail.endingMovie2"
+                                        @click="qrDownload(currentDetail.endingMovie2, `結局日結局二`)" class="mission-body-icon"
+                                        src="~assets/images/Icon/download.svg" alt="">
                                 </div>
                             </div>
                         </div>
@@ -419,21 +359,27 @@
                             <div class="mission-body-row4">
                                 <div class="mission-body-head3">{{ scriptData.title }} 結局三</div>
                                 <div style="display: flex;">
-                                    <img v-if="currentDetail.endingMovie3" @click="videoPlay(currentDetail.endingMovie3)" class="mission-body-bgIcon" style="margin-right: 12px;"
+                                    <img v-if="currentDetail.endingMovie3" @click="videoPlay(currentDetail.endingMovie3)"
+                                        class="mission-body-bgIcon" style="margin-right: 12px;"
                                         src="~assets/images/Icon/play.svg" alt="">
-                                    <img @click="openContentPopup(currentDetail.endingThree)" class="mission-body-icon" style="margin-right: 12px;"
-                                        src="~assets/images/Icon/detail.svg" alt="">
-                                    <img v-if="currentDetail.endingMovie3" @click="qrDownload(currentDetail.endingMovie3, `結局日結局三`)" class="mission-body-icon" src="~assets/images/Icon/download.svg" alt="">
+                                    <img @click="openContentPopup(currentDetail.endingThree)" class="mission-body-icon"
+                                        style="margin-right: 12px;" src="~assets/images/Icon/detail.svg" alt="">
+                                    <img v-if="currentDetail.endingMovie3"
+                                        @click="qrDownload(currentDetail.endingMovie3, `結局日結局三`)" class="mission-body-icon"
+                                        src="~assets/images/Icon/download.svg" alt="">
                                 </div>
                             </div>
                             <div class="mission-body-row4">
                                 <div class="mission-body-head3">{{ scriptData.title }} 結局四 </div>
                                 <div style="display: flex;">
-                                    <img v-if="currentDetail.endingMovie4" @click="videoPlay(currentDetail.endingMovie4)" class="mission-body-bgIcon" style="margin-right: 12px;"
+                                    <img v-if="currentDetail.endingMovie4" @click="videoPlay(currentDetail.endingMovie4)"
+                                        class="mission-body-bgIcon" style="margin-right: 12px;"
                                         src="~assets/images/Icon/play.svg" alt="">
-                                    <img @click="openContentPopup(currentDetail.endingFour)" class="mission-body-icon" style="margin-right: 12px;"
-                                        src="~assets/images/Icon/detail.svg" alt="">
-                                    <img v-if="currentDetail.endingMovie4" @click="qrDownload(currentDetail.endingMovie4, `結局日結局四`)" class="mission-body-icon" src="~assets/images/Icon/download.svg" alt="">
+                                    <img @click="openContentPopup(currentDetail.endingFour)" class="mission-body-icon"
+                                        style="margin-right: 12px;" src="~assets/images/Icon/detail.svg" alt="">
+                                    <img v-if="currentDetail.endingMovie4"
+                                        @click="qrDownload(currentDetail.endingMovie4, `結局日結局四`)" class="mission-body-icon"
+                                        src="~assets/images/Icon/download.svg" alt="">
                                 </div>
                             </div>
                         </div>
@@ -444,13 +390,15 @@
                         <div class="mission-body-row3">
                             <div class="mission-body-row4">
                                 <div class="mission-body-head3">學習單</div>
-                                <a v-if="currentDetail.endingSheet" target="_blank" :href="currentDetail.endingSheet" download="sheet">
+                                <a v-if="currentDetail.endingSheet" target="_blank" :href="currentDetail.endingSheet"
+                                    download="sheet">
                                     <img class="mission-body-icon" src="~assets/images/Icon/download.svg" alt="">
                                 </a>
                             </div>
                             <div class="mission-body-row4">
                                 <div class="mission-body-head3">教學簡報</div>
-                                <a v-if="currentDetail.endingBulletin" target="_blank" :href="currentDetail.endingBulletin" download="sheet">
+                                <a v-if="currentDetail.endingBulletin" target="_blank" :href="currentDetail.endingBulletin"
+                                    download="sheet">
                                     <img class="mission-body-icon" src="~assets/images/Icon/download.svg" alt="">
                                 </a>
                             </div>
@@ -506,56 +454,35 @@
             </div>
 
             <!-- 填寫分數 -->
-            <div v-if="isShowWrite" class="popup">
+            <div v-show="isShowWrite" class="popup">
                 <div @click="isShowWrite = false" class="box">
                     <div @click.stop class="block-box">
                         <div class="title">劇情內容</div>
                         <div class="mission-pop">
                             <div class="mission-pop-row">
-                                <div class="mission-pop-title">第 1 日</div>
-                                <div class="mission-pop-add">+ 增加</div>
+                                <div class="mission-pop-title">第 {{ currentPeriod }} 日</div>
+                                <div @click="fillScoreOptionAdd" class="mission-pop-add">+ 增加</div>
                             </div>
                             <div class="mission-pop-row2">
                                 <div class="mission-pop-answer">學生答案</div>
                                 <div class="mission-pop-answer">家長答案</div>
                             </div>
-                            <div class="mission-pop-row3">
-                                <div class="mission-pop-num">1</div>
-                                <select class="select mission-pop-select">
-                                    <option value="">請選擇</option>
-                                    <option value="volvo">Volvo</option>
-                                    <option value="saab">Saab</option>
-                                    <option value="mercedes">Mercedes</option>
-                                    <option value="audi">Audi</option>
-                                </select>
-                                <select class="select mission-pop-select">
-                                    <option value="">請選擇</option>
-                                    <option value="volvo">Volvo</option>
-                                    <option value="saab">Saab</option>
-                                    <option value="mercedes">Mercedes</option>
-                                    <option value="audi">Audi</option>
-                                </select>
-                                <div class="mission-pop-close">-</div>
+                            <div style="height:300px;overflow: auto;">
+                                <div v-for="option, index in fillScoreOption" :key="option.id" class="mission-pop-row3">
+                                    <div class="mission-pop-num">{{ index + 1 }}</div>
+                                    <select v-model="option.stuAns" class="select mission-pop-select">
+                                        <option v-for="config in currentDetail.studentConfigs" :value="config.id">{{
+                                            config.stuDescription }}</option>
+                                    </select>
+                                    <select v-model="option.parAns" class="select mission-pop-select">
+                                        <option v-for="config in currentDetail.parentConfigs" :value="config.id">{{
+                                            config.parDescription }}</option>
+                                    </select>
+                                    <div @click="removeOptionItem(option)" class="mission-pop-close">-</div>
+                                </div>
                             </div>
-                            <div class="mission-pop-row3">
-                                <div class="mission-pop-num">2</div>
-                                <select class="select mission-pop-select">
-                                    <option value="">請選擇</option>
-                                    <option value="volvo">Volvo</option>
-                                    <option value="saab">Saab</option>
-                                    <option value="mercedes">Mercedes</option>
-                                    <option value="audi">Audi</option>
-                                </select>
-                                <select class="select mission-pop-select">
-                                    <option value="">請選擇</option>
-                                    <option value="volvo">Volvo</option>
-                                    <option value="saab">Saab</option>
-                                    <option value="mercedes">Mercedes</option>
-                                    <option value="audi">Audi</option>
-                                </select>
-                                <div class="mission-pop-close">-</div>
-                            </div>
-                            <div class="mission-pop-confirm">確認</div>
+
+                            <div @click="sendFillScoreOption()" class="mission-pop-confirm">確認</div>
                         </div>
                     </div>
                 </div>
@@ -613,6 +540,68 @@ const downloadFile = (url) => {
     })
 }
 
+import { addScore, getScore, deleteScore } from "~/api/score";
+let score = reactive([])
+const setScore = async () => {
+    let { data } = await getScore()
+    score.length = 0
+    score.push(...(data.value.data.list))
+}
+setScore()
+const fillScoreOption = reactive([])
+const openFillScoreModel = () => {
+    isShowWrite.value = true
+    fillScoreOption.length = 0
+
+    let score = getScoreByCurrentPeriod()
+    score.forEach(o => {
+        fillScoreOption.push({
+            "id": Math.random().toString(36),
+            "taskId": taskData.taskId,
+            "period": currentPeriod.value,
+            "scriptId": scriptId.value,
+            "parAns": o.parAns,
+            "stuAns": o.stuAns,
+            "questionId": o.questionId
+        })
+    })
+}
+const fillScoreOptionAdd = () => {
+    fillScoreOption.push({
+        "id": Math.random().toString(36),
+        "taskId": taskData.taskId,
+        "period": currentPeriod.value,
+        "scriptId": scriptId.value,
+        "parAns": "",
+        "stuAns": ""
+    })
+}
+const removeOptionItem = async (score) => {
+    let index = fillScoreOption.findIndex(item => item.id === score.id);
+    if (index !== -1) {
+        fillScoreOption.splice(index, 1);
+    }
+    if (score.hasOwnProperty("questionId")) {
+        await deleteScore(score.questionId)
+    }
+}
+const sendFillScoreOption = async () => {
+    console.log("sendFillScoreOption")
+    fillScoreOption.forEach(obj => {
+        delete obj["id"]
+    });
+    await addScore(JSON.parse(JSON.stringify(fillScoreOption)))
+    isShowWrite.value = false
+    ElMessage({
+        message: '儲存成功',
+        type: 'success',
+    })
+    await setScore()
+    await setScoreList(currentDetail)
+    fillScoreOption.length = 0
+}
+
+
 const route = useRoute();
 const missionId = route.params.missionId
 const taskData = reactive({})
@@ -639,6 +628,13 @@ const numberToLetter = (number) => {
     } else {
         return number;
     }
+}
+
+// 依據“日”取得評分
+const getScoreByCurrentPeriod = () => {
+    let filterData = score.filter(o => o.scriptId == scriptData.scriptId && o.taskId == taskData.taskId && o.period == currentPeriod.value)
+    console.log("getScoreByDay", filterData)
+    return filterData
 }
 
 const isEdit = JSON.parse(route.params.isEdit)
@@ -732,11 +728,66 @@ const missionHeadClick = (id) => {
     }
 
     setCurrentDetail(id)
+
+    if (scriptData.dayEnd == id) {
+        setScoreOverview()
+    }
+}
+
+let allTotal = reactive({
+    orderly: 0,
+    relation: 0
+})
+const quadrantOption = {
+    1: "結局一 (鴞老師)",
+    2: "結局二 (鴿老師)",
+    3: "結局三 (鴉老師)",
+    4: "結局四 (鷹老師)"
+}
+const quadrant = ref(null)
+const totalList = reactive([])
+const setScoreOverview = async () => {
+    totalList.length = 0
+    for (let index = 1; index <= scriptData.day; index++) {
+        let detail = getDetailByPeriod(index)
+        let scoreTotal = await setScoreList(detail)
+        console.log("scoreTotal", scoreTotal)
+        let orderly = scoreTotal.stuTotal.orderly + scoreTotal.parTotal.orderly
+        let relation = scoreTotal.stuTotal.relation + scoreTotal.parTotal.relation
+        totalList.push({
+            period: index,
+            orderly: orderly,
+            relation: relation
+        })
+        allTotal.orderly += orderly
+        allTotal.relation += relation
+    }
+    setEndQuadrant(allTotal.orderly, allTotal.relation)
+}
+
+const setEndQuadrant = (orderly, relation) => {
+    if (orderly > 0 && relation > 0) {
+        quadrant.value = 1
+    } else if (orderly < 0 && relation > 0) {
+        quadrant.value = 2
+    } else if (orderly < 0 && relation < 0) {
+        quadrant.value = 3
+    } else if (orderly > 0 && relation < 0) {
+        quadrant.value = 4
+    }
+}
+
+const getDetailByPeriod = (period) => {
+    let filterData = scriptData.scriptDetail.filter(o => o.period == period)
+    if (filterData.length > 0) {
+        return filterData[0]
+    }
+    return null
 }
 
 const currentPeriod = ref(1)
 const currentDetail = reactive({})
-const setCurrentDetail = (period) => {
+const setCurrentDetail = async (period) => {
 
     for (let key in currentDetail) {
         delete currentDetail[key];
@@ -751,9 +802,75 @@ const setCurrentDetail = (period) => {
             Object.assign(currentDetail, filterData[0])
         }
     }
+    await setScoreList(currentDetail)
+}
+let stuList = reactive([])
+let parList = reactive([])
+let stuTotal = reactive({
+    orderly: 0,
+    relation: 0
+})
+let parTotal = reactive({
+    orderly: 0,
+    relation: 0
+})
+const setScoreList = async (detail) => {
+
+    let stuDatas = detail.studentConfigs.map(o => {
+        return {
+            id: o.id,
+            text: o.stuDescription,
+            orderly: o.stuOrderly,
+            relation: o.stuRelation,
+            count: 0
+        }
+    })
+    let parDatas = detail.parentConfigs.map(o => {
+        return {
+            id: o.id,
+            text: o.parDescription,
+            orderly: o.parOrderly,
+            relation: o.parRelation,
+            count: 0
+        }
+    })
+    console.log("score", score)
+    for (let item of score) {
+        let stuId = parseInt(item.stuAns, 10);
+        let parId = parseInt(item.parAns, 10);
+        let stuItem = stuDatas.find(obj => obj.id === stuId);
+        if (stuItem) {
+            stuItem.count++;
+        }
+
+        let parItem = parDatas.find(obj => obj.id === parId);
+        if (parItem) {
+            parItem.count++;
+        }
+    }
+    stuList.length = 0
+    parList.length = 0
+    stuList.push(...stuDatas)
+    parList.push(...parDatas)
+    stuTotal.orderly = 0
+    stuTotal.relation = 0
+    stuDatas.forEach(o => {
+        stuTotal.orderly += o.count * o.orderly
+        stuTotal.relation += o.count * o.relation
+
+    })
+    parTotal.orderly = 0
+    parTotal.relation = 0
+    parList.forEach(o => {
+        parTotal.orderly += o.count * o.orderly
+        parTotal.relation += o.count * o.relation
+    })
+    return {
+        stuTotal: stuTotal,
+        parTotal: parTotal,
+    }
 
 }
-
 const allScript = reactive([])
 const scriptOption = reactive([])
 async function setAllScript() {
@@ -1404,7 +1521,7 @@ const isShowWrite = ref(false)
         }
 
         &-count {
-            margin-right: 90px;
+            width: 130px;
             font-size: 14px;
         }
 
@@ -1477,6 +1594,7 @@ const isShowWrite = ref(false)
             color: #008B77;
             font-weight: 700;
             font-size: 14px;
+            cursor: pointer;
         }
 
         &-row2 {
@@ -1518,6 +1636,7 @@ const isShowWrite = ref(false)
             border: 1px solid #008B77;
             border-radius: 100%;
             color: #008B77;
+            cursor: pointer;
         }
 
         &-confirm {
@@ -1531,4 +1650,5 @@ const isShowWrite = ref(false)
         }
     }
 
-}</style>
+}
+</style>

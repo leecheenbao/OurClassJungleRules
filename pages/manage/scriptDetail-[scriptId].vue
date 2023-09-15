@@ -69,9 +69,9 @@
                                 </div>
                                 <div class="step-day-green-row3">
                                     <div class="step-day-green-sub">秩序：</div>
-                                    <div class="step-day-green-text">{{ fractionOption[config.stuOrderly] }}</div>
+                                    <div class="step-day-green-text">{{ config.stuOrderly }}</div>
                                     <div class="step-day-green-sub">關係：</div>
-                                    <div class="step-day-green-text">{{ fractionOption[config.stuRelation] }}</div>
+                                    <div class="step-day-green-text">{{ config.stuRelation }}</div>
                                 </div>
                             </div>
                         </div>
@@ -91,9 +91,9 @@
                                 </div>
                                 <div class="step-day-green-row3">
                                     <div class="step-day-green-sub">秩序：</div>
-                                    <div class="step-day-green-text">{{ fractionOption[config.parOrderly] }}</div>
+                                    <div class="step-day-green-text">{{ config.parOrderly }}</div>
                                     <div class="step-day-green-sub">關係：</div>
-                                    <div class="step-day-green-text">{{ fractionOption[config.parRelation] }}</div>
+                                    <div class="step-day-green-text">{{ config.parRelation }}</div>
                                 </div>
                             </div>
                         </div>
@@ -307,15 +307,25 @@
                             <div class="step-day-title3">秩序</div>
                             <div class="step-day-container">
                                 <select v-model="config.stuOrderly" class="select">
-                                    <option :value="0">計分</option>
-                                    <option :value="1">不計分</option>
+                                    <option :value="3">3</option>
+                                    <option :value="2">2</option>
+                                    <option :value="1">1</option>
+                                    <option :value="0">0</option>
+                                    <option :value="-1">-1</option>
+                                    <option :value="-2">-2</option>
+                                    <option :value="-3">-3</option>
                                 </select>
                             </div>
                             <div class="step-day-title3">關係</div>
                             <div class="step-day-container">
                                 <select v-model="config.stuRelation" class="select">
-                                    <option :value="0">計分</option>
-                                    <option :value="1">不計分</option>
+                                    <option :value="3">3</option>
+                                    <option :value="2">2</option>
+                                    <option :value="1">1</option>
+                                    <option :value="0">0</option>
+                                    <option :value="-1">-1</option>
+                                    <option :value="-2">-2</option>
+                                    <option :value="-3">-3</option>
                                 </select>
                             </div>
                             <div @click="deleteOneItem(detail.period, 'studentConfigs', config.tempId)"
@@ -341,15 +351,25 @@
                             <div class="step-day-title3">秩序</div>
                             <div class="step-day-container">
                                 <select v-model="config.parOrderly" class="select">
-                                    <option :value="0">計分</option>
-                                    <option :value="1">不計分</option>
+                                    <option :value="3">3</option>
+                                    <option :value="2">2</option>
+                                    <option :value="1">1</option>
+                                    <option :value="0">0</option>
+                                    <option :value="-1">-1</option>
+                                    <option :value="-2">-2</option>
+                                    <option :value="-3">-3</option>
                                 </select>
                             </div>
                             <div class="step-day-title3">關係</div>
                             <div class="step-day-container">
                                 <select v-model="config.parRelation" class="select">
-                                    <option :value="0">計分</option>
-                                    <option :value="1">不計分</option>
+                                    <option :value="3">3</option>
+                                    <option :value="2">2</option>
+                                    <option :value="1">1</option>
+                                    <option :value="0">0</option>
+                                    <option :value="-1">-1</option>
+                                    <option :value="-2">-2</option>
+                                    <option :value="-3">-3</option>
                                 </select>
                             </div>
                             <div @click="deleteOneItem(detail.period, 'parentConfigs', config.tempId)"
@@ -419,26 +439,26 @@
                         <div class="step-day-row">
                             <div class="step-day-title3">結局一 (鴞老師) 影片</div>
                             <div @click="chooseFile('endingMovie1', 'end')" class="step-day-upload">上傳</div>
-                            <input type="file" id="endingMovie1" style="display: none;"
-                                @change="changeFile" data-period="end" data-ref="endingMovie1">
+                            <input type="file" id="endingMovie1" style="display: none;" @change="changeFile"
+                                data-period="end" data-ref="endingMovie1">
                         </div>
                         <div class="step-day-row">
                             <div class="step-day-title3">結局二 (鴿老師) 影片</div>
                             <div @click="chooseFile('endingMovie2', 'end')" class="step-day-upload">上傳</div>
-                            <input type="file" id="endingMovie2" style="display: none;"
-                                @change="changeFile" data-period="end" data-ref="endingMovie2">
+                            <input type="file" id="endingMovie2" style="display: none;" @change="changeFile"
+                                data-period="end" data-ref="endingMovie2">
                         </div>
                         <div class="step-day-row">
                             <div class="step-day-title3">結局三 (鴉老師) 影片</div>
                             <div @click="chooseFile('endingMovie3', 'end')" class="step-day-upload">上傳</div>
-                            <input type="file" id="endingMovie3" style="display: none;"
-                                @change="changeFile" data-period="end" data-ref="endingMovie3">
+                            <input type="file" id="endingMovie3" style="display: none;" @change="changeFile"
+                                data-period="end" data-ref="endingMovie3">
                         </div>
                         <div class="step-day-row">
                             <div class="step-day-title3">結局四 (鷹老師) 影片</div>
                             <div @click="chooseFile('endingMovie4', 'end')" class="step-day-upload">上傳</div>
-                            <input type="file" id="endingMovie4" style="display: none;"
-                                @change="changeFile" data-period="end" data-ref="endingMovie4">
+                            <input type="file" id="endingMovie4" style="display: none;" @change="changeFile"
+                                data-period="end" data-ref="endingMovie4">
                         </div>
                     </div>
 
@@ -447,14 +467,14 @@
                         <div class="step-day-row">
                             <div class="step-day-title3">學習單</div>
                             <div @click="chooseFile('endingSheet', 'end')" class="step-day-upload">上傳</div>
-                            <input type="file" id="endingSheet" style="display: none;"
-                                @change="changeFile" data-period="end" data-ref="endingSheet">
+                            <input type="file" id="endingSheet" style="display: none;" @change="changeFile"
+                                data-period="end" data-ref="endingSheet">
                         </div>
                         <div class="step-day-row">
                             <div class="step-day-title3">教學簡報</div>
                             <div @click="chooseFile('endingBulletin', 'end')" class="step-day-upload">上傳</div>
-                            <input type="file" id="endingBulletin" style="display: none;"
-                                @change="changeFile" data-period="end" data-ref="endingBulletin">
+                            <input type="file" id="endingBulletin" style="display: none;" @change="changeFile"
+                                data-period="end" data-ref="endingBulletin">
                         </div>
                     </div>
 
@@ -711,12 +731,12 @@ const changeFile = async (el) => {
     const elRef = el.target.dataset.ref;
     const formData = new FormData();
     formData.append('file', el.target.files[0])
-    if(period == 'end'){
+    if (period == 'end') {
         formData.append('description', elRef)
-    }else {
+    } else {
         formData.append('description', `${elRef}-${period}`)
     }
-    
+
     await uploadFileById(scriptId, formData)
     ElMessage({
         message: '上傳成功',

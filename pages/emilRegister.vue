@@ -25,7 +25,7 @@
 </template>
 
 <script setup>
-import { signup ,sendVerificationLetter} from "~/api/login";
+import { signup ,sendVerificationLetter} from "~/api/auth";
 import { authLogin } from "~/api/index";
 import { ElMessage } from 'element-plus'
 import { useAuthStore } from '@/store/authStore';
@@ -139,4 +139,4 @@ const verify = () => {
         justify-content: center;
     }
 }
-</style>
+</style>~/api/auth

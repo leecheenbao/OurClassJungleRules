@@ -93,9 +93,9 @@
                                 </div>
                                 <div class="step-day-green-row3">
                                     <div class="step-day-green-sub">秩序：</div>
-                                    <div class="step-day-green-text">{{ fractionOption[config.stuOrderly] }}</div>
+                                    <div class="step-day-green-text">{{ config.stuOrderly }}</div>
                                     <div class="step-day-green-sub">關係：</div>
-                                    <div class="step-day-green-text">{{ fractionOption[config.stuRelation] }}</div>
+                                    <div class="step-day-green-text">{{ config.stuRelation }}</div>
                                 </div>
                             </div>
                         </div>
@@ -115,9 +115,9 @@
                                 </div>
                                 <div class="step-day-green-row3">
                                     <div class="step-day-green-sub">秩序：</div>
-                                    <div class="step-day-green-text">{{ fractionOption[config.parOrderly] }}</div>
+                                    <div class="step-day-green-text">{{ config.parOrderly }}</div>
                                     <div class="step-day-green-sub">關係：</div>
-                                    <div class="step-day-green-text">{{ fractionOption[config.parRelation] }}</div>
+                                    <div class="step-day-green-text">{{ config.parRelation }}</div>
                                 </div>
                             </div>
                         </div>

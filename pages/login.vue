@@ -25,7 +25,7 @@
 </template>
 
 <script setup>
-import { googleRegister, authLogin } from "~/api/index";
+import { googleRegister } from "~/api/auth";
 import { useAuthStore } from '@/store/authStore';
 
 let email = ref('123@gmail.com')
@@ -38,14 +38,15 @@ const handleAuthLogin = async () => {
     }
     useAuthStore().login(data)
     // console.log('useCartStore().cart',useCartStore().cart)
-    
- 
+
+
 }
 
+const handleGoogleRegister = async () => {
+    let { data } = await googleRegister()
+    console.log("handleGoogleRegister",data.value.data)
+    window.location.href = data.value.data;
 
-
-const handleGoogleRegister = () => {
-    googleRegister()
 }
 
 </script>

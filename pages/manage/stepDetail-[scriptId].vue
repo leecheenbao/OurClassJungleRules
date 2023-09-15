@@ -60,15 +60,25 @@
                             <div class="step-day-title3">秩序</div>
                             <div class="step-day-container">
                                 <select v-model="config.stuOrderly" class="select">
-                                    <option :value="0">計分</option>
-                                    <option :value="1">不計分</option>
+                                    <option :value="3">3</option>
+                                    <option :value="2">2</option>
+                                    <option :value="1">1</option>
+                                    <option :value="0">0</option>
+                                    <option :value="-1">-1</option>
+                                    <option :value="-2">-2</option>
+                                    <option :value="-3">-3</option>
                                 </select>
                             </div>
                             <div class="step-day-title3">關係</div>
                             <div class="step-day-container">
                                 <select v-model="config.stuRelation" class="select">
-                                    <option :value="0">計分</option>
-                                    <option :value="1">不計分</option>
+                                    <option :value="3">3</option>
+                                    <option :value="2">2</option>
+                                    <option :value="1">1</option>
+                                    <option :value="0">0</option>
+                                    <option :value="-1">-1</option>
+                                    <option :value="-2">-2</option>
+                                    <option :value="-3">-3</option>
                                 </select>
                             </div>
                             <div @click="deleteOneItem(dayData.period, 'studentConfigs', config.id)" class="step-day-close">-
@@ -92,15 +102,25 @@
                             <div class="step-day-title3">秩序</div>
                             <div class="step-day-container">
                                 <select v-model="config.parOrderly" class="select">
-                                    <option :value="0">計分</option>
-                                    <option :value="1">不計分</option>
+                                    <option :value="3">3</option>
+                                    <option :value="2">2</option>
+                                    <option :value="1">1</option>
+                                    <option :value="0">0</option>
+                                    <option :value="-1">-1</option>
+                                    <option :value="-2">-2</option>
+                                    <option :value="-3">-3</option>
                                 </select>
                             </div>
                             <div class="step-day-title3">關係</div>
                             <div class="step-day-container">
                                 <select v-model="config.parRelation" class="select">
-                                    <option :value="0">計分</option>
-                                    <option :value="1">不計分</option>
+                                    <option :value="3">3</option>
+                                    <option :value="2">2</option>
+                                    <option :value="1">1</option>
+                                    <option :value="0">0</option>
+                                    <option :value="-1">-1</option>
+                                    <option :value="-2">-2</option>
+                                    <option :value="-3">-3</option>
                                 </select>
                             </div>
                             <div @click="deleteOneItem(dayData.period, 'parentConfigs', config.id)" class="step-day-close">-</div>
