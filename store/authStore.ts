@@ -22,6 +22,17 @@ export const useAuthStore = defineStore("auth", {
           cookieInfo.value = JSON.stringify(loginData) 
           this.reloadPage()
         },
+        googleLogin(data){
+          this.token = data.token
+          this.isLogin = true
+          const cookieToken = useCookie('token', { maxAge: 60*60*24*7 })
+          cookieToken.value = this.token
+          const cookiePermissions = useCookie('permissions', { maxAge: 60*60*24*7 })
+          cookiePermissions.value = data.role
+          const cookieInfo = useCookie('info', { maxAge: 60*60*24*7 })
+          cookieInfo.value = JSON.stringify(data) 
+          this.reloadPage()
+        },
         setPermissions(roleList){
           let permissions = roleList[0].authority
           this.permissions =  permissions
@@ -31,6 +42,8 @@ export const useAuthStore = defineStore("auth", {
         
         async signOut() {
           this.isLogin = false
+          const cookieInfo = useCookie('info')
+          cookieInfo.value = null
           const cookieToken = useCookie('token')
           cookieToken.value = null
           const cookiePermissions = useCookie('permissions')

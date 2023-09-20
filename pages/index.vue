@@ -67,6 +67,13 @@
 import { getMyTask, edit, add } from "~/api/task";
 import { ElMessage } from 'element-plus'
 import { getScript } from "~/api/script";
+import { useAuthStore } from '@/store/authStore';
+
+console.log("utilities", utilities.getUrlParams())
+let urlParams = utilities.getUrlParams()
+if (!!urlParams) {
+  useAuthStore().googleLogin(urlParams)
+}
 
 const allScript = reactive([])
 const setAllScript = async () => {

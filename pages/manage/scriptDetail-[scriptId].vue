@@ -381,27 +381,44 @@
                     <div class="step-day-net">
                         <div class="step-day-row">
                             <div class="step-day-title3">劇情影片</div>
-                            <div @click="chooseFile('drama', detail.period)" class="step-day-upload">上傳</div>
-                            <input type="file" :id="`drama-${detail.period}`" style="display: none;" @change="changeFile"
-                                :data-period="detail.period" data-ref="drama">
+                            <div class="m-flex">
+                                <img v-if="judgeHasFile(`drama-${detail.period}`)" class="step-day-icon"
+                                    src="~/assets/images/Icon/available.svg" alt="available">
+                                <div @click="chooseFile('drama', detail.period)" class="step-day-upload">上傳</div>
+                                <input type="file" :id="`drama-${detail.period}`" style="display: none;"
+                                    @change="changeFile" :data-period="detail.period" data-ref="drama">
+                            </div>
+
                         </div>
                         <div class="step-day-row">
                             <div class="step-day-title3">學習單</div>
-                            <div @click="chooseFile('sheet', detail.period)" class="step-day-upload">上傳</div>
-                            <input type="file" :id="`sheet-${detail.period}`" style="display: none;" @change="changeFile"
-                                :data-period="detail.period" data-ref="sheet">
+                            <div class="m-flex">
+                                <img v-if="judgeHasFile(`sheet-${detail.period}`)" class="step-day-icon"
+                                    src="~/assets/images/Icon/available.svg" alt="available">
+                                <div @click="chooseFile('sheet', detail.period)" class="step-day-upload">上傳</div>
+                                <input type="file" :id="`sheet-${detail.period}`" style="display: none;"
+                                    @change="changeFile" :data-period="detail.period" data-ref="sheet">
+                            </div>
                         </div>
                         <div class="step-day-row">
                             <div class="step-day-title3">教學簡報</div>
-                            <div @click="chooseFile('bulletin', detail.period)" class="step-day-upload">上傳</div>
-                            <input type="file" :id="`bulletin-${detail.period}`" style="display: none;" @change="changeFile"
-                                :data-period="detail.period" data-ref="bulletin">
+                            <div class="m-flex">
+                                <img v-if="judgeHasFile(`bulletin-${detail.period}`)" class="step-day-icon"
+                                    src="~/assets/images/Icon/available.svg" alt="available">
+                                <div @click="chooseFile('bulletin', detail.period)" class="step-day-upload">上傳</div>
+                                <input type="file" :id="`bulletin-${detail.period}`" style="display: none;"
+                                    @change="changeFile" :data-period="detail.period" data-ref="bulletin">
+                            </div>
                         </div>
                         <div class="step-day-row">
                             <div class="step-day-title3">額外資訊</div>
-                            <div @click="chooseFile('information', detail.period)" class="step-day-upload">上傳</div>
-                            <input type="file" :id="`information-${detail.period}`" style="display: none;"
-                                @change="changeFile" :data-period="detail.period" data-ref="information">
+                            <div class="m-flex">
+                                <img v-if="judgeHasFile(`information-${detail.period}`)" class="step-day-icon"
+                                    src="~/assets/images/Icon/available.svg" alt="available">
+                                <div @click="chooseFile('information', detail.period)" class="step-day-upload">上傳</div>
+                                <input type="file" :id="`information-${detail.period}`" style="display: none;"
+                                    @change="changeFile" :data-period="detail.period" data-ref="information">
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -438,27 +455,43 @@
                     <div class="step-day-net">
                         <div class="step-day-row">
                             <div class="step-day-title3">結局一 (鴞老師) 影片</div>
-                            <div @click="chooseFile('endingMovie1', 'end')" class="step-day-upload">上傳</div>
-                            <input type="file" id="endingMovie1" style="display: none;" @change="changeFile"
-                                data-period="end" data-ref="endingMovie1">
+                            <div class="m-flex">
+                                <img v-if="judgeHasFile(`endingMovie1`)" class="step-day-icon"
+                                    src="~/assets/images/Icon/available.svg" alt="available">
+                                <div @click="chooseFile('endingMovie1', 'end')" class="step-day-upload">上傳</div>
+                                <input type="file" id="endingMovie1" style="display: none;" @change="changeFile"
+                                    data-period="end" data-ref="endingMovie1">
+                            </div>
                         </div>
                         <div class="step-day-row">
                             <div class="step-day-title3">結局二 (鴿老師) 影片</div>
-                            <div @click="chooseFile('endingMovie2', 'end')" class="step-day-upload">上傳</div>
-                            <input type="file" id="endingMovie2" style="display: none;" @change="changeFile"
-                                data-period="end" data-ref="endingMovie2">
+                            <div class="m-flex">
+                                <img v-if="judgeHasFile(`endingMovie2`)" class="step-day-icon"
+                                    src="~/assets/images/Icon/available.svg" alt="available">
+                                <div @click="chooseFile('endingMovie2', 'end')" class="step-day-upload">上傳</div>
+                                <input type="file" id="endingMovie2" style="display: none;" @change="changeFile"
+                                    data-period="end" data-ref="endingMovie2">
+                            </div>
                         </div>
                         <div class="step-day-row">
                             <div class="step-day-title3">結局三 (鴉老師) 影片</div>
-                            <div @click="chooseFile('endingMovie3', 'end')" class="step-day-upload">上傳</div>
-                            <input type="file" id="endingMovie3" style="display: none;" @change="changeFile"
-                                data-period="end" data-ref="endingMovie3">
+                            <div class="m-flex">
+                                <img v-if="judgeHasFile(`endingMovie3`)" class="step-day-icon"
+                                    src="~/assets/images/Icon/available.svg" alt="available">
+                                <div @click="chooseFile('endingMovie3', 'end')" class="step-day-upload">上傳</div>
+                                <input type="file" id="endingMovie3" style="display: none;" @change="changeFile"
+                                    data-period="end" data-ref="endingMovie3">
+                            </div>
                         </div>
                         <div class="step-day-row">
                             <div class="step-day-title3">結局四 (鷹老師) 影片</div>
-                            <div @click="chooseFile('endingMovie4', 'end')" class="step-day-upload">上傳</div>
-                            <input type="file" id="endingMovie4" style="display: none;" @change="changeFile"
-                                data-period="end" data-ref="endingMovie4">
+                            <div class="m-flex">
+                                <img v-if="judgeHasFile(`endingMovie4`)" class="step-day-icon"
+                                    src="~/assets/images/Icon/available.svg" alt="available">
+                                <div @click="chooseFile('endingMovie4', 'end')" class="step-day-upload">上傳</div>
+                                <input type="file" id="endingMovie4" style="display: none;" @change="changeFile"
+                                    data-period="end" data-ref="endingMovie4">
+                            </div>
                         </div>
                     </div>
 
@@ -466,15 +499,24 @@
                     <div class="step-day-net">
                         <div class="step-day-row">
                             <div class="step-day-title3">學習單</div>
-                            <div @click="chooseFile('endingSheet', 'end')" class="step-day-upload">上傳</div>
-                            <input type="file" id="endingSheet" style="display: none;" @change="changeFile"
-                                data-period="end" data-ref="endingSheet">
+                            <div class="m-flex">
+                                <img v-if="judgeHasFile(`endingSheet`)" class="step-day-icon"
+                                    src="~/assets/images/Icon/available.svg" alt="available">
+                                <div @click="chooseFile('endingSheet', 'end')" class="step-day-upload">上傳</div>
+                                <input type="file" id="endingSheet" style="display: none;" @change="changeFile"
+                                    data-period="end" data-ref="endingSheet">
+                            </div>
                         </div>
                         <div class="step-day-row">
                             <div class="step-day-title3">教學簡報</div>
-                            <div @click="chooseFile('endingBulletin', 'end')" class="step-day-upload">上傳</div>
-                            <input type="file" id="endingBulletin" style="display: none;" @change="changeFile"
-                                data-period="end" data-ref="endingBulletin">
+                            <div class="m-flex">
+                                <img v-if="judgeHasFile(`endingBulletin`)" class="step-day-icon"
+                                    src="~/assets/images/Icon/available.svg" alt="available">
+                                <div @click="chooseFile('endingBulletin', 'end')" class="step-day-upload">上傳</div>
+                                <input type="file" id="endingBulletin" style="display: none;" @change="changeFile"
+                                    data-period="end" data-ref="endingBulletin">
+                            </div>
+
                         </div>
                     </div>
 
@@ -568,8 +610,7 @@
 
 <script setup>
 import { getScriptById, uploadDetail, editScriptById, uploadFileById, uploadEnding } from "~/api/script";
-import { ElMessage } from 'element-plus'
-
+import { ElMessage, ElLoading } from 'element-plus'
 
 const fractionOption = {
     0: "加分",
@@ -612,6 +653,11 @@ const setScriptData = async () => {
     console.log('scriptData', scriptData)
 }
 setScriptData()
+
+const onlySetScriptData = async () => {
+    const { data } = await getScriptById(scriptId)
+    Object.assign(scriptData, JSON.parse(JSON.stringify(data.value.data)))
+}
 
 const judgeHasFile = (description) => {
     if (scriptData.mediaDTO) {
@@ -726,7 +772,13 @@ const chooseFile = (ref, period) => {
     button.click();
 }
 
+
 const changeFile = async (el) => {
+    const loading = ElLoading.service({
+        lock: true,
+        text: 'Loading',
+        background: 'rgba(0, 0, 0, 0.7)',
+    })
     const period = el.target.dataset.period;
     const elRef = el.target.dataset.ref;
     const formData = new FormData();
@@ -738,6 +790,8 @@ const changeFile = async (el) => {
     }
 
     await uploadFileById(scriptId, formData)
+    await onlySetScriptData()
+    loading.close()
     ElMessage({
         message: '上傳成功',
         type: 'success',
@@ -751,5 +805,7 @@ const isEdited = ref(true)
 <style lang="scss" scoped>
 @import '~/assets/styles/step.scss';
 
-.box {}
+.m-flex {
+    display: flex;
+}
 </style>
