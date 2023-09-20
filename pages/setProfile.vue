@@ -42,6 +42,11 @@
     </NuxtLayout>
 </template>
 
+<script setup>
+console.log("utilities",utilities.getUrlParams())
+    
+</script>
+
 <style lang="scss" scoped>
 @import '~/assets/styles/form.scss';
 @import '~/assets/styles/popup.scss';

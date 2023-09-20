@@ -18,7 +18,7 @@
                 </nuxt-link>
                 <div class="btn-green" @click="handleAuthLogin">登入</div>
                 <div class="or">或</div>
-                <div class="btn-green">Google 帳號登入</div>
+                <div class="btn-green" @click="handleGoogleRegister">Google 帳號登入</div>
             </div>
         </div>
     </NuxtLayout>

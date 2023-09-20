@@ -50,7 +50,7 @@ import { getInfoById, editInfoById } from "~/api/member";
 
 const cookieInfo = useCookie('info')
 const memberId = cookieInfo.value.id
-console.log("memberId", memberId)
+console.log("cookieInfo", cookieInfo)
 
 const memberInfo = reactive({})
 const setMemberInfo = async () => {
@@ -83,7 +83,7 @@ const save = () => {
             type: 'warning',
         })
     } else {
-        editInfoById(memberInfo.id, memberInfo).then((res) => {
+        editInfoById(memberInfo.id,JSON.parse(JSON.stringify(memberInfo))).then((res) => {
             ElMessage({
                 message: '更新成功',
                 type: 'success',
