@@ -28,8 +28,8 @@
 import { googleRegister } from "~/api/auth";
 import { useAuthStore } from '@/store/authStore';
 
-let email = ref('123@gmail.com')
-let password = ref('12345')
+let email = ref('')
+let password = ref('')
 const handleAuthLogin = async () => {
     let data = {
         "email": email.value,

@@ -4,11 +4,11 @@
             <div class="block-box">
                 <div class="title">忘記密碼</div>
                 <div class="item-title">註冊帳號 Email</div>
-                <div><input class="input" placeholder="請輸入 Email" type="email"></div>
+                <div><input v-model="email" class="input" placeholder="請輸入 Email" type="email"></div>
                 <div class="remark" style="margin-bottom: 32px;">系統將寄送重新設定密碼信件到您註冊的信箱。</div>
-                <nuxt-link to="/verificationCode">
-                    <div class="btn-green">寄送</div>
-                </nuxt-link>
+           
+                    <div class="btn-green" @click="send">寄送</div>
+         
             </div>
             <nuxt-link to="/login">
                 <div class="btn-white">返回登入</div>
@@ -16,6 +16,21 @@
         </div>
     </NuxtLayout>
 </template>
+
+<script setup>
+import { sendResetPwdMail } from "~/api/auth";
+const email = ref("")
+const send = async () => {
+    let data = {
+        "email": email.value,
+    }
+    await sendResetPwdMail(data)
+    ElMessage({
+        message: '已寄送重新設定密碼信件',
+        type: 'success',
+    })
+}
+</script>
 
 <style lang="scss" scoped>
 @import '~/assets/styles/form.scss';

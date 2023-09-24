@@ -25,7 +25,7 @@
 </template>
 
 <script setup>
-import { signup ,sendVerificationLetter} from "~/api/auth";
+import { signup, sendVerificationLetter } from "~/api/auth";
 import { authLogin } from "~/api/index";
 import { ElMessage } from 'element-plus'
 import { useAuthStore } from '@/store/authStore';
@@ -39,23 +39,23 @@ const router = useRouter();
 
 const register = async () => {
     let data = {
-            "birthday": dayjs().format('YYYY-MM-DD HH:mm:ss'),
-            "category": "",
-            "email": email.value,
-            "gender": 0,
-            "grade": 0,
-            "id": 0,
-            "lastIp": "",
-            "lastLogin": dayjs().format('YYYY-MM-DD HH:mm:ss'),
-            "name": "",
-            "organization": "",
-            "phone": "",
-            "pwd": password.value,
-            "registionTime": dayjs().format('YYYY-MM-DD HH:mm:ss'),
-            "role": "ROLE_USER",
-            "status": 0,
-            "verificationCode": ""
-        }
+        "birthday": dayjs().format('YYYY-MM-DD HH:mm:ss'),
+        "category": "",
+        "email": email.value,
+        "gender": 0,
+        "grade": 0,
+        "id": 0,
+        "lastIp": "",
+        "lastLogin": dayjs().format('YYYY-MM-DD HH:mm:ss'),
+        "name": "",
+        "organization": "",
+        "phone": "",
+        "pwd": password.value,
+        "registionTime": dayjs().format('YYYY-MM-DD HH:mm:ss'),
+        "role": "ROLE_USER",
+        "status": 0,
+        "verificationCode": ""
+    }
     if (verify()) {
         const loading = ElLoading.service({
             lock: true,
@@ -66,14 +66,14 @@ const register = async () => {
         await sendVerificationLetter(data)
 
         loading.close()
-        ElMessage({
-            message: '註冊成功！',
-            type: 'success',
-        })
-
+        // ElMessage({
+        //     message: '註冊成功！',
+        //     type: 'success',
+        // })
+        router.push(`/sentMail?mail=${email.value}`)
         // await handleAuthLogin()
     }
-
+   
 }
 
 const handleAuthLogin = async () => {

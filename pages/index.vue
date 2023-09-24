@@ -66,7 +66,7 @@
 <script setup>
 import { getMyTask, edit, add } from "~/api/task";
 import { ElMessage } from 'element-plus'
-import { getScript } from "~/api/script";
+import { getScriptByNoToken as getScript } from "~/api/script";
 import { useAuthStore } from '@/store/authStore';
 
 console.log("utilities", utilities.getUrlParams())
