@@ -11,3 +11,19 @@ export const sendVerificationLetter = async (data) => {
 export const googleRegister = async () => {
     return await useHttp.get(`${categoryBaseUrl}/google-signup`)
 };
+
+export const resendMail = async (data) => {
+    return await useHttp.post(`${categoryBaseUrl}/mail`,data)
+};
+
+export const sendResetPwdMail = async (data) => {
+    return await useHttp.post(`${categoryBaseUrl}/mail/resetpwd`,data)
+};
+
+export const resetPwd = async (data) => {
+    return await useHttp.post(`${categoryBaseUrl}/reset`,data)
+};
+
+
+
+

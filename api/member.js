@@ -1,7 +1,7 @@
 const categoryBaseUrl = '/api/member';
 
 export const editInfoById = async (id,data) => {
-    return await useHttp.put(`${categoryBaseUrl}/${id}`,data);
+    return await useHttp.put(`/auth/member/${id}`,data);
 };
 
 export const getInfoById = async (id) => {

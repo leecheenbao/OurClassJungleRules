@@ -67,7 +67,7 @@
             <nuxt-link to="/manage/userInfoEdit">
               <div class="subitem">個人資料編輯</div>
             </nuxt-link>
-            <nuxt-link to="/manage/pwdEdit">
+            <nuxt-link to="/pwdEdit-nav">
               <div class="subitem">密碼變更</div>
             </nuxt-link>
             <div class="subitem" @click="handleSignOut" style="border-bottom: none;">登出</div>
@@ -139,7 +139,7 @@
             :class="{ 'link-action': routeName == 'manage-userInfoEdit' }">
             個人資料編輯
           </nuxt-link>
-          <nuxt-link to="/manage/pwdEdit" class="link" :class="{ 'link-action': routeName == 'manage-pwdEdit' }">
+          <nuxt-link to="/pwdEdit-nav" class="link" :class="{ 'link-action': routeName == 'manage-pwdEdit' }">
             密碼變更
           </nuxt-link>
         </div>
@@ -162,7 +162,7 @@
 import { Search } from '@element-plus/icons-vue'
 import { useAuthStore } from '@/store/authStore';
 import { storeToRefs } from 'pinia'
-import { getScript } from "~/api/script";
+import { getScriptByNoToken as getScript } from "~/api/script";
 
 let auth = useAuthStore()
 const { isLogin, permissions } = storeToRefs(auth)
@@ -181,7 +181,11 @@ const setAllScript = async () => {
     allScript.push(...list)
   }
 }
-setAllScript()
+
+nextTick(() => {
+  setAllScript()
+})
+
 
 let routeName = ref("")
 

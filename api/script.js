@@ -4,6 +4,10 @@ export const getScript = async () => {
     return await useHttp.get(`${categoryBaseUrl}`);
 };
 
+export const getScriptByNoToken = async () => {
+    return await useHttp.get(`/auth/script`);
+};
+
 export const getScriptById = async (scriptId) => {
     return await useHttp.get(`${categoryBaseUrl}/${scriptId}`);
 };
