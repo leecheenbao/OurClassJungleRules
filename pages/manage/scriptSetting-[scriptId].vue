@@ -34,19 +34,19 @@
                             alt="">
                     </div>
                 </div>
-                <div class="step-day-row">
+                <div class="step-day-row step-day-space-start">
                     <div class="step-day-title5">劇本名稱</div>
                     <div class="step-day-text">{{ scriptData.title }}</div>
                 </div>
-                <div class="step-day-row">
+                <div class="step-day-row step-day-space-start">
                     <div class="step-day-title5">劇本簡述</div>
                     <div class="step-day-text">{{ scriptData.description }}</div>
                 </div>
-                <div class="step-day-row">
+                <div class="step-day-row step-day-space-start">
                     <div class="step-day-title5">劇本時長 (天)</div>
                     <div class="step-day-text">{{ scriptData.scriptPeriod }}天</div>
                 </div>
-                <div class="step-day-row">
+                <div class="step-day-row step-day-space-start">
                     <div class="step-day-title5">教學重點</div>
                     <div class="step-day-text">
                         <div v-for="(item, index) in scriptData.goal" :key="index">
@@ -54,7 +54,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="step-day-row">
+                <div class="step-day-row step-day-space-start">
                     <div class="step-day-title5">給老師的提醒</div>
                     <div class="step-day-text">
                         <div v-for="(item, index) in scriptData.tips" :key="index">
@@ -62,7 +62,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="step-day-row">
+                <div class="step-day-row step-day-space-start">
                     <div class="step-day-title5">前導說明</div>
                     <div class="step-day-text">
                         <div v-for="(item, index) in scriptData.preamble" :key="index">

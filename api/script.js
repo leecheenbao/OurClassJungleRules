@@ -12,6 +12,10 @@ export const getScriptById = async (scriptId) => {
     return await useHttp.get(`${categoryBaseUrl}/${scriptId}`);
 };
 
+export const getScriptByIdNoToken = async (scriptId) => {
+    return await useHttp.get(`/auth/script/${scriptId}`);
+};
+
 export const editScriptById = async (scriptId,data) => {
     return await useHttp.put(`${categoryBaseUrl}/${scriptId}`,data);
 };
@@ -30,4 +34,8 @@ export const addOne = async (data) => {
 
 export const uploadEnding = async (data) => {
     return await useHttp.post(`${categoryBaseUrl}/ending`,data);
+};
+
+export const downloadPDF = async (data) => {
+    return await useHttp.post(`${categoryBaseUrl}/download/pdf`,data);
 };

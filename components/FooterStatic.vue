@@ -1,21 +1,21 @@
 <template>
   <div class="box">
     <div class="content-box">
-      <div class="content content1">
+      <!-- <div class="content content1">
         <div class="title">劇情介紹</div>
         <nuxt-link to="/" class="link-item">虎兔篇</nuxt-link>
         <nuxt-link to="/" class="link-item">鼠牛篇</nuxt-link>
         <nuxt-link to="/" class="link-item">馬羊篇</nuxt-link>
         <nuxt-link to="/" class="link-item">龍虎篇</nuxt-link>
-      </div>
+      </div> -->
       <div class="content content2">
         <div class="title">公司</div>
-        <nuxt-link to="/" class="link-item">關於阿普蛙</nuxt-link>
-        <nuxt-link to="/" class="link-item">聯絡阿普蛙</nuxt-link>
+        <nuxt-link to="/about" class="link-item">關於阿普蛙</nuxt-link>
+        <nuxt-link to="/connection" class="link-item">聯絡阿普蛙</nuxt-link>
       </div>
       <div class="content content3">
         <div class="title2">阿普蛙工作室有限公司</div>
-        <div class="text-item">地址：200基隆市仁愛區忠三路75號2樓</div>
+        <div class="text-item">地址：基隆市仁愛區忠三路34號</div>
         <div class="text-item">E-mail: wasupstudio@gmail.com</div>
         <div class="text-item">課程窗口 & 合作洽談：林侃眉 0933-769550 </div>
         <div class="text-item">遊戲設計 & 課程設計：吳健毅 0908-858625</div>

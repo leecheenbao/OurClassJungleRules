@@ -228,11 +228,13 @@
                         <div class="mission-body-row3">
                             <div class="mission-body-row4">
                                 <div class="mission-body-head3">學習單</div>
-                                <a v-if="currentDetail.sheet" target="_blank" :href="currentDetail.sheet" download="sheet">
+                                <!-- <a v-if="currentDetail.sheet" target="_blank" :href="currentDetail.sheet" download="sheet">
                                     <img class="mission-body-icon" src="~assets/images/Icon/download.svg" alt="">
-                                </a>
+                                </a> -->
+                                <img @click="handelDownloadPDF()" class="mission-body-icon"
+                                    src="~assets/images/Icon/download.svg" alt="">
                             </div>
-                            <div class="mission-body-row4">
+                            <div v-if="currentPeriod == 1" class="mission-body-row4">
                                 <div class="mission-body-head3">教學簡報</div>
                                 <a v-if="currentDetail.bulletin" target="_blank" :href="currentDetail.bulletin"
                                     download="sheet">
@@ -301,7 +303,7 @@
                     <div @click="centerDialogVisible = true" class="mission-body-head">本次結局</div>
                     <div class="mission-body-videoBox" :style="`background: no-repeat center url(${scriptData.imgUrl})`">
                         <div v-if="!isVideoPlay" class="mission-body-video">
-                            <div class="mission-body-video-head">結局{{ quadrant }}</div>
+                            <div class="mission-body-video-head">{{ quadrantOption[quadrant] }}</div>
                             <div @click="videoPlay(currentDetail[`endingMovie${quadrant}`])"
                                 class="mission-body-video-play">
                                 <img class="mission-body-video-img" src="~assets/images/Icon/play.svg" alt="">
@@ -325,7 +327,7 @@
                     <div class="mission-body-net2">
                         <div class="mission-body-row3">
                             <div class="mission-body-row4">
-                                <div class="mission-body-head3">{{ scriptData.title }} 結局一</div>
+                                <div class="mission-body-head3">{{ scriptData.title }} 結局一 (鴞老師)</div>
                                 <div style="display: flex;">
                                     <img v-if="currentDetail.endingMovie1" @click="videoPlay(currentDetail.endingMovie1)"
                                         class="mission-body-bgIcon" style="margin-right: 12px;"
@@ -341,7 +343,7 @@
                                 </a> -->
                             </div>
                             <div class="mission-body-row4">
-                                <div class="mission-body-head3">{{ scriptData.title }} 結局二</div>
+                                <div class="mission-body-head3">{{ scriptData.title }} 結局二 (鴿老師)</div>
                                 <div style="display: flex;">
                                     <img v-if="currentDetail.endingMovie2" @click="videoPlay(currentDetail.endingMovie2)"
                                         class="mission-body-bgIcon" style="margin-right: 12px;"
@@ -357,7 +359,7 @@
                         <div class="mission-body-line2"></div>
                         <div class="mission-body-row3">
                             <div class="mission-body-row4">
-                                <div class="mission-body-head3">{{ scriptData.title }} 結局三</div>
+                                <div class="mission-body-head3">{{ scriptData.title }} 結局三 (鴉老師)</div>
                                 <div style="display: flex;">
                                     <img v-if="currentDetail.endingMovie3" @click="videoPlay(currentDetail.endingMovie3)"
                                         class="mission-body-bgIcon" style="margin-right: 12px;"
@@ -370,7 +372,7 @@
                                 </div>
                             </div>
                             <div class="mission-body-row4">
-                                <div class="mission-body-head3">{{ scriptData.title }} 結局四 </div>
+                                <div class="mission-body-head3">{{ scriptData.title }} 結局四 (鷹老師)</div>
                                 <div style="display: flex;">
                                     <img v-if="currentDetail.endingMovie4" @click="videoPlay(currentDetail.endingMovie4)"
                                         class="mission-body-bgIcon" style="margin-right: 12px;"
@@ -390,18 +392,20 @@
                         <div class="mission-body-row3">
                             <div class="mission-body-row4">
                                 <div class="mission-body-head3">學習單</div>
-                                <a v-if="currentDetail.endingSheet" target="_blank" :href="currentDetail.endingSheet"
+                                <!-- <a v-if="currentDetail.endingSheet" target="_blank" :href="currentDetail.endingSheet"
                                     download="sheet">
                                     <img class="mission-body-icon" src="~assets/images/Icon/download.svg" alt="">
-                                </a>
+                                </a> -->
+                                <img @click="handelDownloadPDF()" class="mission-body-icon"
+                                    src="~assets/images/Icon/download.svg" alt="">
                             </div>
-                            <div class="mission-body-row4">
+                            <!-- <div class="mission-body-row4">
                                 <div class="mission-body-head3">教學簡報</div>
                                 <a v-if="currentDetail.endingBulletin" target="_blank" :href="currentDetail.endingBulletin"
                                     download="sheet">
                                     <img class="mission-body-icon" src="~assets/images/Icon/download.svg" alt="">
                                 </a>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
@@ -471,12 +475,12 @@
                                 <div v-for="option, index in fillScoreOption" :key="option.id" class="mission-pop-row3">
                                     <div class="mission-pop-num">{{ index + 1 }}</div>
                                     <select v-model="option.stuAns" class="select mission-pop-select">
-                                        <option v-for="config in currentDetail.studentConfigs" :value="config.id">{{
-                                            config.stuDescription }}</option>
+                                        <option v-for="config, i in currentDetail.studentConfigs" :value="config.id">{{
+                                            `${numberToLetter(i + 1)} ${config.stuDescription}` }}</option>
                                     </select>
                                     <select v-model="option.parAns" class="select mission-pop-select">
-                                        <option v-for="config in currentDetail.parentConfigs" :value="config.id">{{
-                                            config.parDescription }}</option>
+                                        <option v-for="config, i in currentDetail.parentConfigs" :value="config.id">{{
+                                            `${numberToLetter(i + 1)} ${config.parDescription}` }}</option>
                                     </select>
                                     <div @click="removeOptionItem(option)" class="mission-pop-close">-</div>
                                 </div>
@@ -499,10 +503,28 @@
 </template>
 
 <script setup>
-import { getScriptById, getScript } from "~/api/script";
+import { getScriptById, getScript, downloadPDF } from "~/api/script";
 import { getTaskById, edit as editTask } from "~/api/task";
 import { ElMessage } from 'element-plus'
 import QRCode from 'qrcode'
+
+const handelDownloadPDF = async () => {
+    let data = {
+        "media": `drama-${currentPeriod.value}`,
+        "scriptId": scriptId.value,
+        "sheet": `sheet-${currentPeriod.value}`
+    }
+    if (currentPeriod.value == scriptData.dayEnd) {
+        let mediaQuadrant = !quadrant.value ? 1 : quadrant.value
+        data = {
+            "media": `endingMovie-${mediaQuadrant}`,
+            "scriptId": scriptId.value,
+            "sheet": `endingSheet`
+        }
+    }
+    await downloadPDF(data)
+    console.log("data", data)
+}
 
 const qrDownload = (url, fileName) => {
     QRCode.toDataURL(url)
@@ -748,6 +770,8 @@ const quadrant = ref(null)
 const totalList = reactive([])
 const setScoreOverview = async () => {
     totalList.length = 0
+    allTotal.orderly = 0
+    allTotal.relation = 0
     for (let index = 1; index <= scriptData.day; index++) {
         let detail = getDetailByPeriod(index)
         let scoreTotal = await setScoreList(detail)
@@ -815,7 +839,6 @@ let parTotal = reactive({
     relation: 0
 })
 const setScoreList = async (detail) => {
-
     let stuDatas = detail.studentConfigs.map(o => {
         return {
             id: o.id,

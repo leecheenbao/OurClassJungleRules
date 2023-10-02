@@ -432,8 +432,8 @@
                 </div>
 
                 <div class="step-day-box">
-                    <div class="step-day-title">*建議進行時間</div>
-                    <input v-model="editEnding.advisoryTime" class="input step-day-input" placeholder="ex.1 節課"
+                    <div class="step-day-title">*建議進行時間（分鐘）</div>
+                    <input v-model="editEnding.advisoryTime" class="input step-day-input" placeholder="ex.1 分鐘"
                         type="number">
                     <div class="step-day-title">*帶領方式說明</div>
                     <textarea v-model="editEnding.endingDescription" class="input step-day-textarea" placeholder="請輸入帶領方式說明"
