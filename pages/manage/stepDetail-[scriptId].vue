@@ -157,8 +157,8 @@
                 </div>
 
                 <div class="step-day-box" :id="`content-${scriptData.scriptPeriod}`">
-                    <div class="step-day-title">*建議進行時間</div>
-                    <input class="input step-day-input" placeholder="ex.1 節課" type="text">
+                    <div class="step-day-title">*建議進行時間（分鐘）</div>
+                    <input class="input step-day-input" placeholder="ex.10 分鐘" type="text">
                     <div class="step-day-title">*帶領方式說明</div>
                     <textarea class="input step-day-textarea" placeholder="ex.10 分鐘" type="text"></textarea>
                     <div class="step-day-title">*結局二描述 (鴿老師)</div>

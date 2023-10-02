@@ -174,8 +174,8 @@
             </div>
 
             <div class="step-day-box" :id="`content-${props.period}`">
-                <div class="step-day-title">*建議進行時間(節課)</div>
-                <input v-model="endingData.advisoryTime" class="input step-day-input" placeholder="ex.1 節課" type="number">
+                <div class="step-day-title">*建議進行時間(分鐘)</div>
+                <input v-model="endingData.advisoryTime" class="input step-day-input" placeholder="ex.1 分鐘" type="number">
                 <div class="step-day-title">*帶領方式說明</div>
                 <textarea v-model="endingData.endingDescription" class="input step-day-textarea" placeholder="請輸入帶領方式說明"
                     type="text"></textarea>

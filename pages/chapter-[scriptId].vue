@@ -33,8 +33,8 @@
                         </div>
                         <div class="course-content-h2">建議進行時間</div>
                         <div class="item-text">{{ detail.advisoryTime }} 分鐘</div>
-                        <div class="course-content-h2">劇情影片</div>
-                        <div class="mission-body-videoBox"
+                        <div v-if="detail.period == 1" class="course-content-h2">劇情影片</div>
+                        <div v-if="detail.period == 1" class="mission-body-videoBox"
                             :style="`background: no-repeat center url(${scriptData.imgUrl})`">
                             <div class="mission-body-video">
                                 <div class="mission-body-video-head">{{ scriptData.title }} 第 {{ detail.period }} 日</div>
@@ -79,26 +79,27 @@
                             <img class="ending-item-img" src="~assets/images/teacher1.png" alt="">
                             <div class="ending-item-title">鴞老師</div>
                             <div class="ending-item-content">
-                                {{ scriptData.scriptEndingDTO.endingOne }}
+                                兼顧秩序與關係，除了讓學生為自己的行為負責外，也會找出潛在霸凌者背後的需求，並且讓同學們思考要如何以合適的手段滿需求，是最理想的結局。
                                 </div>
                         </div>
                         <div class="ending-item">
                             <img class="ending-item-img" src="~assets/images/teacher2.png" alt="">
                             <div class="ending-item-title">鴿老師</div>
                             <div class="ending-item-content">
-                                {{ scriptData.scriptEndingDTO.endingTwo }}</div>
+                                過度注重關係，但未顧及秩序，以勸和的方式來掩蓋衝突，是一種鄉愿式的結局。</div>
                         </div>
                         <div class="ending-item">
                             <img class="ending-item-img" src="~assets/images/teacher3.png" alt="">
                             <div class="ending-item-title">鴉老師</div>
                             <div class="ending-item-content">
-                                {{ scriptData.scriptEndingDTO.endingThree }}</div>
+                                不注重秩序，也不顧及關係，讓學生感到痛苦且無所適從，是最糟糕的結局。</div>
                         </div>
                         <div class="ending-item">
                             <img class="ending-item-img" src="~assets/images/teacher4.png" alt="">
                             <div class="ending-item-title">鷹老師</div>
                             <div class="ending-item-content">
-                                {{ scriptData.scriptEndingDTO.endingFour }}</div>
+                                過度注重秩序，但未顧及關係，以嚴懲的方式來避免失序行為出現，是一種威權式的結局。
+</div>
                         </div>
                     </div>
                     <div class="ending-bg"></div>
@@ -126,16 +127,24 @@
     </NuxtLayout>
 </template>
 <script setup>
-import { getScriptById, editScriptById, uploadFileById } from "~/api/script";
+import { getScriptByIdNoToken as getScriptById, editScriptById, uploadFileById } from "~/api/script";
 import QRCode from 'qrcode'
 
 const route = useRoute();
 const scriptId = route.params.scriptId
 
 const imgUrl = ref("")
-const scriptData = reactive({})
+const scriptData = reactive({
+    scriptEndingDTO:{
+        endingOne:"",
+        endingTwo:"",
+        endingThree:"",
+        endingFour:"",
+    }
+})
 const setScriptData = async () => {
     const { data } = await getScriptById(scriptId)
+    console.log("scriptData", data)
     Object.assign(scriptData, JSON.parse(JSON.stringify(data.value.data)))
     scriptData.hasImg = getFileUrl(scriptData.mediaDTO, 'cover') !== false
     if (scriptData.hasImg) {
@@ -148,7 +157,7 @@ const setScriptData = async () => {
         detail.drama = getFileUrl(scriptData.mediaDTO, `drama-${detail.period}`)
 
     });
-    console.log("scriptData", scriptData)
+    
 }
 setScriptData()
 

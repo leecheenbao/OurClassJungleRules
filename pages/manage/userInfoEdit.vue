@@ -50,7 +50,7 @@ import { getInfoById, editInfoById } from "~/api/member";
 
 const cookieInfo = useCookie('info')
 const memberId = cookieInfo.value.id
-console.log("cookieInfo", cookieInfo)
+console.log("cookieInfo", cookieInfo.value.id )
 
 const memberInfo = reactive({})
 const setMemberInfo = async () => {
