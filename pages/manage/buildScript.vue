@@ -54,20 +54,17 @@ let infoData = {
     preamble: []
 }
 const setInfoData = (data) => {
-    console.log("setInfoData", data)
     infoData = data
 }
 
 let detailData = []
 const setDetailData = (data) => {
     detailData = data
-    console.log("detailData", detailData)
 }
 
 let endingData = {}
 const setEndingData = (data) => {
     endingData = data
-    console.log("endingData", endingData)
 }
 
 const next = (toStep) => {
@@ -147,7 +144,6 @@ const addScript = async () => {
         title: infoData.title,
         updateTime: dayjs().format('YYYY-MM-DD HH:mm:ss')
     }
-    console.log("addScriptData", addScriptData)
     let { data } = await addOne(addScriptData)
     addingScriptId = data.value.data.scriptId
     addingData = data.value.data
@@ -167,7 +163,6 @@ const addScriptDetail = async () => {
             delete obj["id"]
         });
         detailData[index].scriptId = addingScriptId
-        console.log('detailData[index]', detailData[index])
         await uploadDetail(detailData[index])
         if (detailData[index].drama) {
             await uploadFileById(addingScriptId, detailData[index].drama)

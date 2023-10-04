@@ -161,7 +161,6 @@ const setScriptData = async () => {
     const { data } = await getScriptById(scriptId)
     // userInfo.birthday = userInfo.birthday.split(' ')[0]
     Object.assign(scriptData, JSON.parse(JSON.stringify(data.value.data)))
-    console.log("scriptData",scriptData)
     scriptData.hasImg = scriptData.mediaDTO.length > 0
     if (scriptData.hasImg) {
         imgUrl.value = scriptData.mediaDTO.filter(o => o.description == "cover")[0].filePath
@@ -206,13 +205,10 @@ const deleteListItem = (targetList, id) => {
 
 const saveEdit = () => {
     let editDataParse = JSON.parse(JSON.stringify(editData))
-    // console.log("editGoalList", JSON.parse(JSON.stringify(editGoalList)))
     // let parseEditGoalList = JSON.parse(JSON.stringify(editGoalList)).map(o => o.value)
-    // console.log("parseEditGoalList", parseEditGoalList)
     editDataParse.goal = editGoalList.map(o => o.value)
     editDataParse.tips = editTipsList.map(o => o.value)
     editDataParse.preamble = editPreambleList.map(o => o.value)
-    console.log("editDataParse", editDataParse)
     isEdited.value = true
     editScriptById(scriptId, editDataParse).then(() => {
         setScriptData()
@@ -225,7 +221,6 @@ const cancel = () => {
 }
 
 const changeFile = async (el) => {
-    console.log('changeFile', el.target.files[0])
     const formData = new FormData();
     formData.append('file', el.target.files[0])
     formData.append('description','cover')

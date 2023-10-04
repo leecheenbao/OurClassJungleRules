@@ -144,7 +144,6 @@ const scriptData = reactive({
 })
 const setScriptData = async () => {
     const { data } = await getScriptById(scriptId)
-    console.log("scriptData", data)
     Object.assign(scriptData, JSON.parse(JSON.stringify(data.value.data)))
     scriptData.hasImg = getFileUrl(scriptData.mediaDTO, 'cover') !== false
     if (scriptData.hasImg) {
@@ -162,8 +161,6 @@ const setScriptData = async () => {
 setScriptData()
 
 const getFileUrl = (fileList, target) => {
-    console.log("fileList", fileList)
-    console.log("target", target)
     let filterFile = fileList.filter(o => o.description == target)
     if (filterFile.length > 0) {
         return filterFile[0].filePath
@@ -174,7 +171,6 @@ const getFileUrl = (fileList, target) => {
 const currentVideoUrl = ref("")
 const centerDialogVisible = ref(false)
 const videoPlay = (url) => {
-    console.log("videoPlay", url)
     currentVideoUrl.value = url
     centerDialogVisible.value = true
 }
@@ -194,7 +190,6 @@ const toggleContent = (id) => {
 const qrDownload = (url, fileName) => {
     QRCode.toDataURL(url)
         .then(QRCodeUrl => {
-            console.log(url)
             const elt = document.createElement('a');
             elt.setAttribute('href', QRCodeUrl);
             elt.setAttribute('download', fileName);

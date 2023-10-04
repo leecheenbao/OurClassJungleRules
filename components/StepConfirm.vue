@@ -128,28 +128,28 @@
                         <div class="step-day-net">
                             <div class="step-day-row">
                                 <div class="step-day-title3">劇情影片</div>
-                                <!-- <div class="step-day-video">第1日教學影片.mp4</div> -->
+                                <span v-if="dayData.drama">{{ getFileName(dayData.drama) }}</span>
                                 <img v-if="dayData.drama" class="step-day-icon" src="~/assets/images/Icon/available.svg"
                                 alt="available">
                             </div>
                             <div class="step-day-line"></div>
                             <div class="step-day-row">
                                 <div class="step-day-title3">學習單</div>
-                                <!-- <div class="step-day-video">第1日學習單.mp4</div> -->
+                                <span v-if="dayData.sheet">{{ getFileName(dayData.sheet) }}</span>
                                 <img v-if="dayData.sheet" class="step-day-icon" src="~/assets/images/Icon/available.svg"
                                 alt="available">
                             </div>
-                            <div class="step-day-line"></div>
-                            <div class="step-day-row">
+                            <div v-if="dayData.period == 1" class="step-day-line"></div>
+                            <div v-if="dayData.period == 1" class="step-day-row">
                                 <div class="step-day-title3">教學簡報</div>
-                                <!-- <div class="step-day-video">第1日教學簡報.mp4</div> -->
+                                <span v-if="dayData.bulletin">{{ getFileName(dayData.bulletin) }}</span>
                                 <img v-if="dayData.bulletin" class="step-day-icon" src="~/assets/images/Icon/available.svg"
                                 alt="available">
                             </div>
                             <div class="step-day-line"></div>
                             <div class="step-day-row">
                                 <div class="step-day-title3">額外資訊</div>
-                                <!-- <div class="step-day-video">第1日額外資訊.mp4</div> -->
+                                <span v-if="dayData.information">{{ getFileName(dayData.information) }}</span>
                                 <img v-if="dayData.information" class="step-day-icon" src="~/assets/images/Icon/available.svg"
                                 alt="available">
                             </div>
@@ -199,24 +199,28 @@
                     <div class="step-day-net">
                         <div class="step-day-row">
                             <div class="step-day-title">結局一 (鴞老師) 影片</div>
+                            <span v-if="props.endingData.endingMovie1">{{ getFileName(props.endingData.endingMovie1) }}</span>
                             <img v-if="props.endingData.endingMovie1" class="step-day-icon" src="~/assets/images/Icon/available.svg"
                                 alt="available">
                         </div>
                         <div class="step-day-line"></div>
                         <div class="step-day-row">
                             <div class="step-day-title">結局二 (鴿老師) 影片</div>
+                            <span v-if="props.endingData.endingMovie2">{{ getFileName(props.endingData.endingMovie2) }}</span>
                             <img v-if="props.endingData.endingMovie2" class="step-day-icon" src="~/assets/images/Icon/available.svg"
                                 alt="available">
                         </div>
                         <div class="step-day-line"></div>
                         <div class="step-day-row">
                             <div class="step-day-title">結局三 (鴉老師) 影片</div>
+                            <span v-if="props.endingData.endingMovie3">{{ getFileName(props.endingData.endingMovie3) }}</span>
                             <img v-if="props.endingData.endingMovie3" class="step-day-icon" src="~/assets/images/Icon/available.svg"
                                 alt="available">
                         </div>
                         <div class="step-day-line"></div>
                         <div class="step-day-row">
                             <div class="step-day-title">結局四 (鷹老師) 影片</div>
+                            <span v-if="props.endingData.endingMovie4">{{ getFileName(props.endingData.endingMovie4) }}</span>
                             <img v-if="props.endingData.endingMovie4" class="step-day-icon" src="~/assets/images/Icon/available.svg"
                                 alt="available">
                         </div>
@@ -228,15 +232,16 @@
                     <div class="step-day-net">
                         <div class="step-day-row">
                             <div class="step-day-title">學習單</div>
+                            <span v-if="props.endingData.endingSheet">{{ getFileName(props.endingData.endingSheet) }}</span>
                             <img v-if="props.endingData.endingSheet" class="step-day-icon" src="~/assets/images/Icon/available.svg"
                                 alt="available">
                         </div>
                         <div class="step-day-line"></div>
-                        <div class="step-day-row">
+                        <!-- <div class="step-day-row">
                             <div class="step-day-title">學習簡報</div>
                             <img v-if="props.endingData.endingBulletin" class="step-day-icon" src="~/assets/images/Icon/available.svg"
                                 alt="available">
-                        </div>
+                        </div> -->
                     </div>
                 </div>
 
@@ -304,6 +309,15 @@ const props = defineProps({
         type: Object,
     },
 })
+
+const getFileName = (formData) => {
+    if(formData){
+        return formData.get('file').name
+    }else {
+        return ""
+    }
+   
+}
 
 const fractionOption = {
     0: "加分",

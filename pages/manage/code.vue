@@ -79,7 +79,6 @@ async function init() {
     let list = data.value.data.list
     list = list.filter(o => o.activated !== 2)
     allData.push(...list)
-    console.log("allData", allData)
 }
 init()
 

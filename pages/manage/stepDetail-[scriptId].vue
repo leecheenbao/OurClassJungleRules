@@ -308,7 +308,6 @@ const setScriptData = async () => {
     const { data } = await getScriptById(scriptId)
     Object.assign(scriptData, JSON.parse(JSON.stringify(data.value.data)))
     nonEndingDayLength.value = scriptData.scriptPeriod - 1
-    console.log('scriptData', scriptData)
     setDetailDataForm()
 }
 setScriptData()
@@ -361,7 +360,6 @@ const setDetailDataForm = () => {
                 todayScript: ""//本日劇情
             }
         )
-        console.log("dataFormList", dataFormList)
     }
 }
 

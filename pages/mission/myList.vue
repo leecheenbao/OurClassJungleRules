@@ -160,7 +160,6 @@ async function setAllScript() {
             value: res.scriptId
         })
     })
-    console.log("我的劇本 all data", scriptOption)
 }
 setAllScript()
 const learningMap =
@@ -192,7 +191,6 @@ async function init() {
     })
     allData.length = 0
     allData.push(...list)
-    console.log("我的任務 all data", allData)
 }
 init()
 
@@ -236,7 +234,6 @@ const addData = reactive({
 
 async function handleAddUser() {
 
-    console.log("addData", addData)
     if (addData.taskName === '') {
         ElMessage({
             message: '請輸入任務名稱！',
@@ -291,7 +288,6 @@ async function save() {
     delete current["statusStr"]
 
     current.endTime = dayjs(current.endTime).format('YYYY-MM-DD HH:mm:ss')
-    console.log("current", current)
     if (current.taskName === '') {
         ElMessage({
             message: '請輸入任務名稱！',
@@ -303,7 +299,6 @@ async function save() {
             type: 'warning',
         })
     } else if (current.learning === '') {
-        console.log("current", current.learning)
         ElMessage({
             message: '請選擇學習對象！',
             type: 'warning',

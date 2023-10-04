@@ -24,6 +24,12 @@ const fetch = async (url, option) => {
       }
 
     },
+    onResponse({ request, response, options }) {
+      const router = useRouter();
+      if(response.status == 401){
+        router.push("/login")
+      }
+  },
     ...option,
   })
 }

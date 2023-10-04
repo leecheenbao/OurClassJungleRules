@@ -11,7 +11,6 @@ export const useAuthStore = defineStore("auth", {
       actions: {
         async login(data) {
           let {data:loginData}:any = await authLogin(data)
-          console.log("loginData",loginData)
           loginData = loginData.value.data
           this.token = loginData.token
           this.isLogin = true

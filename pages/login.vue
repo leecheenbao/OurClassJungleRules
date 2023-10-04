@@ -37,14 +37,12 @@ const handleAuthLogin = async () => {
         "role": "ROLE_USER"
     }
     useAuthStore().login(data)
-    // console.log('useCartStore().cart',useCartStore().cart)
 
 
 }
 
 const handleGoogleRegister = async () => {
     let { data } = await googleRegister()
-    console.log("handleGoogleRegister",data.value.data)
     window.location.href = data.value.data;
 
 }

@@ -120,6 +120,7 @@
                 <div class="step-day-net">
                     <div class="step-day-row">
                         <div class="step-day-title3">劇情影片</div>
+                        <span v-if="dayData.drama">{{ getFileName(dayData.drama) }}</span>
                         <div class="step-day-btn">
                             <img v-if="dayData.drama" class="step-day-icon" src="~/assets/images/Icon/available.svg"
                                 alt="available">
@@ -131,6 +132,7 @@
                     </div>
                     <div class="step-day-row">
                         <div class="step-day-title3">學習單</div>
+                        <span v-if="dayData.sheet">{{ getFileName(dayData.sheet) }}</span>
                         <div class="step-day-btn">
                             <img v-if="dayData.sheet" class="step-day-icon" src="~/assets/images/Icon/available.svg"
                                 alt="available">
@@ -140,8 +142,9 @@
                         </div>
 
                     </div>
-                    <div class="step-day-row">
+                    <div v-if="dayData.period == 1" class="step-day-row">
                         <div class="step-day-title3">教學簡報</div>
+                        <span v-if="dayData.bulletin">{{ getFileName(dayData.bulletin) }}</span>
                         <div class="step-day-btn">
                             <img v-if="dayData.bulletin" class="step-day-icon" src="~/assets/images/Icon/available.svg"
                                 alt="available">
@@ -153,6 +156,7 @@
                     </div>
                     <div class="step-day-row">
                         <div class="step-day-title3">額外資訊</div>
+                        <span v-if="dayData.information">{{ getFileName(dayData.information) }}</span>
                         <div class="step-day-btn">
                             <img v-if="dayData.information" class="step-day-icon" src="~/assets/images/Icon/available.svg"
                                 alt="available">
@@ -196,6 +200,7 @@
                 <div class="step-day-net">
                     <div class="step-day-row">
                         <div class="step-day-title3">結局一 (鴞老師) 影片</div>
+                        <span v-if="endingData.endingMovie1">{{ getFileName(endingData.endingMovie1) }}</span>
                         <div class="step-day-btn">
                             <img v-if="endingData.endingMovie1" class="step-day-icon"
                                 src="~/assets/images/Icon/available.svg" alt="available">
@@ -206,6 +211,7 @@
                     </div>
                     <div class="step-day-row">
                         <div class="step-day-title3">結局二 (鴿老師) 影片</div>
+                        <span v-if="endingData.endingMovie2">{{ getFileName(endingData.endingMovie2) }}</span>
                         <div class="step-day-btn">
                             <img v-if="endingData.endingMovie2" class="step-day-icon"
                                 src="~/assets/images/Icon/available.svg" alt="available">
@@ -216,6 +222,7 @@
                     </div>
                     <div class="step-day-row">
                         <div class="step-day-title3">結局三 (鴉老師) 影片</div>
+                        <span v-if="endingData.endingMovie3">{{ getFileName(endingData.endingMovie3) }}</span>
                         <div class="step-day-btn">
                             <img v-if="endingData.endingMovie3" class="step-day-icon"
                                 src="~/assets/images/Icon/available.svg" alt="available">
@@ -226,6 +233,7 @@
                     </div>
                     <div class="step-day-row">
                         <div class="step-day-title3">結局四 (鷹老師) 影片</div>
+                        <span v-if="endingData.endingMovie4">{{ getFileName(endingData.endingMovie4) }}</span>
                         <div class="step-day-btn">
                             <img v-if="endingData.endingMovie4" class="step-day-icon"
                                 src="~/assets/images/Icon/available.svg" alt="available">
@@ -240,6 +248,7 @@
                 <div class="step-day-net">
                     <div class="step-day-row">
                         <div class="step-day-title3">學習單</div>
+                        <span v-if="endingData.endingSheet">{{ getFileName(endingData.endingSheet) }}</span>
                         <div class="step-day-btn">
                             <img v-if="endingData.endingSheet" class="step-day-icon"
                                 src="~/assets/images/Icon/available.svg" alt="available">
@@ -248,8 +257,9 @@
                                 data-ref="endingSheet">
                         </div>
                     </div>
-                    <div class="step-day-row">
+                    <!-- <div class="step-day-row">
                         <div class="step-day-title3">教學簡報</div>
+                        <span v-if="dayData.endingBulletin">{{ getFileName(dayData.endingBulletin) }}</span>
                         <div class="step-day-btn">
                             <img v-if="endingData.endingBulletin" class="step-day-icon"
                                 src="~/assets/images/Icon/available.svg" alt="available">
@@ -257,7 +267,7 @@
                             <input type="file" id="endingBulletin-input" style="display: none;" @change="endingChangeFile"
                                 data-ref="endingBulletin">
                         </div>
-                    </div>
+                    </div> -->
                 </div>
 
                 <div class="step-day-title2">計分設定</div>
@@ -399,7 +409,6 @@ const setDetailDataForm = () => {
                 information: null
             }
         )
-        console.log("dataFormList", dataFormList)
     }
 }
 
@@ -411,13 +420,11 @@ const setScriptData = async () => {
     // const { data } = await getScriptById(scriptId)
     // Object.assign(scriptData, JSON.parse(JSON.stringify(data.value.data)))
     nonEndingDayLength.value = props.period - 1
-    console.log('scriptData', scriptData)
     setDetailDataForm()
 }
 setScriptData()
 
 watch(dataFormList, () => {
-    console.log("dataFormList")
     emit("detailDataEmit", dataFormList)
 })
 
@@ -468,6 +475,15 @@ const addOneItem = (day, item) => {
 const chooseFile = (ref, period) => {
     const myButton = document.getElementById(`${ref}-${period}`);
     myButton.click();
+}
+
+const getFileName = (formData) => {
+    if(formData){
+        return formData.get('file').name
+    }else {
+        return ""
+    }
+   
 }
 
 const changeFile = async (el) => {
@@ -536,11 +552,10 @@ const endingChangeFile = (el) => {
     formData.append('file', el.target.files[0])
     formData.append('description', `${elRef}`)
     endingData[elRef] = formData
-    console.log("endingData", endingData)
+
 }
 
 watch(endingData, () => {
-    console.log("endingDataEmit")
     emit("endingDataEmit", endingData)
 })
 

@@ -91,7 +91,6 @@ async function setAllScript() {
             value: res.scriptId
         })
     })
-    console.log("我的劇本 all data", scriptOption)
 }
 setAllScript()
 
@@ -117,7 +116,6 @@ async function init() {
     })
     allData.length = 0
     allData.push(...list)
-    console.log("我的任務 all data", allData)
 }
 init()
 
