@@ -93,7 +93,6 @@ const handleAddOne = async () => {
         let { data } = await addOne(addScriptData)
         let scriptId = data.value.data.scriptId
 
-        console.log("formDataImg",formDataImg)
         if (formDataImg) {
             await uploadFileById(scriptId, formDataImg)
         }
@@ -207,7 +206,6 @@ const triggerFileUpload = () => {
 const previewImage = ref('');
 const handleFileUpload = (event) => {
     const file = event.target.files[0];
-    console.log("handleFileUpload",file)
     const validTypes = ['image/jpeg', 'image/png'];
 
     if (validTypes.includes(file.type)) {
@@ -215,7 +213,6 @@ const handleFileUpload = (event) => {
         formData.append('file',file)
         formData.append('description','cover')
         formDataImg = formData
-        console.log("formDataImg",formDataImg)
         // 將 file 轉換為 URL 並預覽
         previewImage.value = URL.createObjectURL(file);
         isPhoto.value = true;

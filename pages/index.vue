@@ -69,7 +69,6 @@ import { ElMessage } from 'element-plus'
 import { getScriptByNoToken as getScript } from "~/api/script";
 import { useAuthStore } from '@/store/authStore';
 
-console.log("utilities", utilities.getUrlParams())
 let urlParams = utilities.getUrlParams()
 if (!!urlParams) {
   useAuthStore().googleLogin(urlParams)
@@ -82,17 +81,13 @@ const setAllScript = async () => {
   // // list = list.filter(o => o.status !== 0)
   // allScript.length = 0
   // allScript.push(...list)
-  // console.log("我的任務 all data", allScript)
 
   if (data && data.value && data.value.data && Array.isArray(data.value.data.list)) {
     let list = JSON.parse(JSON.stringify(data.value.data.list));
     // list = list.filter(o => o.status !== 0);
     allScript.length = 0;
     allScript.push(...list);
-    console.log("我的任務 all data", allScript);
-  } else {
-    console.log("無法獲取有效的數據。");
-  }
+  } 
 
 }
 
@@ -104,7 +99,6 @@ const init = async () => {
   // list = list.filter(o => o.status !== 2)
   // allMissionData.length = 0
   // list.forEach(mission => {
-  //   console.log('mission', mission)
   //   allMissionData.push(getScriptById(mission.scriptId))
   // });
 

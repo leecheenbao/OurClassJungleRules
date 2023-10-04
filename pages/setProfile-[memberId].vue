@@ -68,7 +68,6 @@ const setMemberInfo =  async () => {
     let userInfo = data.value.data
     userInfo.birthday = userInfo.birthday.split(' ')[0]
     Object.assign(memberInfo, JSON.parse(JSON.stringify(userInfo)))
-    console.log('setMemberInfo', memberInfo)
 }
 setMemberInfo()
 

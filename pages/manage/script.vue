@@ -28,7 +28,7 @@
                             <div class="Mtable-row">
                                 <div @click.stop="editUser(scope.row)" class="Mtable-look">查看 -></div>
                                 <div class="Mtable-icon-outer">
-                                    <img @click.stop="deleteUser(scope.row)" class="Mtable-icon"
+                                    <img @click.stop="deleteScript(scope.row)" class="Mtable-icon"
                                         src="@/assets/images/Icon/delete.svg" alt="close">
                                 </div>
                             </div>
@@ -57,7 +57,7 @@
 </template>
 
 <script setup>
-import { getScript } from "~/api/script";
+import { getScript,editScriptById } from "~/api/script";
 
 const statusMap = {
     0: '進行中',
@@ -68,13 +68,12 @@ const allData = reactive([])
 async function init() {
     const { data } = await getScript()
     let list = JSON.parse(JSON.stringify(data.value.data.list))
-    // list = list.filter(o => o.status !== 2)
+    list = list.filter(o => o.status !== 2)
     list.map((o) => {
         o.statusStr = statusMap[o.status]
     })
     allData.length = 0
     allData.push(...list)
-    console.log("劇本 all data", allData)
 }
 init()
 
@@ -86,16 +85,17 @@ const editData = ref({})
 const deleteData = ref({})
 
 function editUser(row) {
-    console.log(row)
     router.push({ path: `/manage/scriptSetting-${row.scriptId}` })
 }
 
-function deleteUser(row) {
+function deleteScript(row) {
     isShowDelete.value = true
     deleteData.value = row
 }
 
-function deleteCurrentData() {
+const deleteCurrentData = async() => {
+    deleteData.value.status = 2
+    await editScriptById(deleteData.value.scriptId,deleteData.value)
     isShowDelete.value = false
 }
 

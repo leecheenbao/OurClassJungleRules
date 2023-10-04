@@ -104,24 +104,28 @@
                         <div class="step-day-net">
                             <div class="step-day-row">
                                 <div class="step-day-title3">劇情影片</div>
+                                <span v-if="judgeHasFile(`drama-${detail.period}`)">{{ judgeHasFile(`drama-${detail.period}`) }}</span>
                                 <img v-if="judgeHasFile(`drama-${detail.period}`)" class="step-day-icon"
                                     src="~/assets/images/Icon/available.svg" alt="available">
                             </div>
                             <div class="step-day-line"></div>
                             <div class="step-day-row">
                                 <div class="step-day-title3">學習單</div>
+                                <span v-if="judgeHasFile(`sheet-${detail.period}`)">{{ judgeHasFile(`sheet-${detail.period}`) }}</span>
                                 <img v-if="judgeHasFile(`sheet-${detail.period}`)" class="step-day-icon"
                                     src="~/assets/images/Icon/available.svg" alt="available">
                             </div>
-                            <div class="step-day-line"></div>
-                            <div class="step-day-row">
+                            <div v-if="detail.period == 1" class="step-day-line"></div>
+                            <div v-if="detail.period == 1"  class="step-day-row">
                                 <div class="step-day-title3">教學簡報</div>
+                                <span v-if="judgeHasFile(`bulletin-${detail.period}`)">{{ judgeHasFile(`bulletin-${detail.period}`) }}</span>
                                 <img v-if="judgeHasFile(`bulletin-${detail.period}`)" class="step-day-icon"
                                     src="~/assets/images/Icon/available.svg" alt="available">
                             </div>
                             <div class="step-day-line"></div>
                             <div class="step-day-row">
                                 <div class="step-day-title3">額外資訊</div>
+                                <span v-if="judgeHasFile(`information-${detail.period}`)">{{ judgeHasFile(`information-${detail.period}`) }}</span>
                                 <img v-if="judgeHasFile(`information-${detail.period}`)" class="step-day-icon"
                                     src="~/assets/images/Icon/available.svg" alt="available">
                             </div>
@@ -169,24 +173,28 @@
                         <div class="step-day-net">
                             <div class="step-day-row">
                                 <div class="step-day-title">結局一 (鴞老師) 影片</div>
+                                <span v-if="judgeHasFile(`endingMovie1`)">{{ judgeHasFile(`endingMovie1`) }}</span>
                                 <img v-if="judgeHasFile(`endingMovie1`)" class="step-day-icon"
                                     src="~/assets/images/Icon/available.svg" alt="available">
                             </div>
                             <div class="step-day-line"></div>
                             <div class="step-day-row">
                                 <div class="step-day-title">結局二 (鴿老師) 影片</div>
+                                <span v-if="judgeHasFile(`endingMovie2`)">{{ judgeHasFile(`endingMovie2`) }}</span>
                                 <img v-if="judgeHasFile(`endingMovie2`)" class="step-day-icon"
                                     src="~/assets/images/Icon/available.svg" alt="available">
                             </div>
                             <div class="step-day-line"></div>
                             <div class="step-day-row">
                                 <div class="step-day-title">結局三 (鴉老師) 影片</div>
+                                <span v-if="judgeHasFile(`endingMovie3`)">{{ judgeHasFile(`endingMovie3`) }}</span>
                                 <img v-if="judgeHasFile(`endingMovie3`)" class="step-day-icon"
                                     src="~/assets/images/Icon/available.svg" alt="available">
                             </div>
                             <div class="step-day-line"></div>
                             <div class="step-day-row">
                                 <div class="step-day-title">結局四 (鷹老師) 影片</div>
+                                <span v-if="judgeHasFile(`endingMovie4`)">{{ judgeHasFile(`endingMovie4`) }}</span>
                                 <img v-if="judgeHasFile(`endingMovie4`)" class="step-day-icon"
                                     src="~/assets/images/Icon/available.svg" alt="available">
                             </div>
@@ -202,11 +210,11 @@
                                     src="~/assets/images/Icon/available.svg" alt="available">
                             </div>
                             <div class="step-day-line"></div>
-                            <div class="step-day-row">
+                            <!-- <div class="step-day-row">
                                 <div class="step-day-title">學習簡報</div>
                                 <img v-if="judgeHasFile(`endingBulletin`)" class="step-day-icon"
                                     src="~/assets/images/Icon/available.svg" alt="available">
-                            </div>
+                            </div> -->
                         </div>
                     </div>
 
@@ -381,6 +389,7 @@
                     <div class="step-day-net">
                         <div class="step-day-row">
                             <div class="step-day-title3">劇情影片</div>
+                            <span v-if="judgeHasFile(`drama-${detail.period}`)">{{judgeHasFile(`drama-${detail.period}`)}}</span>
                             <div class="m-flex">
                                 <img v-if="judgeHasFile(`drama-${detail.period}`)" class="step-day-icon"
                                     src="~/assets/images/Icon/available.svg" alt="available">
@@ -392,6 +401,7 @@
                         </div>
                         <div class="step-day-row">
                             <div class="step-day-title3">學習單</div>
+                            <span v-if="judgeHasFile(`sheet-${detail.period}`)">{{judgeHasFile(`sheet-${detail.period}`)}}</span>
                             <div class="m-flex">
                                 <img v-if="judgeHasFile(`sheet-${detail.period}`)" class="step-day-icon"
                                     src="~/assets/images/Icon/available.svg" alt="available">
@@ -400,8 +410,9 @@
                                     @change="changeFile" :data-period="detail.period" data-ref="sheet">
                             </div>
                         </div>
-                        <div class="step-day-row">
+                        <div  v-if="detail.period == 1" class="step-day-row">
                             <div class="step-day-title3">教學簡報</div>
+                            <span v-if="judgeHasFile(`bulletin-${detail.period}`)">{{judgeHasFile(`bulletin-${detail.period}`)}}</span>
                             <div class="m-flex">
                                 <img v-if="judgeHasFile(`bulletin-${detail.period}`)" class="step-day-icon"
                                     src="~/assets/images/Icon/available.svg" alt="available">
@@ -412,6 +423,7 @@
                         </div>
                         <div class="step-day-row">
                             <div class="step-day-title3">額外資訊</div>
+                            <span v-if="judgeHasFile(`information-${detail.period}`)">{{judgeHasFile(`information-${detail.period}`)}}</span>
                             <div class="m-flex">
                                 <img v-if="judgeHasFile(`information-${detail.period}`)" class="step-day-icon"
                                     src="~/assets/images/Icon/available.svg" alt="available">
@@ -455,6 +467,7 @@
                     <div class="step-day-net">
                         <div class="step-day-row">
                             <div class="step-day-title3">結局一 (鴞老師) 影片</div>
+                            <span v-if="judgeHasFile(`endingMovie1`)">{{judgeHasFile(`endingMovie1`)}}</span>
                             <div class="m-flex">
                                 <img v-if="judgeHasFile(`endingMovie1`)" class="step-day-icon"
                                     src="~/assets/images/Icon/available.svg" alt="available">
@@ -465,6 +478,7 @@
                         </div>
                         <div class="step-day-row">
                             <div class="step-day-title3">結局二 (鴿老師) 影片</div>
+                            <span v-if="judgeHasFile(`endingMovie2`)">{{judgeHasFile(`endingMovie2`)}}</span>
                             <div class="m-flex">
                                 <img v-if="judgeHasFile(`endingMovie2`)" class="step-day-icon"
                                     src="~/assets/images/Icon/available.svg" alt="available">
@@ -475,6 +489,7 @@
                         </div>
                         <div class="step-day-row">
                             <div class="step-day-title3">結局三 (鴉老師) 影片</div>
+                            <span v-if="judgeHasFile(`endingMovie3`)">{{judgeHasFile(`endingMovie3`)}}</span>
                             <div class="m-flex">
                                 <img v-if="judgeHasFile(`endingMovie3`)" class="step-day-icon"
                                     src="~/assets/images/Icon/available.svg" alt="available">
@@ -485,6 +500,7 @@
                         </div>
                         <div class="step-day-row">
                             <div class="step-day-title3">結局四 (鷹老師) 影片</div>
+                            <span v-if="judgeHasFile(`endingMovie4`)">{{judgeHasFile(`endingMovie4`)}}</span>
                             <div class="m-flex">
                                 <img v-if="judgeHasFile(`endingMovie4`)" class="step-day-icon"
                                     src="~/assets/images/Icon/available.svg" alt="available">
@@ -499,6 +515,7 @@
                     <div class="step-day-net">
                         <div class="step-day-row">
                             <div class="step-day-title3">學習單</div>
+                            <span v-if="judgeHasFile(`endingSheet`)">{{judgeHasFile(`endingSheet`)}}</span>
                             <div class="m-flex">
                                 <img v-if="judgeHasFile(`endingSheet`)" class="step-day-icon"
                                     src="~/assets/images/Icon/available.svg" alt="available">
@@ -507,9 +524,10 @@
                                     data-period="end" data-ref="endingSheet">
                             </div>
                         </div>
-                        <div class="step-day-row">
+                        <!-- <div class="step-day-row">
                             <div class="step-day-title3">教學簡報</div>
                             <div class="m-flex">
+                                <span v-if="judgeHasFile(`endingBulletin`)">{{ judgeHasFile(`endingBulletin`) }}</span>
                                 <img v-if="judgeHasFile(`endingBulletin`)" class="step-day-icon"
                                     src="~/assets/images/Icon/available.svg" alt="available">
                                 <div @click="chooseFile('endingBulletin', 'end')" class="step-day-upload">上傳</div>
@@ -517,7 +535,7 @@
                                     data-period="end" data-ref="endingBulletin">
                             </div>
 
-                        </div>
+                        </div> -->
                     </div>
 
                     <div class="step-day-title2">計分設定</div>
@@ -635,7 +653,6 @@ const setScriptData = async () => {
     Object.assign(scriptEnding, JSON.parse(JSON.stringify(data.value.data.scriptEndingDTO)))
     Object.assign(editEnding, JSON.parse(JSON.stringify(data.value.data.scriptEndingDTO)))
     Object.assign(editScriptDetail, JSON.parse(JSON.stringify(data.value.data.scriptDetail)))
-    console.log("editScriptDetail", editScriptDetail)
     editScriptDetail.forEach(o => {
         let additionalInfoList = []
         o.additionalInfo.forEach(i => additionalInfoList.push(
@@ -650,7 +667,6 @@ const setScriptData = async () => {
     })
 
     isUsed.value = scriptData.status == 0
-    console.log('scriptData', scriptData)
 }
 setScriptData()
 
@@ -662,7 +678,12 @@ const onlySetScriptData = async () => {
 const judgeHasFile = (description) => {
     if (scriptData.mediaDTO) {
         let filterFile = scriptData.mediaDTO.filter(o => o.description == description)
-        return filterFile.length > 0
+        if(filterFile.length > 0){
+            return filterFile[0].filename
+        }else {
+            return false
+        }
+        
     }
     return false
 }
@@ -743,13 +764,11 @@ const handleUploadDetail = async () => {
         editScriptDetail[index].parentConfigs.forEach(obj => {
             delete obj["tempId"]
         });
-        console.log("store", editScriptDetail[index])
         await uploadDetail(editScriptDetail[index])
     }
 }
 
 const handleUploadEnding = async () => {
-    console.log("editEnding", editEnding)
     await uploadEnding(editEnding)
 }
 

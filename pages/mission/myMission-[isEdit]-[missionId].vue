@@ -304,16 +304,18 @@
                     <div class="mission-body-videoBox" :style="`background: no-repeat center url(${scriptData.imgUrl})`">
                         <div v-if="!isVideoPlay" class="mission-body-video">
                             <div class="mission-body-video-head">{{ quadrantOption[quadrant] }}</div>
-                            <div @click="videoPlay(currentDetail[`endingMovie${quadrant}`])"
-                                class="mission-body-video-play">
+                            <div v-if="currentDetail[`endingMovie${quadrant}`]"
+                                @click="videoPlay(currentDetail[`endingMovie${quadrant}`])" class="mission-body-video-play">
                                 <img class="mission-body-video-img" src="~assets/images/Icon/play.svg" alt="">
                                 <div>播放影片</div>
                             </div>
-                            <div @click="isShowInfo = true" class="mission-body-video-text">
+                            <div @click="openContentPopup(currentDetail[endingTextOption[quadrant]])"
+                                class="mission-body-video-text">
                                 <img class="mission-body-video-img" src="~assets/images/Icon/detail.svg" alt="">
                                 <div>閱讀文字版</div>
                             </div>
-                            <div class="mission-body-video-text">
+                            <div @click="qrDownload(currentDetail[`endingMovie${quadrant}`], `第${quadrant}日劇情`)"
+                                class="mission-body-video-text">
                                 <img class="mission-body-video-img" src="~assets/images/Icon/download.svg" alt="">
                                 <div>影片 QR code 下載</div>
                             </div>
@@ -503,10 +505,18 @@
 </template>
 
 <script setup>
+import { addScore, getScore, deleteScore } from "~/api/score";
 import { getScriptById, getScript, downloadPDF } from "~/api/script";
 import { getTaskById, edit as editTask } from "~/api/task";
 import { ElMessage } from 'element-plus'
 import QRCode from 'qrcode'
+
+const endingTextOption = {
+    1: 'endingOne',
+    2: 'endingTwo',
+    3: 'endingThree',
+    4: 'endingFour',
+}
 
 const handelDownloadPDF = async () => {
     let data = {
@@ -522,14 +532,18 @@ const handelDownloadPDF = async () => {
             "sheet": `endingSheet`
         }
     }
-    await downloadPDF(data)
-    console.log("data", data)
+    let pdfData = await downloadPDF(data)
+    let pdfUrl = pdfData.data.value.data
+    console.log("pdfData", pdfData)
+    var a = document.createElement('a');
+    a.href = pdfUrl;
+    a.click();
+    window.URL.revokeObjectURL(url);
 }
 
 const qrDownload = (url, fileName) => {
     QRCode.toDataURL(url)
         .then(QRCodeUrl => {
-            console.log(url)
             const elt = document.createElement('a');
             elt.setAttribute('href', QRCodeUrl);
             elt.setAttribute('download', fileName);
@@ -562,14 +576,14 @@ const downloadFile = (url) => {
     })
 }
 
-import { addScore, getScore, deleteScore } from "~/api/score";
+
 let score = reactive([])
 const setScore = async () => {
     let { data } = await getScore()
     score.length = 0
     score.push(...(data.value.data.list))
 }
-setScore()
+
 const fillScoreOption = reactive([])
 const openFillScoreModel = () => {
     isShowWrite.value = true
@@ -608,7 +622,6 @@ const removeOptionItem = async (score) => {
     }
 }
 const sendFillScoreOption = async () => {
-    console.log("sendFillScoreOption")
     fillScoreOption.forEach(obj => {
         delete obj["id"]
     });
@@ -636,11 +649,10 @@ const init = async () => {
     taskEditData.endTime = taskEditData.endTime.split(' ')[0]
     taskData.createTimeStr = dayjs(taskData.createTime).format('YYYY/MM/DD')
     taskData.endTimeStr = dayjs(taskData.endTime).format('YYYY/MM/DD')
-    console.log('taskData', taskData)
     scriptId.value = taskData.scriptId
     await setScriptData()
 }
-init()
+
 
 const numberToLetter = (number) => {
     if (Number.isInteger(number) && number >= 1 && number <= 26) {
@@ -655,12 +667,10 @@ const numberToLetter = (number) => {
 // 依據“日”取得評分
 const getScoreByCurrentPeriod = () => {
     let filterData = score.filter(o => o.scriptId == scriptData.scriptId && o.taskId == taskData.taskId && o.period == currentPeriod.value)
-    console.log("getScoreByDay", filterData)
     return filterData
 }
 
 const isEdit = JSON.parse(route.params.isEdit)
-console.log('isEdit', isEdit.value)
 const scriptData = reactive({})
 const statusMap = {
     0: '開啟任務',
@@ -696,8 +706,6 @@ const setScriptData = async () => {
         missionHeadClick(1)
         setCurrentDetail(1)
     })
-
-    console.log("scriptData", scriptData)
 }
 
 const isShowInfo = ref(false)
@@ -719,7 +727,6 @@ const onVideoPause = () => {
 const currentVideoUrl = ref("")
 const centerDialogVisible = ref(false)
 const videoPlay = (url) => {
-    console.log("videoPlay", url)
     currentVideoUrl.value = url
     centerDialogVisible.value = true
 }
@@ -775,7 +782,6 @@ const setScoreOverview = async () => {
     for (let index = 1; index <= scriptData.day; index++) {
         let detail = getDetailByPeriod(index)
         let scoreTotal = await setScoreList(detail)
-        console.log("scoreTotal", scoreTotal)
         let orderly = scoreTotal.stuTotal.orderly + scoreTotal.parTotal.orderly
         let relation = scoreTotal.stuTotal.relation + scoreTotal.parTotal.relation
         totalList.push({
@@ -818,7 +824,6 @@ const setCurrentDetail = async (period) => {
     }
     currentPeriod.value = period
     if (period == scriptData.dayEnd) {
-        console.log("scriptData.scriptEndingDTO", scriptData.scriptEndingDTO)
         Object.assign(currentDetail, scriptData.scriptEndingDTO)
     } else {
         let filterData = scriptData.scriptDetail.filter(o => o.period == period)
@@ -857,7 +862,6 @@ const setScoreList = async (detail) => {
             count: 0
         }
     })
-    console.log("score", score)
     for (let item of score) {
         let stuId = parseInt(item.stuAns, 10);
         let parId = parseInt(item.parAns, 10);
@@ -909,9 +913,8 @@ async function setAllScript() {
             value: res.scriptId
         })
     })
-    console.log("我的劇本 all data", scriptOption)
 }
-setAllScript()
+
 
 async function saveTaskEdit() {
     isShowEdit.value = false
@@ -955,6 +958,12 @@ const isShowEdit = ref(false)
 const isShowVideo = ref(false)
 
 const isShowWrite = ref(false)
+
+nextTick(() => {
+    setScore()
+    init()
+    setAllScript()
+})
 
 </script>
 

@@ -80,7 +80,6 @@ const formData = reactive({
 })
 
 watch(formData, () => {
-    console.log("formData")
     emit("infoDataEmit", formData)
 }, { deep: true })
 
@@ -108,7 +107,6 @@ const handleAddOne = async () => {
         let { data } = await addOne(addScriptData)
         let scriptId = data.value.data.scriptId
 
-        console.log("formDataImg", formDataImg)
         if (formDataImg) {
             await uploadFileById(scriptId, formDataImg)
         }
@@ -260,7 +258,6 @@ const triggerFileUpload = () => {
 const previewImage = ref('');
 const handleFileUpload = (event) => {
     const file = event.target.files[0];
-    console.log("handleFileUpload", file)
     const validTypes = ['image/jpeg', 'image/png'];
 
     if (validTypes.includes(file.type)) {

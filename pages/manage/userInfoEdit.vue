@@ -50,15 +50,12 @@ import { getInfoById, editInfoById } from "~/api/member";
 
 const cookieInfo = useCookie('info')
 const memberId = cookieInfo.value.id
-console.log("cookieInfo", cookieInfo.value.id )
-
 const memberInfo = reactive({})
 const setMemberInfo = async () => {
     const { data } = await getInfoById(memberId)
     let userInfo = data.value.data
     userInfo.birthday = userInfo.birthday.split(' ')[0]
     Object.assign(memberInfo, JSON.parse(JSON.stringify(userInfo)))
-    console.log('setMemberInfo', memberInfo)
 }
 setMemberInfo()
 

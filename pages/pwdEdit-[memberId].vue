@@ -26,7 +26,6 @@ const saveData = reactive({
 
 const route = useRoute();
 const memberId = ref(route.params.memberId)
-console.log("memberId",memberId)
 const cookieInfo = useCookie('info')
 const save = async () => {
     if(memberId.value == 'nav'){
