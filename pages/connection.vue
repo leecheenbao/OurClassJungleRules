@@ -18,8 +18,9 @@
                     <div>
                         <textarea v-model="body" class="textarea" placeholder="請輸入文字"></textarea>
                     </div>
-                    <div class="check-box"><input class="checkbox" type="checkbox">我同意接收營銷和宣傳材料</div>
-                    <a class="submit" :href="`mailto:wasupstudio@gmail.com?&body=${body}`">提交</a>
+                    <div class="check-box"><input v-model="checkbox" class="checkbox"
+                            type="checkbox">我同意接收營銷和宣傳材料</div>
+                    <div class="submit" @click="submit" :href="`mailto:showeryu18@gmail.com?&body=${body}`">提交</div>
                 </div>
             </div>
         </div>
@@ -27,9 +28,26 @@
 </template>
 
 <script setup>
-    // const subject = ref('')
-    const body = ref('')
-    body.value = ''
+// const subject = ref('')
+const checkbox = ref(false)
+const body = ref('')
+body.value = ''
+
+const submit = () => {
+    let link = document.createElement("a");
+    let submitBody = body.value; 
+    if(checkbox){
+        submitBody += " 我同意接收營銷和宣傳材料"
+    }
+    let email = "wasupstudio@gmail.com";
+    
+    let hrefValue = `mailto:${email}?&body=${encodeURIComponent(submitBody)}`;
+    link.setAttribute("href", hrefValue);
+    link.style.display = "none";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
 </script>
 
 <style lang="scss" scoped>
@@ -92,6 +110,7 @@
                 @include respond-to('phone') {
                     flex-direction: column;
                 }
+
                 .input {
                     width: 192px;
                     height: 36px;
@@ -102,10 +121,11 @@
                     font-weight: 400;
                     font-size: 14px;
                     letter-spacing: 0.5px;
-                    color: $text1;     
+                    color: $text1;
+
                     @include respond-to('phone') {
                         width: 100%;
-                    }         
+                    }
                 }
             }
 
@@ -136,6 +156,7 @@
                 color: $text1;
                 margin-bottom: 16px;
                 resize: vertical;
+
                 @include respond-to('phone') {
                     width: 100%;
                 }
@@ -186,5 +207,4 @@
         height: 650px;
         background: #FFFBF4;
     }
-}
-</style>
+}</style>

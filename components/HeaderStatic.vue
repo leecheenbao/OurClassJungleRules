@@ -174,12 +174,10 @@ const handleSignOut = () => {
 const allScript = reactive([])
 const setAllScript = async () => {
   const { data } = await getScript()
-  if (data && data.value && data.value.data && Array.isArray(data.value.data.list)) {
-    let list = JSON.parse(JSON.stringify(data.value.data.list))
-    // list = list.filter(o => o.status !== 0)
-    allScript.length = 0
-    allScript.push(...list)
-  }
+  let list = JSON.parse(JSON.stringify(data.value.data))
+  list = list.filter(o => o.status !== 2)
+  allScript.length = 0
+  allScript.push(...list)
 }
 
 nextTick(() => {

@@ -45,7 +45,7 @@
           者，而使得衝突演變成霸凌，我們期待孩子能夠成為正義的助人者，共創和諧的班級文化。</div>
         <div class="item-box">
           <div v-for="data in allScript" :key="data.scriptId" class="item">
-            <div class="background"></div>
+            <div class="background" :style="`background: no-repeat center/cover url(${data.imgUrl})`"></div>
             <div class="item-title">{{ data.title }}</div>
             <div class="item-content">{{ data.description }}</div>
             <nuxt-link :to="`/chapter-${data.scriptId}`" class="item-btn">
@@ -82,13 +82,26 @@ const setAllScript = async () => {
   // allScript.length = 0
   // allScript.push(...list)
 
-  if (data && data.value && data.value.data && Array.isArray(data.value.data.list)) {
-    let list = JSON.parse(JSON.stringify(data.value.data.list));
-    // list = list.filter(o => o.status !== 0);
-    allScript.length = 0;
-    allScript.push(...list);
-  } 
+  let list = JSON.parse(JSON.stringify(data.value.data));
+  list = list.filter(o => o.status !== 2);
+  allScript.length = 0;
+  allScript.push(...list);
+  console.log("allScript", allScript)
+  allScript.forEach(scriptData => {
+    scriptData.hasImg = getFileUrl(scriptData.mediaDTO, 'cover') !== false
+    if (scriptData.hasImg) {
+      scriptData.imgUrl = getFileUrl(scriptData.mediaDTO, 'cover')
+    }
+  })
 
+}
+
+const getFileUrl = (fileList, target) => {
+  let filterFile = fileList.filter(o => o.description == target)
+  if (filterFile.length > 0) {
+    return filterFile[0].filePath
+  }
+  return false
 }
 
 const allMissionData = reactive([])
