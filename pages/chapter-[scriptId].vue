@@ -26,7 +26,7 @@
                             <img class="arrow-svg" src="~assets/images/Icon/arrow-up-2.svg" alt="">
                         </div>
                     </div>
-                    <div class="course-content" :id="`content-${detail.period}`">
+                    <div class="course-content course-content-expanded" :id="`content-${detail.period}`">
                         <div class="course-content-h2">帶領方式說明</div>
                         <div class="illustrate">
                             {{ detail.description }}
@@ -53,6 +53,24 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+
+                <!-- 結局日劇情 -->
+                <div class="course-box">
+                    <div @click="toggleContent(scriptData.scriptPeriod)" class="title-box">
+                        <div class="course-title">第 {{ scriptData.scriptPeriod }} 日</div>
+                        <div class="arrow">
+                            <img class="arrow-svg" src="~assets/images/Icon/arrow-up-2.svg" alt="">
+                        </div>
+                    </div>
+                    <div class="course-content course-content-expanded" :id="`content-${scriptData.scriptPeriod}`">
+                        <div class="course-content-h2">帶領方式說明</div>
+                        <div class="illustrate">
+                            {{ scriptData.scriptEndingDTO.endingDescription }}
+                        </div>
+                        <div class="course-content-h2">建議進行時間</div>
+                        <div class="item-text">{{ scriptData.scriptEndingDTO.advisoryTime }} 分鐘</div>
                     </div>
                 </div>
 
@@ -156,7 +174,6 @@ const setScriptData = async () => {
         detail.drama = getFileUrl(scriptData.mediaDTO, `drama-${detail.period}`)
 
     });
-    
 }
 setScriptData()
 

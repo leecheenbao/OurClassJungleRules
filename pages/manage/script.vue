@@ -97,6 +97,7 @@ const deleteCurrentData = async() => {
     deleteData.value.status = 2
     await editScriptById(deleteData.value.scriptId,deleteData.value)
     isShowDelete.value = false
+    await init()
 }
 
 </script>
