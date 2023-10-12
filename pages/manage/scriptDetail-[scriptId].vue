@@ -668,7 +668,7 @@ const setScriptData = async () => {
 
     isUsed.value = scriptData.status == 0
 }
-setScriptData()
+
 
 const onlySetScriptData = async () => {
     const { data } = await getScriptById(scriptId)
@@ -818,7 +818,9 @@ const changeFile = async (el) => {
 }
 
 const isEdited = ref(true)
-
+nextTick(() => {
+    setScriptData()
+})
 </script>
 
 <style lang="scss" scoped>

@@ -160,10 +160,12 @@ async function init() {
     let list = apiAllData.value.data.list
     list = list.filter(o => o.status != 2)
     allData.push(...list)
-    allData.map(o => o.birthday = o.birthday?o.birthday.split(' ')[0]:"")
+    allData.map(o => o.birthday = o.birthday ? o.birthday.split(' ')[0] : "")
 }
-await init()
 
+nextTick(() => {
+    init()
+})
 const genderMap = {
     0: '女',
     1: '男',
@@ -179,7 +181,7 @@ const dayjs = useDayjs()
 const currentUser = reactive({})
 function editUser(id) {
     let filterUser = allData.filter(o => o.id == id)[0]
-    filterUser.birthday = filterUser.birthday?filterUser.birthday.split(' ')[0]:""
+    filterUser.birthday = filterUser.birthday ? filterUser.birthday.split(' ')[0] : ""
     Object.assign(currentUser, filterUser)
     isShowEdit.value = true
 }

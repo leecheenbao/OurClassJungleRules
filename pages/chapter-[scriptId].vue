@@ -98,7 +98,7 @@
                             <div class="ending-item-title">鴞老師</div>
                             <div class="ending-item-content">
                                 兼顧秩序與關係，除了讓學生為自己的行為負責外，也會找出潛在霸凌者背後的需求，並且讓同學們思考要如何以合適的手段滿需求，是最理想的結局。
-                                </div>
+                            </div>
                         </div>
                         <div class="ending-item">
                             <img class="ending-item-img" src="~assets/images/teacher2.png" alt="">
@@ -117,7 +117,7 @@
                             <div class="ending-item-title">鷹老師</div>
                             <div class="ending-item-content">
                                 過度注重秩序，但未顧及關係，以嚴懲的方式來避免失序行為出現，是一種威權式的結局。
-</div>
+                            </div>
                         </div>
                     </div>
                     <div class="ending-bg"></div>
@@ -153,11 +153,11 @@ const scriptId = route.params.scriptId
 
 const imgUrl = ref("")
 const scriptData = reactive({
-    scriptEndingDTO:{
-        endingOne:"",
-        endingTwo:"",
-        endingThree:"",
-        endingFour:"",
+    scriptEndingDTO: {
+        endingOne: "",
+        endingTwo: "",
+        endingThree: "",
+        endingFour: "",
     }
 })
 const setScriptData = async () => {
@@ -175,7 +175,7 @@ const setScriptData = async () => {
 
     });
 }
-setScriptData()
+
 
 const getFileUrl = (fileList, target) => {
     let filterFile = fileList.filter(o => o.description == target)
@@ -220,6 +220,10 @@ const qrDownload = (url, fileName) => {
             console.error(err)
         })
 }
+
+nextTick(() => {
+    setScriptData()
+})
 </script>
 
 <style lang="scss" scoped>

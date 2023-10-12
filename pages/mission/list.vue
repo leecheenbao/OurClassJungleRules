@@ -92,7 +92,7 @@ async function setAllScript() {
         })
     })
 }
-setAllScript()
+
 
 const getScriptNameById = (id) => {
     if (scriptOption.length > 0){
@@ -117,7 +117,12 @@ async function init() {
     allData.length = 0
     allData.push(...list)
 }
-init()
+
+
+nextTick(() => {
+    init()
+    setAllScript()
+})
 
 const router = useRouter();
 

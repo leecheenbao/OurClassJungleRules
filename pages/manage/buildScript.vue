@@ -230,6 +230,8 @@ const finished = async () => {
     })
     router.push("/manage/script")
 }
+
+
 </script>
 
 <style lang="scss" scoped>

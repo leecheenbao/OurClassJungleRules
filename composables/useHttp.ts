@@ -15,6 +15,7 @@ const fetch = async (url, option) => {
       //   options.baseURL = apiBase
       //   // 添加请求头,没登录不携带token
       //   const userStore = useUserStore()
+      console.log("onRequest",url)
       const auth = useAuthStore()
       const { isLogin } = storeToRefs(auth)
       const token = useCookie('token').value
