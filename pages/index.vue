@@ -117,7 +117,7 @@ const init = async () => {
 
 
 }
-init()
+
 
 const getScriptById = (id) => {
   if (allScript.length > 0) {
@@ -128,6 +128,10 @@ const getScriptById = (id) => {
   }
   return null
 }
+
+nextTick(() => {
+  init()
+})
 </script>
 
 <style lang="scss" scoped>

@@ -80,7 +80,7 @@ async function init() {
     list = list.filter(o => o.activated !== 2)
     allData.push(...list)
 }
-init()
+
 
 const isShowAdd = ref(false)
 const isShowDelete = ref(false)
@@ -106,7 +106,9 @@ function deleteCurrentData() {
         init()
     })
 }
-
+nextTick(() => {
+    init()
+})
 </script>
 
 <style lang="scss" scoped>

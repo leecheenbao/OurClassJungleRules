@@ -171,7 +171,7 @@ const setScriptData = async () => {
     setEditList(editData.preamble, editPreambleList)
     isUsed.value = scriptData.status == 0
 }
-setScriptData()
+
 
 
 const setImgUrl = async () => {
@@ -231,7 +231,9 @@ const changeFile = async (el) => {
 const isUsed = ref(false)
 const isEdited = ref(true)
 const isPhoto = ref(true)
-
+nextTick(() => {
+    setScriptData()
+})
 </script>
 
 <style lang="scss" scoped>

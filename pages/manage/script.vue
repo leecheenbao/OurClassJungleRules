@@ -75,7 +75,10 @@ async function init() {
     allData.length = 0
     allData.push(...list)
 }
-init()
+
+nextTick(() => {
+    init()
+})
 
 const router = useRouter();
 

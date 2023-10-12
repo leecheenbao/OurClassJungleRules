@@ -310,8 +310,10 @@ const setScriptData = async () => {
     nonEndingDayLength.value = scriptData.scriptPeriod - 1
     setDetailDataForm()
 }
-setScriptData()
 
+nextTick(() => {
+    setScriptData()
+})
 const sendOut = async () => {
     for (let index = 0; index < dataFormList.length; index++) {
         dataFormList[index].additionalInfo = dataFormList[index].additionalInfo.map(o => o.text)
