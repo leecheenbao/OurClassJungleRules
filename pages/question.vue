@@ -1,6 +1,7 @@
 <template>
     <NuxtLayout name="default">
         <div class="box">
+            <div class="title">常見問題</div>
             <div class="collapse">
                 <el-collapse v-model="activeNames" @change="handleChange">
                     <el-collapse-item title="一、這份教材包含哪些內容？" name="1">
@@ -40,7 +41,7 @@
 </template>
 
 <script setup>
-const activeNames = ref(['1','2','3'])
+const activeNames = ref(['1', '2', '3'])
 const handleChange = (val) => {
     console.log(val)
 }
@@ -54,15 +55,28 @@ const handleChange = (val) => {
     background-color: $background1;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
+
+    .title {
+        margin-bottom: 32px;
+        font-weight: 700;
+        font-size: 32px;
+        letter-spacing: 1.5px;
+        color: $text1;
+        display: flex;
+        justify-content: center;
+    }
+
     .collapse {
         width: 60%;
         background-color: $background1;
         font-size: 22px;
     }
-    .collapse :deep(.el-collapse-item__header),.collapse :deep(.el-collapse-item__content) {
+
+    .collapse :deep(.el-collapse-item__header),
+    .collapse :deep(.el-collapse-item__content) {
         background-color: $background1;
         font-size: 16px;
     }
-    
-}
-</style>
+
+}</style>
