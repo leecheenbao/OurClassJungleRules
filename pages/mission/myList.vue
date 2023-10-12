@@ -319,7 +319,7 @@ async function save() {
             type: 'warning',
         })
     } else {
-        await edit(current.taskId, current).then((res) => {
+        await edit(current.taskId, JSON.parse(JSON.stringify(current))).then((res) => {
             ElMessage({
                 message: '更新成功',
                 type: 'success',
