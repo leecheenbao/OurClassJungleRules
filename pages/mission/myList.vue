@@ -8,7 +8,7 @@
             </div>
             <div class="manage-center">
                 <div>尚無任何任務</div>
-                <div @click="isShowAdd = true" class="manage-center-add">+ 建立新任務</div>
+                <div @click="openAddModal" class="manage-center-add">+ 建立新任務</div>
             </div>
         </div>
         <div v-else class="manage">
@@ -16,7 +16,7 @@
                 <div class="manage-head">我的任務</div>
                 <div class="manage-row">
                     <div class="manage-num">項目數量：{{ allData.length }}</div>
-                    <div @click="isShowAdd = true" class="manage-create">+ 建立新任務</div>
+                    <div @click="openAddModal" class="manage-create">+ 建立新任務</div>
                 </div>
 
             </div>
@@ -266,7 +266,7 @@ async function handleAddUser() {
         })
     } else {
         addData.endTime = dayjs(addData.endTime).format('YYYY-MM-DD HH:mm:ss')
-        await add(addData).catch(() => {
+        await add(JSON.parse(JSON.stringify(addData))).catch(() => {
             ElMessage.error('更新失敗')
         }).then((res) => {
             ElMessage({
@@ -274,17 +274,39 @@ async function handleAddUser() {
                 type: 'success',
             })
             isShowAdd.value = false
+            
             init()
         })
 
     }
 }
 
+const initAddData = () => {
+    addData.author = ""
+    addData.createTime = dayjs().format('YYYY-MM-DD HH:mm:ss')
+    addData.description = ""
+    addData.endTime = ""
+    addData.estimatedParticipants = 0
+    addData.learning = 0
+    addData.memberId = 0
+    addData.priority = 0
+    addData.scriptId = 0
+    addData.status = 0
+    addData.taskName = ""
+    addData.taskId = 0
+}
+
+
 
 function handleEdit(row) {
     isShowEdit.value = true
     Object.assign(current, JSON.parse(JSON.stringify(row)))
 
+}
+
+const openAddModal = () => {
+    initAddData()
+    isShowAdd.value = true
 }
 
 async function save() {
@@ -319,7 +341,7 @@ async function save() {
             type: 'warning',
         })
     } else {
-        await edit(current.taskId, JSON.parse(JSON.stringify(current))).then((res) => {
+        await edit(JSON.parse(JSON.stringify(current.taskId)), JSON.parse(JSON.stringify(current))).then((res) => {
             ElMessage({
                 message: '更新成功',
                 type: 'success',
