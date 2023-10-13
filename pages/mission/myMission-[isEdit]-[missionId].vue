@@ -505,7 +505,7 @@
 </template>
 
 <script setup>
-import { addScore, getScore, deleteScore } from "~/api/score";
+import { addScore,getScoreByTaskId ,getScore, deleteScore } from "~/api/score";
 import { getScriptById, getScript, downloadPDF } from "~/api/script";
 import { getTaskById, edit as editTask } from "~/api/task";
 import { ElMessage } from 'element-plus'
@@ -579,7 +579,7 @@ const downloadFile = (url) => {
 
 let score = reactive([])
 const setScore = async () => {
-    let { data } = await getScore()
+    let { data } = await getScoreByTaskId(missionId)
     score.length = 0
     score.push(...(data.value.data.list))
 }
