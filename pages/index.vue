@@ -86,7 +86,6 @@ const setAllScript = async () => {
   list = list.filter(o => o.status !== 2);
   allScript.length = 0;
   allScript.push(...list);
-  console.log("allScript", allScript)
   allScript.forEach(scriptData => {
     scriptData.hasImg = getFileUrl(scriptData.mediaDTO, 'cover') !== false
     if (scriptData.hasImg) {
@@ -160,6 +159,10 @@ nextTick(() => {
 
         @include respond-to('phone') {
           margin: 40px 0 0 20px;
+        }
+
+        @include respond-to('pad') {
+          margin: 0px;
         }
 
         .text1 {

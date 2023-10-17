@@ -1,6 +1,8 @@
 import { defineStore } from "pinia";
 import { authLogin } from "~/api/index";
 import { reloadNuxtApp } from "nuxt/app";
+import { el } from "element-plus/es/locale";
+import { ElMessage } from 'element-plus'
 
 export const useAuthStore = defineStore("auth", {
     state: () => ({
@@ -11,15 +13,20 @@ export const useAuthStore = defineStore("auth", {
       actions: {
         async login(data) {
           let {data:loginData}:any = await authLogin(data)
-          loginData = loginData.value.data
-          this.token = loginData.token
-          this.isLogin = true
-          const cookieToken = useCookie('token', { maxAge: 60*60*24*7 })
-          cookieToken.value = this.token
-          this.setPermissions(loginData.role)
-          const cookieInfo = useCookie('info', { maxAge: 60*60*24*7 })
-          cookieInfo.value = JSON.stringify(loginData) 
-          this.reloadPage()
+          if(loginData.value.code != 400){
+            loginData = loginData.value.data
+            this.token = loginData.token
+            this.isLogin = true
+            const cookieToken = useCookie('token', { maxAge: 60*60*24*7 })
+            cookieToken.value = this.token
+            this.setPermissions(loginData.role)
+            const cookieInfo = useCookie('info', { maxAge: 60*60*24*7 })
+            cookieInfo.value = JSON.stringify(loginData) 
+            this.reloadPage()
+          }else {
+            ElMessage.error(loginData.value.message)
+          }
+          
         },
         googleLogin(data){
           this.token = data.token

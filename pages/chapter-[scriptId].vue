@@ -22,7 +22,7 @@
                 <div v-for="detail in scriptData.scriptDetail" class="course-box">
                     <div @click="toggleContent(detail.period)" class="title-box">
                         <div class="course-title">第 {{ detail.period }} 日</div>
-                        <div class="arrow">
+                        <div class="arrow" :id="`arrow-${detail.period}`">
                             <img class="arrow-svg" src="~assets/images/Icon/arrow-up-2.svg" alt="">
                         </div>
                     </div>
@@ -60,7 +60,7 @@
                 <div class="course-box">
                     <div @click="toggleContent(scriptData.scriptPeriod)" class="title-box">
                         <div class="course-title">第 {{ scriptData.scriptPeriod }} 日</div>
-                        <div class="arrow">
+                        <div class="arrow" :id="`arrow-${scriptData.scriptPeriod}`">
                             <img class="arrow-svg" src="~assets/images/Icon/arrow-up-2.svg" alt="">
                         </div>
                     </div>
@@ -202,6 +202,9 @@ const openContentPopup = (content) => {
 const toggleContent = (id) => {
     var contentElement = document.getElementById(`content-${id}`);
     contentElement.classList.toggle("course-content-expanded");
+
+    var arrowElement = document.getElementById(`arrow-${id}`);
+    arrowElement.classList.toggle("arrow-rotate");
 }
 
 const qrDownload = (url, fileName) => {
@@ -228,6 +231,10 @@ nextTick(() => {
 
 <style lang="scss" scoped>
 @import '~/assets/styles/popup.scss';
+
+.arrow-rotate {
+    transform: rotate(180deg);
+}
 
 .centerDialog :deep(.el-dialog__header) {
     height: 0px;
