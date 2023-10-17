@@ -18,10 +18,6 @@
                         <div class="item-title">註冊碼如何獲得?</div>
                         <div class="item-text">註冊碼目前需要進行一次性付費才可獲得。付費後並且系統經過確認後，將主動寄送註冊碼至您的收取信箱。</div>
                     </div>
-                    <div class="item-box">
-                        <div class="item-title">註冊碼有效期嗎？</div>
-                        <div class="item-text">註冊碼開通帳號後，就可以永久使用網站開放的劇本遊戲，並無限定期限。</div>
-                    </div>
                 </div>
                 <nuxt-link to="/purchaseProcess" class="btn">
                     購買註冊碼

@@ -37,14 +37,11 @@ const handleAuthLogin = async () => {
         "role": "ROLE_USER"
     }
     useAuthStore().login(data)
-
-
 }
 
 const handleGoogleRegister = async () => {
     let { data } = await googleRegister()
     window.location.href = data.value.data;
-
 }
 
 </script>

@@ -143,7 +143,7 @@
                     <!-- 本日計分 -->
                     <div class="mission-body-head">本日計分</div>
                     <div class="mission-body-net">
-                        <div class="mission-body-text">目前還未填寫分數</div>
+                        <div class="mission-body-text"><span>目前還未填寫分數</span></div>
                         <div @click="openFillScoreModel" class="mission-body-write">
                             <img class="mission-body-edit" src="~assets/images/Icon/edit.svg" alt="">
                             <div>填寫分數</div>
@@ -505,7 +505,7 @@
 </template>
 
 <script setup>
-import { addScore,getScoreByTaskId ,getScore, deleteScore } from "~/api/score";
+import { addScore, getScoreByTaskId, getScore, deleteScore } from "~/api/score";
 import { getScriptById, getScript, downloadPDF } from "~/api/script";
 import { getTaskById, edit as editTask } from "~/api/task";
 import { ElMessage } from 'element-plus'
@@ -534,7 +534,6 @@ const handelDownloadPDF = async () => {
     }
     let pdfData = await downloadPDF(data)
     let pdfUrl = pdfData.data.value.data
-    console.log("pdfData", pdfData)
     var a = document.createElement('a');
     a.href = pdfUrl;
     a.click();
@@ -603,14 +602,17 @@ const openFillScoreModel = () => {
     })
 }
 const fillScoreOptionAdd = () => {
-    fillScoreOption.push({
-        "id": Math.random().toString(36),
-        "taskId": taskData.taskId,
-        "period": currentPeriod.value,
-        "scriptId": scriptId.value,
-        "parAns": "",
-        "stuAns": ""
-    })
+    let numberOfPeople = taskData.estimatedParticipants
+    if (fillScoreOption.length < numberOfPeople) {
+        fillScoreOption.push({
+            "id": Math.random().toString(36),
+            "taskId": taskData.taskId,
+            "period": currentPeriod.value,
+            "scriptId": scriptId.value,
+            "parAns": "",
+            "stuAns": ""
+        })
+    }
 }
 const removeOptionItem = async (score) => {
     let index = fillScoreOption.findIndex(item => item.id === score.id);
@@ -701,7 +703,6 @@ const setScriptData = async () => {
     scriptData.scriptEndingDTO.endingMovie4 = getFileUrl(scriptData.mediaDTO, `endingMovie4`)
     scriptData.scriptEndingDTO.endingSheet = getFileUrl(scriptData.mediaDTO, `endingSheet`)
     scriptData.scriptEndingDTO.endingBulletin = getFileUrl(scriptData.mediaDTO, `endingBulletin`)
-
     nextTick(() => {
         missionHeadClick(1)
         setCurrentDetail(1)
