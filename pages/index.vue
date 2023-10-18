@@ -383,7 +383,7 @@ nextTick(() => {
   .third {
     &-block {
       width: 100%;
-      margin-bottom: 50px;
+      padding-bottom: 50px;
       background-color: $background2;
       display: flex;
       justify-content: center;

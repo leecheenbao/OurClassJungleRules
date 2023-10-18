@@ -11,7 +11,7 @@
             </div>
 
             <div class="Mtable">
-                <el-table :data="allData" style="width: 100%">
+                <el-table :data="allData" style="width: 100%" empty-text="暫無數據">
                     <el-table-column prop="licenseKey" label="註冊碼" sortable min-width="160">
                     </el-table-column>
                     <el-table-column prop="customerEmail" label="綁定使用者帳號" sortable min-width="160">

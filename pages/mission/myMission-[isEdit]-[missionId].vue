@@ -143,7 +143,7 @@
                     <!-- 本日計分 -->
                     <div class="mission-body-head">本日計分</div>
                     <div class="mission-body-net">
-                        <div class="mission-body-text"><span>目前還未填寫分數</span></div>
+                        <div class="mission-body-text"><span v-if="scoreLength == 0">目前還未填寫分數</span></div>
                         <div @click="openFillScoreModel" class="mission-body-write">
                             <img class="mission-body-edit" src="~assets/images/Icon/edit.svg" alt="">
                             <div>填寫分數</div>
@@ -577,10 +577,12 @@ const downloadFile = (url) => {
 
 
 let score = reactive([])
+let scoreLength = ref(0)
 const setScore = async () => {
     let { data } = await getScoreByTaskId(missionId)
     score.length = 0
     score.push(...(data.value.data.list))
+    scoreLength.value = score.length
 }
 
 const fillScoreOption = reactive([])
@@ -601,6 +603,7 @@ const openFillScoreModel = () => {
         })
     })
 }
+const fillScoreOptionLength = ref(0)
 const fillScoreOptionAdd = () => {
     let numberOfPeople = taskData.estimatedParticipants
     if (fillScoreOption.length < numberOfPeople) {
@@ -792,6 +795,12 @@ const setScoreOverview = async () => {
         })
         allTotal.orderly += orderly
         allTotal.relation += relation
+    }
+    if(allTotal.orderly == 0){
+        allTotal.orderly = 1
+    }
+    if(allTotal.relation == 0){
+        allTotal.relation = 1
     }
     setEndQuadrant(allTotal.orderly, allTotal.relation)
 }
