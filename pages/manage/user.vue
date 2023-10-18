@@ -6,7 +6,7 @@
             </div>
 
             <div class="Mtable">
-                <el-table :data="allData" @row-click="editUser" style="width: 100%">
+                <el-table :data="allData" @row-click="editUser" style="width: 100%" empty-text="暫無數據">
                     <el-table-column prop="email" label="帳號" sortable min-width="160">
                     </el-table-column>
                     <el-table-column prop="name" label="姓名" sortable min-width="160">
