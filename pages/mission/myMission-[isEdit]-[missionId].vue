@@ -78,12 +78,12 @@
                                 <div>播放影片</div>
                             </div>
                             <div @click="openContentPopup(currentDetail.todayScript)" class="mission-body-video-text">
-                                <img class="mission-body-video-img" src="~assets/images/Icon/detail.svg" alt="">
+                                <img class="mission-body-video-img" src="~assets/images/Icon/detail-ccc.svg" alt="">
                                 <div>閱讀文字版</div>
                             </div>
                             <div @click="qrDownload(currentDetail.drama, `第${currentDetail.period}日劇情`)"
                                 class="mission-body-video-text">
-                                <img class="mission-body-video-img" src="~assets/images/Icon/download.svg" alt="">
+                                <img class="mission-body-video-img" src="~assets/images/Icon/download-ccc.svg" alt="">
                                 <div>影片 QR code 下載</div>
                             </div>
                         </div>
@@ -107,8 +107,12 @@
                                     <div class="mission-body-box-answer">{{ numberToLetter(index + 1) }}</div>
                                     <div class="mission-body-box-text">{{ config.stuDescription }}</div>
                                 </div>
-                                <img @click="openContentPopup(currentDetail.todayScript)" class="mission-body-box-info"
-                                    src="~assets/images/Icon/information.svg" alt="">
+                                <el-tooltip class="box-item" :content="`秩序效果：${config.stuOrderly}，關係效果：${config.stuRelation}`"
+                                    placement="top" effect="light">
+                                    <img class="mission-body-box-info" src="~assets/images/Icon/information.svg"
+                                            alt="">
+                                </el-tooltip>
+
                             </div>
 
                         </div>
@@ -123,8 +127,11 @@
                                     <div class="mission-body-box-answer">{{ numberToLetter(index + 1) }}</div>
                                     <div class="mission-body-box-text">{{ config.parDescription }}</div>
                                 </div>
-                                <img @click="openContentPopup(currentDetail.todayScript)" class="mission-body-box-info"
-                                    src="~assets/images/Icon/information.svg" alt="">
+                                <el-tooltip class="box-item" :content="`秩序效果：${config.parOrderly}，關係效果：${config.parRelation}`"
+                                    placement="top" effect="light">
+                                    <img class="mission-body-box-info" src="~assets/images/Icon/information.svg"
+                                            alt="">
+                                </el-tooltip>
                             </div>
 
                         </div>
@@ -151,73 +158,76 @@
                     </div>
 
                     <!-- 計分 -->
-                    <div class="mission-count">
-                        <div class="mission-count-header">
-                            <div class="mission-count-title">學生討論題選項</div>
-                            <div class="mission-count-row">
-                                <div class="mission-count-text">數量</div>
-                                <div class="mission-count-text">秩序統計</div>
-                                <div class="mission-count-text">關係統計</div>
+                    <template v-if="scoreLength !== 0">
+                        <div class="mission-count">
+                            <div class="mission-count-header">
+                                <div class="mission-count-title">學生討論題選項</div>
+                                <div class="mission-count-row">
+                                    <div class="mission-count-text">數量</div>
+                                    <div class="mission-count-text">秩序統計</div>
+                                    <div class="mission-count-text">關係統計</div>
+                                </div>
                             </div>
+
+                            <div v-for="item in stuList" class="mission-count-row2">
+                                <div class="mission-count-choose">
+                                    <div class="mission-count-sub1">{{ item.text }}</div>
+                                    <div class="mission-count-sub2">秩序效果：{{ item.orderly }}，關係效果：{{ item.relation }}</div>
+                                </div>
+                                <div class="mission-count-row3">
+                                    <div class="mission-count-count">{{ item.count }}</div>
+                                    <div class="mission-count-count">{{ item.orderly * item.count }}</div>
+                                    <div class="mission-count-count">{{ item.relation * item.count }}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mission-count-sum">
+                            <div class="mission-count-sum1">
+                                <div class="mission-count-title2">小計</div>
+                                <div class="mission-count-num">{{ stuTotal.orderly }}</div>
+                            </div>
+                            <div class="mission-count-sum2">{{ stuTotal.relation }}</div>
                         </div>
 
-                        <div v-for="item in stuList" class="mission-count-row2">
-                            <div class="mission-count-choose">
-                                <div class="mission-count-sub1">{{ item.text }}</div>
-                                <div class="mission-count-sub2">秩序效果：{{ item.orderly }}，關係效果：{{ item.relation }}</div>
-                            </div>
-                            <div class="mission-count-row3">
-                                <div class="mission-count-count">{{ item.count }}</div>
-                                <div class="mission-count-count">{{ item.orderly * item.count }}</div>
-                                <div class="mission-count-count">{{ item.relation * item.count }}</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="mission-count-sum">
-                        <div class="mission-count-sum1">
-                            <div class="mission-count-title2">小計</div>
-                            <div class="mission-count-num">{{ stuTotal.orderly }}</div>
-                        </div>
-                        <div class="mission-count-sum2">{{ stuTotal.relation }}</div>
-                    </div>
 
+                        <div class="mission-count">
+                            <div class="mission-count-header">
+                                <div class="mission-count-title">家長討論題選項</div>
+                                <div class="mission-count-row">
+                                    <div class="mission-count-text">數量</div>
+                                    <div class="mission-count-text">秩序統計</div>
+                                    <div class="mission-count-text">關係統計</div>
+                                </div>
+                            </div>
 
-                    <div class="mission-count">
-                        <div class="mission-count-header">
-                            <div class="mission-count-title">家長討論題選項</div>
-                            <div class="mission-count-row">
-                                <div class="mission-count-text">數量</div>
-                                <div class="mission-count-text">秩序統計</div>
-                                <div class="mission-count-text">關係統計</div>
+                            <div v-for="item in parList" class="mission-count-row2">
+                                <div class="mission-count-choose">
+                                    <div class="mission-count-sub1">{{ item.text }}</div>
+                                    <div class="mission-count-sub2">秩序效果：{{ item.orderly }}，關係效果：{{ item.relation }}</div>
+                                </div>
+                                <div class="mission-count-row3">
+                                    <div class="mission-count-count">{{ item.count }}</div>
+                                    <div class="mission-count-count">{{ item.orderly * item.count }}</div>
+                                    <div class="mission-count-count">{{ item.relation * item.count }}</div>
+                                </div>
                             </div>
                         </div>
-
-                        <div v-for="item in parList" class="mission-count-row2">
-                            <div class="mission-count-choose">
-                                <div class="mission-count-sub1">{{ item.text }}</div>
-                                <div class="mission-count-sub2">秩序效果：{{ item.orderly }}，關係效果：{{ item.relation }}</div>
+                        <div class="mission-count-sum">
+                            <div class="mission-count-sum1">
+                                <div class="mission-count-title2">小計</div>
+                                <div class="mission-count-num">{{ parTotal.orderly }}</div>
                             </div>
-                            <div class="mission-count-row3">
-                                <div class="mission-count-count">{{ item.count }}</div>
-                                <div class="mission-count-count">{{ item.orderly * item.count }}</div>
-                                <div class="mission-count-count">{{ item.relation * item.count }}</div>
-                            </div>
+                            <div class="mission-count-sum2">{{ parTotal.relation }}</div>
                         </div>
-                    </div>
-                    <div class="mission-count-sum">
-                        <div class="mission-count-sum1">
-                            <div class="mission-count-title2">小計</div>
-                            <div class="mission-count-num">{{ parTotal.orderly }}</div>
-                        </div>
-                        <div class="mission-count-sum2">{{ parTotal.relation }}</div>
-                    </div>
-                    <div class="mission-count-total">
                         <div class="mission-count-total">
-                            <div class="mission-count-title3">每日小計</div>
-                            <div class="mission-count-num2">{{ stuTotal.orderly + parTotal.orderly }}</div>
+                            <div class="mission-count-total">
+                                <div class="mission-count-title3">每日小計</div>
+                                <div class="mission-count-num2">{{ stuTotal.orderly + parTotal.orderly }}</div>
+                            </div>
+                            <div class="mission-count-num3">{{ stuTotal.relation + parTotal.relation }}</div>
                         </div>
-                        <div class="mission-count-num3">{{ stuTotal.relation + parTotal.relation }}</div>
-                    </div>
+                    </template>
+
 
 
                     <div class="mission-body-line"></div>
@@ -311,12 +321,12 @@
                             </div>
                             <div @click="openContentPopup(currentDetail[endingTextOption[quadrant]])"
                                 class="mission-body-video-text">
-                                <img class="mission-body-video-img" src="~assets/images/Icon/detail.svg" alt="">
+                                <img class="mission-body-video-img" src="~assets/images/Icon/detail-ccc.svg" alt="">
                                 <div>閱讀文字版</div>
                             </div>
                             <div @click="qrDownload(currentDetail[`endingMovie${quadrant}`], `第${quadrant}日劇情`)"
                                 class="mission-body-video-text">
-                                <img class="mission-body-video-img" src="~assets/images/Icon/download.svg" alt="">
+                                <img class="mission-body-video-img" src="~assets/images/Icon/download-ccc.svg" alt="">
                                 <div>影片 QR code 下載</div>
                             </div>
                         </div>
@@ -796,10 +806,10 @@ const setScoreOverview = async () => {
         allTotal.orderly += orderly
         allTotal.relation += relation
     }
-    if(allTotal.orderly == 0){
+    if (allTotal.orderly == 0) {
         allTotal.orderly = 1
     }
-    if(allTotal.relation == 0){
+    if (allTotal.relation == 0) {
         allTotal.relation = 1
     }
     setEndQuadrant(allTotal.orderly, allTotal.relation)
@@ -1274,6 +1284,7 @@ nextTick(() => {
         &-text {
             font-size: 14px;
             color: #666666;
+            white-space: pre-line;
         }
 
         &-line {
@@ -1326,8 +1337,8 @@ nextTick(() => {
             }
 
             &-img {
-                width: 12px;
-                height: 12px;
+                width: 20px;
+                height: 20px;
                 margin-right: 4px;
             }
 
