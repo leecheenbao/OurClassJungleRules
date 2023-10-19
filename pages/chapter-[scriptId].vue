@@ -43,12 +43,12 @@
                                     <div>播放影片</div>
                                 </div>
                                 <div @click="openContentPopup(detail.todayScript)" class="mission-body-video-text">
-                                    <img class="mission-body-video-img" src="~assets/images/Icon/detail.svg" alt="">
+                                    <img class="mission-body-video-img" src="~assets/images/Icon/detail-ccc.svg" alt="">
                                     <div>閱讀文字版</div>
                                 </div>
                                 <div @click="qrDownload(detail.drama, `第${detail.period}日劇情`)"
                                     class="mission-body-video-text">
-                                    <img class="mission-body-video-img" src="~assets/images/Icon/download.svg" alt="">
+                                    <img class="mission-body-video-img" src="~assets/images/Icon/download-ccc.svg" alt="">
                                     <div>影片 QR code 下載</div>
                                 </div>
                             </div>
@@ -701,11 +701,6 @@ nextTick(() => {
 
     // 第一日
 
-    &-body {
-        width: 928px;
-        margin-top: 20px;
-    }
-
     &-head2 {
         width: 100%;
         height: 80px;
@@ -747,7 +742,9 @@ nextTick(() => {
 
     }
 
-    &-body {
+    &-body { 
+        width: 928px;
+        margin-top: 20px;
         padding: 8px 32px 32px;
         background-color: white;
 
@@ -895,8 +892,8 @@ nextTick(() => {
             }
 
             &-img {
-                width: 12px;
-                height: 12px;
+                width: 20px;
+                height: 20px;
                 margin-right: 4px;
             }
 

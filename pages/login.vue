@@ -36,7 +36,8 @@ const handleAuthLogin = async () => {
         "password": password.value,
         "role": "ROLE_USER"
     }
-    useAuthStore().login(data)
+    let loginData = await useAuthStore().login(data)
+    console.log("loginData",loginData)
 }
 
 const handleGoogleRegister = async () => {
