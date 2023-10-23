@@ -1,8 +1,8 @@
 <template>
     <NuxtLayout name="default">
         <div class="main-box">
-            <div class="top-bg">
-                <img :src="imgUrl" alt="">
+            <div class="top-bg" :style="`background-image: url(${imgUrl});`">
+                <!-- <img :src="imgUrl" alt=""> -->
             </div>
             <div class="content-box">
                 <div class="top-title">{{ scriptData.title }}</div>
@@ -22,7 +22,7 @@
                 <div v-for="detail in scriptData.scriptDetail" class="course-box">
                     <div @click="toggleContent(detail.period)" class="title-box">
                         <div class="course-title">第 {{ detail.period }} 日</div>
-                        <div class="arrow" :id="`arrow-${detail.period}`">
+                        <div class="arrow arrow-rotate" :id="`arrow-${detail.period}`">
                             <img class="arrow-svg" src="~assets/images/Icon/arrow-up-2.svg" alt="">
                         </div>
                     </div>
@@ -60,7 +60,7 @@
                 <div class="course-box">
                     <div @click="toggleContent(scriptData.scriptPeriod)" class="title-box">
                         <div class="course-title">第 {{ scriptData.scriptPeriod }} 日</div>
-                        <div class="arrow" :id="`arrow-${scriptData.scriptPeriod}`">
+                        <div class="arrow arrow-rotate" :id="`arrow-${scriptData.scriptPeriod}`">
                             <img class="arrow-svg" src="~assets/images/Icon/arrow-up-2.svg" alt="">
                         </div>
                     </div>
@@ -268,6 +268,8 @@ nextTick(() => {
         height: 225px;
         display: flex;
         justify-content: center;
+        background-position: center;
+        background-size: 100% auto;
     }
 
     .content-box {
@@ -380,8 +382,8 @@ nextTick(() => {
                     font-size: 14px;
                     letter-spacing: 0.5px;
                     color: $text2;
-                    margin-left: 20px;
                     margin-bottom: 16px;
+                    white-space: pre-line;
                 }
 
                 & .item-text {

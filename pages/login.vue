@@ -30,6 +30,8 @@ import { useAuthStore } from '@/store/authStore';
 
 let email = ref('')
 let password = ref('')
+const router = useRouter();
+
 const handleAuthLogin = async () => {
     let data = {
         "email": email.value,
@@ -37,7 +39,16 @@ const handleAuthLogin = async () => {
         "role": "ROLE_USER"
     }
     let loginData = await useAuthStore().login(data)
-    console.log("loginData",loginData)
+    if (loginData.data.hasOwnProperty('checkLicense')) {
+        if (loginData.data.checkLicense) {
+            router.push({ path: '/' })
+        } else {
+            router.push({ path: '/verificationCode' })
+        }
+    } else {
+        router.push({ path: '/verificationCode' })
+    }
+    console.log("loginData", loginData)
 }
 
 const handleGoogleRegister = async () => {

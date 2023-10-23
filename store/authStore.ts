@@ -14,12 +14,16 @@ export const useAuthStore = defineStore("auth", {
     async login(data) {
       let { data: loginData }: any = await authLogin(data)
       if (loginData.value.code != 400) {
-        this.setLoginData(loginData)
-        return loginData
+        if (loginData.value.data.hasOwnProperty('checkLicense')) {
+          if (loginData.value.data.checkLicense) {
+            console.log("setLoginData",loginData)
+            this.setLoginData(loginData)
+          }
+        }
       } else {
         ElMessage.error(loginData.value.message)
       }
-
+      return loginData.value
     },
     setLoginData(loginData) {
       loginData = loginData.value.data
@@ -30,7 +34,7 @@ export const useAuthStore = defineStore("auth", {
       this.setPermissions(loginData.role)
       const cookieInfo = useCookie('info', { maxAge: 60 * 60 * 24 * 7 })
       cookieInfo.value = JSON.stringify(loginData)
-      this.reloadPage()
+      // this.reloadPage()
     },
     googleLogin(data) {
       this.token = data.token
