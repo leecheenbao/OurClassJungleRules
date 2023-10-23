@@ -52,7 +52,7 @@
             <nuxt-link to="/manage/script">
               <div class="subitem">劇本教材管理</div>
             </nuxt-link>
-            <nuxt-link to="/">
+            <nuxt-link to="/manage/statistics">
               <div class="subitem" style="border-bottom: none;">資料統計</div>
             </nuxt-link>
           </div>
@@ -129,7 +129,7 @@
           <nuxt-link to="/manage/script" class="link" :class="{ 'link-action': routeName == 'manage-script' }">
             劇本教材管理
           </nuxt-link>
-          <nuxt-link to="/" class="link" :class="{ 'link-action': routeName == 'none' }">
+          <nuxt-link to="/manage/statistics" class="link" :class="{ 'link-action': routeName == 'none' }">
             資料統計
           </nuxt-link>
         </div>
@@ -577,7 +577,7 @@ watch(route, value => {
       font-size: 14px;
       letter-spacing: 1px;
       padding: 8px 12px;
-      width: 100px;
+      width: 115px;
       height: 36px;
       background: $primary1;
       border-radius: 50px;

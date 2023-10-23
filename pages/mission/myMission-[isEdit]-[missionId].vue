@@ -107,10 +107,10 @@
                                     <div class="mission-body-box-answer">{{ numberToLetter(index + 1) }}</div>
                                     <div class="mission-body-box-text">{{ config.stuDescription }}</div>
                                 </div>
-                                <el-tooltip class="box-item" :content="`秩序效果：${config.stuOrderly}，關係效果：${config.stuRelation}`"
-                                    placement="top" effect="light">
-                                    <img class="mission-body-box-info" src="~assets/images/Icon/information.svg"
-                                            alt="">
+                                <el-tooltip class="box-item"
+                                    :content="`秩序效果：${config.stuOrderly}，關係效果：${config.stuRelation}`" placement="top"
+                                    effect="light">
+                                    <img class="mission-body-box-info" src="~assets/images/Icon/information.svg" alt="">
                                 </el-tooltip>
 
                             </div>
@@ -127,10 +127,10 @@
                                     <div class="mission-body-box-answer">{{ numberToLetter(index + 1) }}</div>
                                     <div class="mission-body-box-text">{{ config.parDescription }}</div>
                                 </div>
-                                <el-tooltip class="box-item" :content="`秩序效果：${config.parOrderly}，關係效果：${config.parRelation}`"
-                                    placement="top" effect="light">
-                                    <img class="mission-body-box-info" src="~assets/images/Icon/information.svg"
-                                            alt="">
+                                <el-tooltip class="box-item"
+                                    :content="`秩序效果：${config.parOrderly}，關係效果：${config.parRelation}`" placement="top"
+                                    effect="light">
+                                    <img class="mission-body-box-info" src="~assets/images/Icon/information.svg" alt="">
                                 </el-tooltip>
                             </div>
 
@@ -151,7 +151,7 @@
                     <div class="mission-body-head">本日計分</div>
                     <div class="mission-body-net">
                         <div class="mission-body-text"><span v-if="scoreLength == 0">目前還未填寫分數</span></div>
-                        <div @click="openFillScoreModel" class="mission-body-write">
+                        <div @click="openFillScoreModel('')" class="mission-body-write">
                             <img class="mission-body-edit" src="~assets/images/Icon/edit.svg" alt="">
                             <div>填寫分數</div>
                         </div>
@@ -284,14 +284,16 @@
                             <div style="width: 40%;">項目</div>
                             <div style="width: 25%;">秩序</div>
                             <div style="width: 25%;">關係</div>
-                            <div style="width: 10%;"></div>
+                            <div style="width: 10%;">編輯</div>
                         </div>
                         <div v-for="total in totalList" class="mission-body-scoring-itemBox">
                             <div style="width: 40%;">第 {{ total.period }} 日得分小計</div>
                             <div style="width: 25%;">{{ total.orderly }}</div>
                             <div style="width: 25%;">{{ total.relation }}</div>
                             <div style="width: 10%;">
-
+                                <div @click="openFillScoreModel(total.period)" style="width:45px;" class="mission-body-write">
+                                    <img class="mission-body-edit" style="width:25px;height:25px;" src="~assets/images/Icon/edit-b.svg" alt="">
+                                </div>
                             </div>
                         </div>
                         <div class="mission-body-scoring-totalScore">
@@ -311,7 +313,7 @@
                     </div>
 
                     <div @click="centerDialogVisible = true" class="mission-body-head">本次結局</div>
-                    <div class="mission-body-videoBox" :style="`background: no-repeat center url(${scriptData.imgUrl})`">
+                    <div v-if="scoreLength !== 0" class="mission-body-videoBox" :style="`background: no-repeat center url(${scriptData.imgUrl})`">
                         <div v-if="!isVideoPlay" class="mission-body-video">
                             <div class="mission-body-video-head">{{ quadrantOption[quadrant] }}</div>
                             <div v-if="currentDetail[`endingMovie${quadrant}`]"
@@ -331,7 +333,9 @@
                             </div>
                         </div>
                     </div>
-
+                    <div v-else>
+                        <div class="mission-body-net">分數還未填寫完畢</div>
+                    </div>
                     <div class="mission-body-line"></div>
 
                     <!-- 全部結局 -->
@@ -476,8 +480,8 @@
                         <div class="title">劇情內容</div>
                         <div class="mission-pop">
                             <div class="mission-pop-row">
-                                <div class="mission-pop-title">第 {{ currentPeriod }} 日</div>
-                                <div @click="fillScoreOptionAdd" class="mission-pop-add">+ 增加</div>
+                                <div class="mission-pop-title">第 {{ currentScoreEditDay }} 日</div>
+                                <div @click="fillScoreOptionAdd(currentScoreEditDay)" class="mission-pop-add">+ 增加</div>
                             </div>
                             <div class="mission-pop-row2">
                                 <div class="mission-pop-answer">學生答案</div>
@@ -487,11 +491,11 @@
                                 <div v-for="option, index in fillScoreOption" :key="option.id" class="mission-pop-row3">
                                     <div class="mission-pop-num">{{ index + 1 }}</div>
                                     <select v-model="option.stuAns" class="select mission-pop-select">
-                                        <option v-for="config, i in currentDetail.studentConfigs" :value="config.id">{{
+                                        <option v-for="config, i in currentScoreDetail.studentConfigs" :value="config.id">{{
                                             `${numberToLetter(i + 1)} ${config.stuDescription}` }}</option>
                                     </select>
                                     <select v-model="option.parAns" class="select mission-pop-select">
-                                        <option v-for="config, i in currentDetail.parentConfigs" :value="config.id">{{
+                                        <option v-for="config, i in currentScoreDetail.parentConfigs" :value="config.id">{{
                                             `${numberToLetter(i + 1)} ${config.parDescription}` }}</option>
                                     </select>
                                     <div @click="removeOptionItem(option)" class="mission-pop-close">-</div>
@@ -595,17 +599,27 @@ const setScore = async () => {
     scoreLength.value = score.length
 }
 
+const currentScoreEditDay = ref("")
 const fillScoreOption = reactive([])
-const openFillScoreModel = () => {
+const openFillScoreModel = (day = "") => {
     isShowWrite.value = true
     fillScoreOption.length = 0
+    let dday
+    if(day == ""){
+        dday = currentPeriod.value
+    }else {
+        dday = day
+    }
+    setCurrentScoreDetail(dday)
+    currentScoreEditDay.value = dday
+    let score = getScoreByCurrentPeriod(dday)
+    console.log("score",score)
 
-    let score = getScoreByCurrentPeriod()
     score.forEach(o => {
         fillScoreOption.push({
             "id": Math.random().toString(36),
             "taskId": taskData.taskId,
-            "period": currentPeriod.value,
+            "period": dday,
             "scriptId": scriptId.value,
             "parAns": o.parAns,
             "stuAns": o.stuAns,
@@ -614,13 +628,19 @@ const openFillScoreModel = () => {
     })
 }
 const fillScoreOptionLength = ref(0)
-const fillScoreOptionAdd = () => {
+const fillScoreOptionAdd = (day = "") => {
+    let dday
+    if(day == ""){
+        dday = currentPeriod.value
+    }else {
+        dday = day
+    }
     let numberOfPeople = taskData.estimatedParticipants
     if (fillScoreOption.length < numberOfPeople) {
         fillScoreOption.push({
             "id": Math.random().toString(36),
             "taskId": taskData.taskId,
-            "period": currentPeriod.value,
+            "period": dday,
             "scriptId": scriptId.value,
             "parAns": "",
             "stuAns": ""
@@ -647,7 +667,8 @@ const sendFillScoreOption = async () => {
         type: 'success',
     })
     await setScore()
-    await setScoreList(currentDetail)
+    await setScoreList(currentScoreDetail)
+    await setScoreOverview()
     fillScoreOption.length = 0
 }
 
@@ -680,8 +701,8 @@ const numberToLetter = (number) => {
 }
 
 // 依據“日”取得評分
-const getScoreByCurrentPeriod = () => {
-    let filterData = score.filter(o => o.scriptId == scriptData.scriptId && o.taskId == taskData.taskId && o.period == currentPeriod.value)
+const getScoreByCurrentPeriod = (dday) => {
+    let filterData = score.filter(o => o.scriptId == scriptData.scriptId && o.taskId == taskData.taskId && o.period == dday)
     return filterData
 }
 
@@ -833,6 +854,21 @@ const getDetailByPeriod = (period) => {
         return filterData[0]
     }
     return null
+}
+
+const currentScoreDetail = reactive({})
+const setCurrentScoreDetail = async (period) => {
+    for (let key in currentScoreDetail) {
+        delete currentScoreDetail[key];
+    }
+    if (period == scriptData.dayEnd) {
+        Object.assign(currentScoreDetail, scriptData.scriptEndingDTO)
+    } else {
+        let filterData = scriptData.scriptDetail.filter(o => o.period == period)
+        if (filterData.length > 0) {
+            Object.assign(currentScoreDetail, filterData[0])
+        }
+    }
 }
 
 const currentPeriod = ref(1)

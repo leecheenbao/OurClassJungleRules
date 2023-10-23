@@ -3,9 +3,9 @@
         <div class="box">
             <div class="block-box">
                 <div class="title" style="margin-bottom: 32px;">註冊碼驗證</div>
-                <div><input style="margin-bottom: 32px;" class="input" placeholder="請輸入註冊碼" type="text"></div>
+                <div><input v-model="licenseInput" style="margin-bottom: 32px;" class="input" placeholder="請輸入註冊碼" type="text"></div>
                 <nuxt-link to="/setProfile">
-                    <div class="btn-green">驗證</div>
+                    <div @click="checkLicense" class="btn-green">驗證</div>
                 </nuxt-link>
                 <div class="or">或</div>
                 <div class="btn-white" @click="shwoGetcode = true">取得註冊碼</div>
@@ -27,7 +27,17 @@
 </template>
 
 <script setup>
+import { add } from "~/api/license";
 let shwoGetcode = ref(false);
+
+const licenseInput = ref("")
+const checkLicense = async () => {
+    let data = {
+        count:licenseInput.value
+    }
+    let checkResult = await add(data)
+    console.log("checkResult",checkResult)
+}
 </script>
 
 <style lang="scss" scoped>
