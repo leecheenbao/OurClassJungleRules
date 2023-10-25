@@ -3,9 +3,17 @@
         <div class="box">
             <div class="page-title">資料統計</div>
             <div class="row">
-                <div class="col login-box">
-                    <div class="col-title">近期登入人數</div>
-                    <Bar id="my-chart-id" :options="chartOptions" :data="chartData" />
+                <div class="col age-box">
+                    <div class="col-title">用戶年齡分佈</div>
+                    <div class="chat-box">
+                        <Bar v-if="showAgeChat" id="age-chart-id" :options="chartOptions" :data="ageChartData" />
+                    </div>
+                </div>
+                <div class="col category-box">
+                    <div class="col-title">隸屬機構統計</div>
+                    <div class="chat-box">
+                        <Bar v-if="showCategoryChat" id="category-chart-id" :options="chartOptions" :data="categoryChartData" />
+                    </div>
                 </div>
             </div>
 
@@ -20,30 +28,49 @@ import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, Li
 
 ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
 
-const getLoginReport = async () => {
-    let loginReport = await login()
-    console.log("loginReport",loginReport)
+const chartOptions = {
+    responsive: false
+}
+const categoryChartData = reactive({
+    labels: [],
+    datasets: [{ data: [],backgroundColor: '#15C0A7',label: '隸屬機構', }]
+})
+const showCategoryChat = ref(false)
+const getCategoryReport = async () => {
+    let respond = await category()
+    console.log("respond",respond.data.value.data)
+    let data = respond.data.value.data.categoryDistributions
+    data.forEach(item => {
+        categoryChartData.labels.push(item.category)
+        categoryChartData.datasets[0].data.push(parseInt(item.count))
+    });
+    showCategoryChat.value = true
 }
 
+const ageChartData = reactive({
+    labels: [],
+    datasets: [{ data: [],backgroundColor: '#15C0A7',label: '用戶年齡（歲）', }]
+})
+const showAgeChat = ref(false)
+const getAgeReport = async () => {
+    let respond = await age()
+    let data = respond.data.value.data.ageDistributions
+    data.forEach(item => {
+        ageChartData.labels.push(item.ageRange)
+        ageChartData.datasets[0].data.push(parseInt(item.count))
+    });
+    showAgeChat.value = true
+    console.log("ageChartData", ageChartData)
+}
+
+
 nextTick(() => {
-    getLoginReport()
+    getAgeReport()
+    getCategoryReport()
 })
 
-// export default {
-//     name: 'BarChart',
-//     components: { Bar },
-//     data() {
-//         return {
-//             chartData: {
-//                 labels: ['January', 'February', 'March'],
-//                 datasets: [{ data: [40, 20, 12] }]
-//             },
-//             chartOptions: {
-//                 responsive: true
-//             }
-//         }
-//     }
-// }
 </script>
 
-<style lang="scss" scoped>@import '~/assets/styles/report.scss';</style>
+<style lang="scss" scoped>
+@import '~/assets/styles/report.scss';
+</style>

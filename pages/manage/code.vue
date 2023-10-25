@@ -4,7 +4,7 @@
             <div class="manage-between">
                 <div class="manage-head">註冊碼管理</div>
                 <div class="manage-row">
-                    <div class="manage-num">項目數量：10</div>
+                    <!-- <div class="manage-num">項目數量：10</div> -->
                     <div @click="isShowAdd = true" class="manage-create">+ 新增註冊碼</div>
                 </div>
 
@@ -43,8 +43,8 @@
                     <div @click.stop class="block-box">
                         <div class="title">新增註冊碼</div>
                         <div class="item-title">註冊碼數量</div>
-                        <div><input class="input" placeholder="請輸入數量" type="text"></div>
-                        <div class="btn-green">儲存</div>
+                        <div><input type="number" min="1" v-model="addCodeCount" class="input" placeholder="請輸入數量"></div>
+                        <div @click="hendelAdd" class="btn-green">儲存</div>
                     </div>
                 </div>
             </div>
@@ -69,8 +69,23 @@
 </template>
 
 <script setup>
-import { getAll, edit } from "~/api/license"
+import { getAll, edit, add } from "~/api/license"
 import { ElMessage } from 'element-plus'
+
+const addCodeCount = ref(1)
+const hendelAdd = async () => {
+    const formData = new FormData();
+    formData.append('count', addCodeCount.value)
+    let addData = await add(formData)
+    ElMessage({
+        message: '新增成功',
+        type: 'success',
+    })
+    await init()
+    isShowAdd.value = false
+    addCodeCount.value = 1
+    console.log("addData", addData)
+}
 
 const allData = reactive([])
 async function init() {

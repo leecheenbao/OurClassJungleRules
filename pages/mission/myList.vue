@@ -41,7 +41,9 @@
                     <el-table-column label="操作" sortable min-width="260">
                         <template #default="scope">
                             <div class="Mtable-row">
-                                <div @click.stop="checkMission(scope.row.taskId)" class="Mtable-look">查看 ->
+                                <div @click.stop="checkMission(scope.row.taskId)" class="Mtable-look">查看
+                                    <img 
+                                        src="@/assets/images/Icon/arrow-right.svg">
                                 </div>
                                 <div class="Mtable-icon-outer">
                                     <img @click.stop="handleEdit(scope.row)" class="Mtable-icon"
@@ -167,9 +169,9 @@ const learningMap =
         { id: 0, text: '小學 (低年級)' },
         { id: 1, text: '小學 (中年級)' },
         { id: 2, text: '小學 (高年級)' },
-        { id: 3, text: '小學 (7年級)' },
-        { id: 4, text: '小學 (8年級)' },
-        { id: 5, text: '小學 (9年級)' },
+        { id: 3, text: '中學 (7年級)' },
+        { id: 4, text: '中學 (8年級)' },
+        { id: 5, text: '中學 (9年級)' },
     ]
 
 

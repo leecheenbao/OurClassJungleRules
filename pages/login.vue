@@ -48,7 +48,6 @@ const handleAuthLogin = async () => {
     } else {
         router.push({ path: '/verificationCode' })
     }
-    console.log("loginData", loginData)
 }
 
 const handleGoogleRegister = async () => {
