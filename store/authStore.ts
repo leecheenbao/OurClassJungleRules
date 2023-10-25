@@ -14,9 +14,10 @@ export const useAuthStore = defineStore("auth", {
     async login(data) {
       let { data: loginData }: any = await authLogin(data)
       if (loginData.value.code != 400) {
+        const cookieTempToken = useCookie('tempToken', { maxAge: 60 * 60 * 24 * 7 })
+        cookieTempToken.value = loginData.value.data.token
         if (loginData.value.data.hasOwnProperty('checkLicense')) {
           if (loginData.value.data.checkLicense) {
-            console.log("setLoginData",loginData)
             this.setLoginData(loginData)
           }
         }

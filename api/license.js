@@ -11,3 +11,7 @@ export const add = async (data) => {
 export const edit = async (id,data) => {
     return await useHttp.put(`${categoryBaseUrl}/${id}`,data);
 };
+
+export const verify = async (data) => {
+    return await useHttp.post(`${categoryBaseUrl}/verify`,data);
+};

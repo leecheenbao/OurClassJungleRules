@@ -22,6 +22,8 @@
     }
 
     &-look {
+        display: flex;
+        align-items: center;
         margin-right: 4px;
         padding: 8px 12px;
         font-size: 14px;

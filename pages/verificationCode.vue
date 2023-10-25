@@ -3,10 +3,9 @@
         <div class="box">
             <div class="block-box">
                 <div class="title" style="margin-bottom: 32px;">註冊碼驗證</div>
-                <div><input v-model="licenseInput" style="margin-bottom: 32px;" class="input" placeholder="請輸入註冊碼" type="text"></div>
-                <nuxt-link to="/setProfile">
-                    <div @click="checkLicense" class="btn-green">驗證</div>
-                </nuxt-link>
+                <div><input v-model="licenseInput" style="margin-bottom: 32px;" class="input" placeholder="請輸入註冊碼"
+                        type="text"></div>
+                <div @click="checkLicense" class="btn-green">驗證</div>
                 <div class="or">或</div>
                 <div class="btn-white" @click="shwoGetcode = true">取得註冊碼</div>
             </div>
@@ -27,16 +26,28 @@
 </template>
 
 <script setup>
-import { add } from "~/api/license";
+import { verify } from "~/api/license";
+import { ElMessage } from 'element-plus'
+
 let shwoGetcode = ref(false);
+const router = useRouter();
 
 const licenseInput = ref("")
 const checkLicense = async () => {
     let data = {
-        count:licenseInput.value
+        licenseKey: licenseInput.value
     }
-    let checkResult = await add(data)
+    let checkResult = await verify(data)
     console.log("checkResult",checkResult)
+    if(checkResult.data.value.code !== 1){
+        ElMessage.error(checkResult.data.value.message)
+    }else {
+        ElMessage({
+            message: '驗證成功',
+            type: 'success',
+        })
+        router.push("/login")
+    }
 }
 </script>
 
