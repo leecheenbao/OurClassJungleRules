@@ -893,6 +893,10 @@ nextTick(() => {
                 background: var(--primary-color-1, #008B77);
             }
 
+            &-play:hover {
+                background: #15C0A7;
+            }
+
             &-img {
                 width: 20px;
                 height: 20px;
@@ -1257,6 +1261,10 @@ nextTick(() => {
             border-radius: 20px;
             background-color: #008B77;
             cursor: pointer;
+        }
+
+        &-confirm:hover {
+            background-color:#15C0A7;
         }
     }
 

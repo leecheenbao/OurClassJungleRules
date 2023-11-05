@@ -609,6 +609,10 @@ watch(route, value => {
       cursor: pointer;
     }
 
+    .login-btn:hover {
+      background:#15C0A7;
+    }
+
     .get-btn {
       font-weight: 700;
       font-size: 14px;

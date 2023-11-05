@@ -71,6 +71,12 @@
         cursor: pointer;
     }
 
+    &-cancel:hover {
+        background-color: #15c0a7;
+        border-color: #15c0a7;
+        color: #fff;
+    }
+
     &-delete {
         width: 204px;
         height: 36px;

@@ -27,9 +27,10 @@
                         <template #default="scope">
                             <div class="Mtable-row">
                                 <div @click.stop="editUser(scope.row)" class="Mtable-look">查看 -></div>
-                                <div class="Mtable-icon-outer">
-                                    <img @click.stop="deleteScript(scope.row)" class="Mtable-icon"
-                                        src="@/assets/images/Icon/delete.svg" alt="close">
+                                <div class="Mtable-icon-outer" @mouseover="setHoverImg(scope.row.id,'delete','mouseover')"
+                                    @mouseleave="setHoverImg(scope.row.id,'delete','mouseleave')">
+                                    <img @click="deleteUser(scope.row)" class="Mtable-icon"
+                                    :src="scope.row.deleteImg" alt="close">
                                 </div>
                             </div>
                         </template>
@@ -69,11 +70,23 @@ async function init() {
     const { data } = await getScript()
     let list = JSON.parse(JSON.stringify(data.value.data.list))
     list = list.filter(o => o.status !== 2)
-    list.map((o) => {
+    list.map((o,index) => {
         o.statusStr = statusMap[o.status]
+        o.id = index
+        o.deleteImg=`${window.location.origin}/_nuxt/assets/images/Icon/delete.svg`
     })
     allData.length = 0
     allData.push(...list)
+}
+
+const setHoverImg = (tableId,type,mouse) => {
+    let item = allData.filter(o => o.id == tableId)[0]
+    if(type == 'edit'){
+        item.editImg =  `${window.location.origin}/_nuxt/assets/images/Icon/${imgFileMap[`edit_${mouse}`]}`
+    }else if(type == 'delete'){
+        item.deleteImg = `${window.location.origin}/_nuxt/assets/images/Icon/${imgFileMap[`delete_${mouse}`]}`
+    }
+    
 }
 
 nextTick(() => {

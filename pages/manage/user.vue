@@ -28,11 +28,11 @@
                         <template #default="scope">
                             <div class="Mtable-row">
                                 <div class="Mtable-icon-outer">
-                                    <img @click.stop="editUser(scope.row.id)" class="Mtable-icon"
+                                    <img @click="editUser(scope.row.id)" class="Mtable-icon" type="edit" @mouseover="useHoverImg($event)" @mouseleave="useHoverImg($event)"
                                         src="~/assets/images/Icon/edit.svg" alt="close">
                                 </div>
                                 <div class="Mtable-icon-outer">
-                                    <img @click.stop="deleteUser(scope.row.id)" class="Mtable-icon"
+                                    <img @click="deleteUser(scope.row.id)" class="Mtable-icon" type="delete" @mouseover="useHoverImg($event)" @mouseleave="useHoverImg($event)"
                                         src="@/assets/images/Icon/delete.svg" alt="close">
                                 </div>
                             </div>
