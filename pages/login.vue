@@ -39,15 +39,12 @@ const handleAuthLogin = async () => {
         "role": "ROLE_USER"
     }
     let loginData = await useAuthStore().login(data)
-    if (loginData.data.hasOwnProperty('checkLicense')) {
-        if (loginData.data.checkLicense) {
-            router.push({ path: '/' })
-        } else {
-            router.push({ path: '/verificationCode' })
-        }
+    if (loginData.data.hasOwnProperty('checkLicense') && loginData.data.checkLicense){
+        router.push({ path: '/mission/myList' })
     } else {
         router.push({ path: '/verificationCode' })
     }
+   
 }
 
 const handleGoogleRegister = async () => {

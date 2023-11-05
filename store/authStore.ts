@@ -4,11 +4,24 @@ import { reloadNuxtApp } from "nuxt/app";
 import { el } from "element-plus/es/locale";
 import { ElMessage } from 'element-plus'
 
+const checkLicenseFn =() => {
+  let info = useCookie('info').value
+  if(info){
+    if (info.hasOwnProperty('checkLicense')){
+      return true
+    }
+  }else{
+    return false
+  }
+ 
+  
+}
 export const useAuthStore = defineStore("auth", {
   state: () => ({
     token: ref(useCookie('token').value),
     permissions: ref(useCookie('permissions').value),
-    isLogin: ref(!!useCookie('token').value)
+    isLogin: ref(!!useCookie('token').value),
+    checkLicense: ref(checkLicenseFn()),
   }),
   actions: {
     async login(data) {
@@ -19,6 +32,7 @@ export const useAuthStore = defineStore("auth", {
         if (loginData.value.data.hasOwnProperty('checkLicense')) {
           if (loginData.value.data.checkLicense) {
             this.setLoginData(loginData)
+            this.checkLicense = true
           }
         }
       } else {
@@ -54,7 +68,6 @@ export const useAuthStore = defineStore("auth", {
       const cookiePermissions = useCookie('permissions', { maxAge: 60 * 60 * 24 * 7 })
       cookiePermissions.value = permissions
     },
-
     async signOut() {
       this.isLogin = false
       const cookieInfo = useCookie('info')
@@ -63,6 +76,7 @@ export const useAuthStore = defineStore("auth", {
       cookieToken.value = null
       const cookiePermissions = useCookie('permissions')
       cookiePermissions.value = null
+      this.checkLicense = false
       this.reloadPage()
     },
     reloadPage() {

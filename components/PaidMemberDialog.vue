@@ -18,6 +18,10 @@
                         <div class="item-title">註冊碼如何獲得?</div>
                         <div class="item-text">註冊碼目前需要進行一次性付費才可獲得。付費後並且系統經過確認後，將主動寄送註冊碼至您的收取信箱。</div>
                     </div>
+                    <div class="item-box">
+                        <div class="item-title">註冊碼的費用？</div>
+                        <div class="item-text">原價 $1,500，現有教育推廣價 $1,350。</div>
+                    </div>
                 </div>
                 <nuxt-link to="/purchaseProcess" class="btn">
                     購買註冊碼
