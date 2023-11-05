@@ -27,9 +27,10 @@
                     <el-table-column label="操作" sortable min-width="260">
                         <template #default="scope">
                             <div class="Mtable-row">
-                                <div class="Mtable-icon-outer">
-                                    <img @click.stop="deleteUser(scope.row.id)" class="Mtable-icon"
-                                        src="@/assets/images/Icon/delete.svg" alt="close">
+                                <div class="Mtable-icon-outer" @mouseover="setHoverImg(scope.row.id,'delete','mouseover')"
+                                    @mouseleave="setHoverImg(scope.row.id,'delete','mouseleave')">
+                                    <img @click="deleteUser(scope.row)" class="Mtable-icon"
+                                    :src="scope.row.deleteImg" alt="close">
                                 </div>
                             </div>
                         </template>
@@ -44,7 +45,7 @@
                         <div class="title">新增註冊碼</div>
                         <div class="item-title">註冊碼數量</div>
                         <div><input type="number" min="1" v-model="addCodeCount" class="input" placeholder="請輸入數量"></div>
-                        <div @click="hendelAdd" class="btn-green">儲存</div>
+                        <div @click="hendelAdd" class="btn-green">新增</div>
                     </div>
                 </div>
             </div>
@@ -92,8 +93,21 @@ async function init() {
     allData.length = 0
     const { data } = await getAll()
     let list = data.value.data.list
+    list.map((o,index) => {
+        o.id = index
+        o.deleteImg=`${window.location.origin}/_nuxt/assets/images/Icon/delete.svg`
+    })
     list = list.filter(o => o.activated !== 2)
     allData.push(...list)
+}
+
+const setHoverImg = (tableId,type,mouse) => {
+    let item = allData.filter(o => o.id == tableId)[0]
+    if(type == 'edit'){
+        item.editImg =  `${window.location.origin}/_nuxt/assets/images/Icon/${imgFileMap[`edit_${mouse}`]}`
+    }else if(type == 'delete'){
+        item.deleteImg = `${window.location.origin}/_nuxt/assets/images/Icon/${imgFileMap[`delete_${mouse}`]}`
+    }
 }
 
 

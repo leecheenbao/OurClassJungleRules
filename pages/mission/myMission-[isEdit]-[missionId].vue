@@ -2,8 +2,14 @@
     <NuxtLayout name="custom">
         <div class="mission">
             <div class="mission-head">
-                <nuxt-link v-if="isEdit" to="/mission/myList" class="mission-head-leave">＜- 返回列表</nuxt-link>
-                <nuxt-link v-else to="/mission/list" class="mission-head-leave">＜- 返回列表</nuxt-link>
+                <nuxt-link v-if="isEdit" to="/mission/myList" class="mission-head-leave">
+                    <div style="display:flex;align-items: center;"><img src="@/assets/images/Icon/arrow-left.svg"> 返回列表
+                    </div>
+                </nuxt-link>
+                <nuxt-link v-else to="/mission/list" class="mission-head-leave">
+                    <div style="display:flex;align-items: center;"><img src="@/assets/images/Icon/arrow-left.svg"> 返回列表
+                    </div>
+                </nuxt-link>
                 <div class="mission-head-text">{{ scriptData.title }}</div>
                 <div v-if="isEdit" @click="isShowEdit = true" class="mission-head-edit">
                     <img class="mission-head-img" src="~assets/images/Icon/edit.svg" alt="">
@@ -63,6 +69,10 @@
                 </div>
 
                 <div v-if="currentPeriod !== scriptData.dayEnd" class="mission-body">
+                    <div v-if="currentPeriod !== 1" @click="openFillScoreModel(currentPeriod-1)" class="backfill">
+                        <img src="@/assets/images/Icon/edit_hover.svg" />
+                        填寫第{{ currentPeriod - 1 }}日分數
+                    </div>
                     <div class="mission-body-head">帶領方式說明</div>
                     <div class="mission-body-text">{{ currentDetail.description }}</div>
                     <div class="mission-body-head">建議進行時間</div>
@@ -298,14 +308,14 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="mission-body-scoring-totalScore">
+                        <div v-if="isAllScoreFill" class="mission-body-scoring-totalScore">
                             <div class="score-title" style="width: 40%;">分數總計</div>
                             <div style="width: 25%;">{{ allTotal.orderly }}</div>
                             <div style="width: 25%;">{{ allTotal.relation }}</div>
                             <div style="width: 10%;">
                             </div>
                         </div>
-                        <div class="mission-body-scoring-end">
+                        <div v-if="isAllScoreFill" class="mission-body-scoring-end">
                             <div class="score-title" style="width: 40%;">本次結局</div>
                             <div class="score-endText" style="width: 25%;">{{ quadrantOption[quadrant] }}</div>
                             <div style="width: 25%;"></div>
@@ -592,7 +602,16 @@ const downloadFile = (url) => {
     })
 }
 
-
+const isAllScoreFill = ref(false)
+const checkAllScoreFill = () => {
+    let check = true
+    let allFillPeriod = score.map(o => o.period)
+    for (let index = 0; index < scriptData.day; index++) {
+        let isExist = allFillPeriod.includes(index + 1)
+        check = check && isExist
+    }
+    isAllScoreFill.value = check
+}
 
 let score = reactive([])
 let scoreLength = ref(0)
@@ -601,6 +620,7 @@ const setScore = async () => {
     score.length = 0
     score.push(...(data.value.data.list))
     scoreLength.value = score.length
+    checkAllScoreFill()
 }
 
 const currentScoreEditDay = ref("")
@@ -641,21 +661,6 @@ const openFillScoreModel = (day = "") => {
             })
         }
     }
-
-    // score.forEach((o, index) => {
-    //     if (index <= taskData.estimatedParticipants) {
-    //         fillScoreOption.push({
-    //             "id": Math.random().toString(36),
-    //             "taskId": taskData.taskId,
-    //             "period": dday,
-    //             "scriptId": scriptId.value,
-    //             "parAns": o.parAns,
-    //             "stuAns": o.stuAns,
-    //             "questionId": o.questionId
-    //         })
-    //     }
-
-    // })
 }
 const fillScoreOptionLength = ref(0)
 const fillScoreOptionAdd = (day = "") => {
@@ -1059,6 +1064,28 @@ nextTick(() => {
 @import '~/assets/styles/manage.scss';
 @import '~/assets/styles/table.scss';
 
+.backfill {
+    cursor: pointer;
+    display: flex;
+    height: 40px;
+    width: 160px;
+    margin-top: 10px;
+    padding: 5px 12px;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    border-radius: 50px;
+    border: 1px solid var(--primary-color-1, #008B77);
+    background: var(--primary-color-1, #008B77);
+    color: var(--secondary-color-2, #FFF);
+    font-family: Noto Sans TC;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 20px;
+    letter-spacing: 1px;
+}
+
 .centerDialog :deep(.el-dialog__header) {
     height: 0px;
     padding: 0px;
@@ -1402,6 +1429,10 @@ nextTick(() => {
                 background: var(--primary-color-1, #008B77);
             }
 
+            &-play:hover {
+                background: #15C0A7;
+            }
+
             &-img {
                 width: 20px;
                 height: 20px;
@@ -1660,11 +1691,11 @@ nextTick(() => {
         }
 
         &-num {
-            margin-right: 90px;
+            margin-right: 110px;
         }
 
         &-sum2 {
-            margin-right: 100px;
+            margin-right: 136px;
         }
 
         &-total {
@@ -1684,13 +1715,13 @@ nextTick(() => {
         }
 
         &-num2 {
-            margin-right: 90px;
+            margin-right: 111px;
             font-size: 24px;
             color: white;
         }
 
         &-num3 {
-            margin-right: 90px;
+            margin-right: 132px;
             font-size: 24px;
             color: white;
         }

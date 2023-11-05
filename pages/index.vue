@@ -71,6 +71,7 @@ import { useAuthStore } from '@/store/authStore';
 
 let urlParams = utilities.getUrlParams()
 if (!!urlParams) {
+  console.log("urlParams",urlParams)
   useAuthStore().googleLogin(urlParams)
 }
 

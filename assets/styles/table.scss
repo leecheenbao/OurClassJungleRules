@@ -17,6 +17,12 @@
         cursor: pointer;
     }
 
+    &-icon-outer:hover {
+        background-color:#15C0A7;
+        border-color: #15C0A7;
+        color: #fff;
+    }
+
     &-icon {
         
     }
@@ -31,5 +37,9 @@
         border-radius: 50px;
         color: #FFFFFF;
         cursor: pointer;
+    }
+
+    &-look:hover {
+        background-color: #15C0A7;
     }
 }

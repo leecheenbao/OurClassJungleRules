@@ -42,6 +42,10 @@ input:-ms-input-placeholder {
     cursor: pointer;
 }
 
+.btn-green:hover {
+    background-color: $primary2;
+}
+
 .btn-white {
     display: flex;
     justify-content: center;
@@ -56,6 +60,12 @@ input:-ms-input-placeholder {
     cursor: pointer;
 }
 
+.btn-white:hover {
+    background-color:#15C0A7;
+    border-color: #15C0A7;
+    color: #fff;
+}
+
 .btn-green {
     display: flex;
     justify-content: center;
@@ -68,6 +78,10 @@ input:-ms-input-placeholder {
     font-size: 16px;
     letter-spacing: 1px;
     cursor: pointer;
+}
+
+.btn-green:hover {
+    background-color:#15C0A7;
 }
 
 .title {

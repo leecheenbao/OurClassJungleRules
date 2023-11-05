@@ -595,6 +595,10 @@
             cursor: pointer;
         }
 
+        &-next:hover {
+            background-color:#15C0A7;
+        }
+
         &-cancel {
             padding: 10px 57px;
             text-align: center;
@@ -603,6 +607,12 @@
             border: 1px solid #008b77;
             border-radius: 50px;
             cursor: pointer;
+        }
+
+        &-cancel:hover {
+            background-color:#15C0A7;
+            border-color: #15C0A7;
+            color: #fff;
         }
     }
 }

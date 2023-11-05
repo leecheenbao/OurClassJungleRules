@@ -28,6 +28,7 @@
 <script setup>
 import { verify } from "~/api/license";
 import { ElMessage } from 'element-plus'
+import { useAuthStore } from '@/store/authStore';
 
 let shwoGetcode = ref(false);
 const router = useRouter();
@@ -38,15 +39,16 @@ const checkLicense = async () => {
         licenseKey: licenseInput.value
     }
     let checkResult = await verify(data)
-    console.log("checkResult",checkResult)
-    if(checkResult.data.value.code !== 1){
+    console.log("checkResult", checkResult)
+    if (checkResult.data.value.code !== 1) {
         ElMessage.error(checkResult.data.value.message)
-    }else {
+    } else {
         ElMessage({
             message: '驗證成功',
             type: 'success',
         })
-        router.push("/login")
+        await useAuthStore().verificationPassed()
+        router.push({ path: '/mission/myList' })
     }
 }
 </script>

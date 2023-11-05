@@ -42,16 +42,17 @@
                         <template #default="scope">
                             <div class="Mtable-row">
                                 <div @click.stop="checkMission(scope.row.taskId)" class="Mtable-look">查看
-                                    <img 
-                                        src="@/assets/images/Icon/arrow-right.svg">
+                                    <img src="@/assets/images/Icon/arrow-right.svg">
                                 </div>
-                                <div class="Mtable-icon-outer">
-                                    <img @click.stop="handleEdit(scope.row)" class="Mtable-icon"
-                                        src="~/assets/images/Icon/edit.svg" alt="close">
+                                <div class="Mtable-icon-outer" @mouseover="setHoverImg(scope.row.id,'edit','mouseover')"
+                                    @mouseleave="setHoverImg(scope.row.id,'edit','mouseleave')">
+                                    <img @click="handleEdit(scope.row)" class="Mtable-icon"
+                                        :src="scope.row.editImg" alt="close">
                                 </div>
-                                <div class="Mtable-icon-outer">
-                                    <img @click.stop="deleteUser(scope.row)" class="Mtable-icon"
-                                        src="@/assets/images/Icon/delete.svg" alt="close">
+                                <div class="Mtable-icon-outer" @mouseover="setHoverImg(scope.row.id,'delete','mouseover')"
+                                    @mouseleave="setHoverImg(scope.row.id,'delete','mouseleave')">
+                                    <img @click="deleteUser(scope.row)" class="Mtable-icon"
+                                    :src="scope.row.deleteImg" alt="close">
                                 </div>
                             </div>
                         </template>
@@ -164,6 +165,17 @@ async function setAllScript() {
     })
 }
 
+
+const setHoverImg = (tableId,type,mouse) => {
+    let item = allData.filter(o => o.id == tableId)[0]
+    if(type == 'edit'){
+        item.editImg =  `${window.location.origin}/_nuxt/assets/images/Icon/${imgFileMap[`edit_${mouse}`]}`
+    }else if(type == 'delete'){
+        item.deleteImg = `${window.location.origin}/_nuxt/assets/images/Icon/${imgFileMap[`delete_${mouse}`]}`
+    }
+    
+}
+
 const learningMap =
     [
         { id: 0, text: '小學 (低年級)' },
@@ -186,7 +198,10 @@ async function init() {
     const { data } = await getMyTask()
     let list = JSON.parse(JSON.stringify(data.value.data.list))
     list = list.filter(o => o.status !== 2)
-    list.map((o) => {
+    list.map((o,index) => {
+        o.id = index
+        o.editImg=`${window.location.origin}/_nuxt/assets/images/Icon/edit.svg`
+        o.deleteImg=`${window.location.origin}/_nuxt/assets/images/Icon/delete.svg`
         o.learningStr = learningMap.filter(i => i.id == o.learning)[0].text
         o.statusStr = statusMap[o.status]
         o.endTime = o.endTime.split(' ')[0]
@@ -276,7 +291,7 @@ async function handleAddUser() {
                 type: 'success',
             })
             isShowAdd.value = false
-            
+
             init()
         })
 
@@ -384,6 +399,7 @@ async function deleteCurrentData() {
 @import '~/assets/styles/form.scss';
 @import '~/assets/styles/manage.scss';
 @import '~/assets/styles/table.scss';
+
 
 .manage-center {
     height: 50vh;
