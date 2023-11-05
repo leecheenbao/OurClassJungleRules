@@ -28,7 +28,8 @@
         聯絡阿普蛙
         <div v-if="routeName == 'connection'" class="decoration"></div>
       </nuxt-link>
-      <nuxt-link to="/mission/myList" class="link" :class="{ 'link-action': routeName == 'mission-myList' }">
+      <nuxt-link v-if="checkLicense" to="/mission/myList" class="link"
+        :class="{ 'link-action': routeName == 'mission-myList' }">
         我的任務
         <div v-if="routeName == 'mission-myList'" class="decoration"></div>
       </nuxt-link>
@@ -79,6 +80,9 @@
       <nuxt-link v-if="!isLogin" to="/login">
         <div class="login-btn">登入 / 註冊</div>
       </nuxt-link>
+      <nuxt-link v-if="!checkLicense" to="/purchaseProcess">
+        <div class="get-btn">立即取得</div>
+      </nuxt-link>
     </div>
 
     <div class="item-box-phone">
@@ -111,7 +115,8 @@
         <nuxt-link to="/connection" class="link" :class="{ 'link-action': routeName == 'connection' }">
           聯絡阿普蛙
         </nuxt-link>
-        <nuxt-link to="/mission/myList" class="link" :class="{ 'link-action': routeName == 'mission-myList' }">
+        <nuxt-link v-if="checkLicense" to="/mission/myList" class="link"
+          :class="{ 'link-action': routeName == 'mission-myList' }">
           我的任務
         </nuxt-link>
 
@@ -150,6 +155,9 @@
             登入 / 註冊
           </div>
         </nuxt-link>
+        <nuxt-link v-if="!checkLicense" to="/purchaseProcess">
+          <div class="get-btn">立即取得</div>
+        </nuxt-link>
         <div v-if="isLogin" @click="handleSignOut" class="signOut-box">
           登出
         </div>
@@ -165,7 +173,7 @@ import { storeToRefs } from 'pinia'
 import { getScriptByNoToken as getScript } from "~/api/script";
 
 let auth = useAuthStore()
-const { isLogin, permissions } = storeToRefs(auth)
+const { isLogin, permissions, checkLicense } = storeToRefs(auth)
 
 const handleSignOut = () => {
   useAuthStore().signOut()
@@ -183,8 +191,6 @@ const setAllScript = async () => {
 nextTick(() => {
   setAllScript()
 })
-
-
 let routeName = ref("")
 
 let isHeaderOpen = ref(false)
@@ -286,6 +292,7 @@ watch(route, value => {
       display: flex;
       justify-content: center;
       width: 100%;
+      margin-top: 28px;
 
 
       .login-box {
@@ -296,10 +303,25 @@ watch(route, value => {
         background-color: $primary1;
         padding: 8px 12px;
         color: #fff;
-        width: 311px;
+        width: 148px;
         height: 36px;
         margin: 0;
-        margin-top: 28px;
+      }
+
+      .get-btn {
+        font-weight: 700;
+        font-size: 14px;
+        letter-spacing: 1px;
+        padding: 8px 12px;
+        width: 148px;
+        height: 36px;
+        background: #FFC300;
+        border-radius: 50px;
+        color: #333;
+        display: flex;
+        justify-content: center;
+        cursor: pointer;
+        margin-left: 8px;
       }
 
       .signOut-box {
@@ -585,6 +607,22 @@ watch(route, value => {
       display: flex;
       justify-content: center;
       cursor: pointer;
+    }
+
+    .get-btn {
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: 1px;
+      padding: 8px 12px;
+      width: 105px;
+      height: 36px;
+      background: #FFC300;
+      border-radius: 50px;
+      color: #333;
+      display: flex;
+      justify-content: center;
+      cursor: pointer;
+      margin-left: 8px;
     }
   }
 }

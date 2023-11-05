@@ -15,8 +15,6 @@ h5,
 h6,
 p,
 ol,
-ul,
-li,
 figure,
 figcaption,
 blockquote,
@@ -34,10 +32,6 @@ body {
   font-family: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
 }
 
-ul[class],
-ol[class] {
-  list-style: none;
-}
 
 a {
   text-decoration: none;

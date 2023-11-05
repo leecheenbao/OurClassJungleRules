@@ -291,8 +291,10 @@
                             <div style="width: 25%;">{{ total.orderly }}</div>
                             <div style="width: 25%;">{{ total.relation }}</div>
                             <div style="width: 10%;">
-                                <div @click="openFillScoreModel(total.period)" style="width:45px;" class="mission-body-write">
-                                    <img class="mission-body-edit" style="width:25px;height:25px;" src="~assets/images/Icon/edit-b.svg" alt="">
+                                <div @click="openFillScoreModel(total.period)" style="width:45px;"
+                                    class="mission-body-write">
+                                    <img class="mission-body-edit" style="width:25px;height:25px;"
+                                        src="~assets/images/Icon/edit-b.svg" alt="">
                                 </div>
                             </div>
                         </div>
@@ -313,7 +315,8 @@
                     </div>
 
                     <div @click="centerDialogVisible = true" class="mission-body-head">本次結局</div>
-                    <div v-if="scoreLength !== 0" class="mission-body-videoBox" :style="`background: no-repeat center url(${scriptData.imgUrl})`">
+                    <div v-if="scoreLength !== 0" class="mission-body-videoBox"
+                        :style="`background: no-repeat center url(${scriptData.imgUrl})`">
                         <div v-if="!isVideoPlay" class="mission-body-video">
                             <div class="mission-body-video-head">{{ quadrantOption[quadrant] }}</div>
                             <div v-if="currentDetail[`endingMovie${quadrant}`]"
@@ -590,6 +593,7 @@ const downloadFile = (url) => {
 }
 
 
+
 let score = reactive([])
 let scoreLength = ref(0)
 const setScore = async () => {
@@ -605,34 +609,60 @@ const openFillScoreModel = (day = "") => {
     isShowWrite.value = true
     fillScoreOption.length = 0
     let dday
-    if(day == ""){
+    if (day == "") {
         dday = currentPeriod.value
-    }else {
+    } else {
         dday = day
     }
     setCurrentScoreDetail(dday)
     currentScoreEditDay.value = dday
     let score = getScoreByCurrentPeriod(dday)
-    console.log("score",score)
+    for (let index = 0; index < taskData.estimatedParticipants; index++) {
+        if (score.length < index + 1) {
+            fillScoreOption.push({
+                "id": Math.random().toString(36),
+                "taskId": taskData.taskId,
+                "period": dday,
+                "scriptId": scriptId.value,
+                "parAns": null,
+                "stuAns": null,
+                "questionId": null
+            })
+        } else {
+            let data = score[index];
+            fillScoreOption.push({
+                "id": Math.random().toString(36),
+                "taskId": taskData.taskId,
+                "period": dday,
+                "scriptId": scriptId.value,
+                "parAns": data.parAns,
+                "stuAns": data.stuAns,
+                "questionId": data.questionId
+            })
+        }
+    }
 
-    score.forEach(o => {
-        fillScoreOption.push({
-            "id": Math.random().toString(36),
-            "taskId": taskData.taskId,
-            "period": dday,
-            "scriptId": scriptId.value,
-            "parAns": o.parAns,
-            "stuAns": o.stuAns,
-            "questionId": o.questionId
-        })
-    })
+    // score.forEach((o, index) => {
+    //     if (index <= taskData.estimatedParticipants) {
+    //         fillScoreOption.push({
+    //             "id": Math.random().toString(36),
+    //             "taskId": taskData.taskId,
+    //             "period": dday,
+    //             "scriptId": scriptId.value,
+    //             "parAns": o.parAns,
+    //             "stuAns": o.stuAns,
+    //             "questionId": o.questionId
+    //         })
+    //     }
+
+    // })
 }
 const fillScoreOptionLength = ref(0)
 const fillScoreOptionAdd = (day = "") => {
     let dday
-    if(day == ""){
+    if (day == "") {
         dday = currentPeriod.value
-    }else {
+    } else {
         dday = day
     }
     let numberOfPeople = taskData.estimatedParticipants
@@ -672,7 +702,6 @@ const sendFillScoreOption = async () => {
     fillScoreOption.length = 0
 }
 
-
 const route = useRoute();
 const missionId = route.params.missionId
 const taskData = reactive({})
@@ -687,6 +716,7 @@ const init = async () => {
     taskData.endTimeStr = dayjs(taskData.endTime).format('YYYY/MM/DD')
     scriptId.value = taskData.scriptId
     await setScriptData()
+    console.log("taskData", taskData)
 }
 
 

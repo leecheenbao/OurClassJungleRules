@@ -1,13 +1,11 @@
 <template>
   <div class="box">
     <div class="content-box">
-      <!-- <div class="content content1">
-        <div class="title">劇情介紹</div>
-        <nuxt-link to="/" class="link-item">虎兔篇</nuxt-link>
-        <nuxt-link to="/" class="link-item">鼠牛篇</nuxt-link>
-        <nuxt-link to="/" class="link-item">馬羊篇</nuxt-link>
-        <nuxt-link to="/" class="link-item">龍虎篇</nuxt-link>
-      </div> -->
+      <div class="content content1">
+        <div class="title">關於</div>
+        <nuxt-link to="/terms" class="link-item">使用者條款與權益</nuxt-link>
+        <nuxt-link to="/privacy" class="link-item">隱私權政策</nuxt-link>
+      </div>
       <div class="content content2">
         <div class="title">幫助</div>
         <nuxt-link to="/about" class="link-item">關於阿普蛙</nuxt-link>

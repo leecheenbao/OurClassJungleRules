@@ -31,7 +31,11 @@
                         <div class="content-box">
                             <div class="item-box">
                                 <div class="item-name">註冊碼售價</div>
-                                <div class="price">$9,999</div>
+                                <div class="price-box">
+                                    <div class="price">$1,350</div>
+                                    <div class="original-price">$1,500</div>
+                                </div>
+
                             </div>
                             <div class="item-title">購買份數</div>
                             <div><input class="input" style="margin-bottom: 10px; width:100px" type="number" value="1">
@@ -203,13 +207,28 @@
                             font-style: normal;
                             font-weight: 500;
                         }
-
+                        .price-box {
+                            display: flex;
+                            flex-direction: column;
+                            align-items: flex-end;
+                        }
                         .price {
                             color: $text2;
                             font-size: 24px;
                             font-family: Noto Sans TC;
                             font-style: normal;
                             font-weight: 500;
+                        }
+
+                        .original-price {
+                            color: #999;
+                            font-family: Noto Sans TC;
+                            font-size: 14px;
+                            font-style: normal;
+                            font-weight: 500;
+                            line-height: 20px;
+                            letter-spacing: 0.5px;
+                            text-decoration-line: line-through;
                         }
                     }
 
@@ -337,4 +356,5 @@
             }
         }
     }
-}</style>
+}
+</style>
