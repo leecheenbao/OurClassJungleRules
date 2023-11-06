@@ -69,6 +69,7 @@ const setMemberInfo =  async () => {
     userInfo.birthday = userInfo.birthday.split(' ')[0]
     Object.assign(memberInfo, JSON.parse(JSON.stringify(userInfo)))
 }
+
 nextTick(() => {
     setMemberInfo()
 })
