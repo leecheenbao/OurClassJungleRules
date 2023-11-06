@@ -140,6 +140,9 @@ ul {
         width: 60%;
         background-color: $background1;
         font-size: 22px;
+        @include respond-to("phone") {
+            width: 90%;
+        }
     }
 
     .collapse :deep(.el-collapse-item__header),
