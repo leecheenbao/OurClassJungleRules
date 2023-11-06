@@ -3,7 +3,7 @@
         <div class="box">
             <div class="title" >隱私權政策</div>
             <div class="collapse">
-                非常歡迎您光臨<span class="blue-text">「阿普蛙人際關係教材網站—我們班的叢林法則」</span>（以下簡稱本網站），為了讓您能夠安心的使用本網站的各項服務與資訊，特此向您說明本網站的隱私權保護政策，以保障您的權益，請您詳閱下列內容：
+                非常歡迎您光臨「阿普蛙人際關係教材網站—我們班的叢林法則（以下簡稱本網站），為了讓您能夠安心的使用本網站的各項服務與資訊，特此向您說明本網站的隱私權保護政策，以保障您的權益，請您詳閱下列內容：
             </div>
             <div class="collapse">
                 <el-collapse v-model="activeNames" @change="handleChange">
@@ -23,7 +23,7 @@
                     <el-collapse-item title="三、資料之保護" name="3">
                         <div>
                             <ul>
-                                <li><span class="red-text">本網站主機均設有防火牆、防毒系統等相關的各項資訊安全設備及必要的安全防護措施，</span>加以保護網站及您的個人資料採用嚴格的保護措施，只由經過授權的人員才能接觸您的個人資料，相關處理人員皆簽有保密合約，如有違反保密義務者，將會受到相關的法律處分。</li>
+                                <li>本網站主機均設有防火牆、防毒系統等相關的各項資訊安全設備及必要的安全防護措施，加以保護網站及您的個人資料採用嚴格的保護措施，只由經過授權的人員才能接觸您的個人資料，相關處理人員皆簽有保密合約，如有違反保密義務者，將會受到相關的法律處分。</li>
                                 <li>如因業務需要有必要委託其他單位提供服務時，本網站亦會嚴格要求其遵守保密義務，並且採取必要檢查程序以確定其將確實遵守。</li>
                             </ul>
                         </div>
@@ -102,6 +102,9 @@ ul {
         width: 60%;
         background-color: $background1;
         font-size: 22px;
+        @include respond-to("phone") {
+            width: 90%;
+        }
     }
 
     .collapse :deep(.el-collapse-item__header),
