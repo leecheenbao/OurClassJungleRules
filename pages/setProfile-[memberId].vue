@@ -63,11 +63,11 @@ const memberInfo = reactive({
 const setMemberInfo =  async () => {
     const memberId = route.params.memberId
     memberInfo.id = memberId
-    const { data } = await getInfoById(memberId)
+    // const { data } = await getInfoById(memberId)
 
-    let userInfo = data.value.data
-    userInfo.birthday = userInfo.birthday.split(' ')[0]
-    Object.assign(memberInfo, JSON.parse(JSON.stringify(userInfo)))
+    // let userInfo = data.value.data
+    // userInfo.birthday = userInfo.birthday.split(' ')[0]
+    // Object.assign(memberInfo, JSON.parse(JSON.stringify(userInfo)))
 }
 
 nextTick(() => {

@@ -27,13 +27,18 @@
                     <el-table-column label="操作" sortable min-width="260">
                         <template #default="scope">
                             <div class="Mtable-row">
-                                <div class="Mtable-icon-outer">
-                                    <img @click="editUser(scope.row.id)" class="Mtable-icon" type="edit" @mouseover="useHoverImg($event)" @mouseleave="useHoverImg($event)"
-                                        src="~/assets/images/Icon/edit.svg" alt="close">
+                                <div class="Mtable-icon-outer" @click="editUser(scope.row.id)"
+                                    @mouseover="setHoverImg(scope.row.id, 'edit', 'mouseover')"
+                                    @mouseleave="setHoverImg(scope.row.id, 'edit', 'mouseleave')">
+                                    <img v-if="scope.row.isEditHove" class="Mtable-icon"
+                                        src="@/assets/images/Icon/edit_hover.svg" alt="close">
+                                    <img v-else class="Mtable-icon" src="@/assets/images/Icon/edit.svg" alt="close">
                                 </div>
-                                <div class="Mtable-icon-outer">
-                                    <img @click="deleteUser(scope.row.id)" class="Mtable-icon" type="delete" @mouseover="useHoverImg($event)" @mouseleave="useHoverImg($event)"
-                                        src="@/assets/images/Icon/delete.svg" alt="close">
+                                <div class="Mtable-icon-outer" @click="deleteUser(scope.row.id)" @mouseover="setHoverImg(scope.row.id, 'delete', 'mouseover')"
+                                    @mouseleave="setHoverImg(scope.row.id, 'delete', 'mouseleave')">
+                                    <img v-if="scope.row.isDeleteHove" class="Mtable-icon"
+                                        src="@/assets/images/Icon/delete_hover.svg" alt="close">
+                                    <img v-else class="Mtable-icon" src="@/assets/images/Icon/delete.svg" alt="close">
                                 </div>
                             </div>
                         </template>
@@ -159,8 +164,22 @@ async function init() {
     let { data: apiAllData } = await getAll();
     let list = apiAllData.value.data.list
     list = list.filter(o => o.status != 2)
+    list.map((o, index) => {
+        o.id = index
+        o.isEditHove = false
+        o.isDeleteHove = false
+    })
     allData.push(...list)
     allData.map(o => o.birthday = o.birthday ? o.birthday.split(' ')[0] : "")
+}
+
+const setHoverImg = (tableId, type, mouse) => {
+    let item = allData.filter(o => o.id == tableId)[0]
+    if (type == 'edit') {
+        item.isEditHove = mouse == 'mouseover'
+    } else if (type == 'delete') {
+        item.isDeleteHove = mouse == 'mouseover'
+    }
 }
 
 nextTick(() => {
