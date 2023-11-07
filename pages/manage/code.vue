@@ -27,11 +27,12 @@
                     <el-table-column label="操作" sortable min-width="260">
                         <template #default="scope">
                             <div class="Mtable-row">
-                                <div class="Mtable-icon-outer" @mouseover="setHoverImg(scope.row.id,'delete','mouseover')"
+                                <div class="Mtable-icon-outer" @click="deleteUser(scope.row)" @mouseover="setHoverImg(scope.row.id,'delete','mouseover')"
                                     @mouseleave="setHoverImg(scope.row.id,'delete','mouseleave')">
-                                    <img @click="deleteUser(scope.row)" class="Mtable-icon"
-                                    :src="scope.row.deleteImg" alt="close">
-                                </div>
+                                    <img v-if="scope.row.isDeleteHove" class="Mtable-icon"
+                                        src="@/assets/images/Icon/delete_hover.svg" alt="close">
+                                    <img v-else class="Mtable-icon" src="@/assets/images/Icon/delete.svg" alt="close">
+                                 </div>
                             </div>
                         </template>
                     </el-table-column>
@@ -95,18 +96,18 @@ async function init() {
     let list = data.value.data.list
     list.map((o,index) => {
         o.id = index
-        o.deleteImg=`${window.location.origin}/_nuxt/assets/images/Icon/delete.svg`
+        o.isDeleteHove= false
     })
     list = list.filter(o => o.activated !== 2)
     allData.push(...list)
 }
 
-const setHoverImg = (tableId,type,mouse) => {
+const setHoverImg = (tableId, type, mouse) => {
     let item = allData.filter(o => o.id == tableId)[0]
-    if(type == 'edit'){
-        item.editImg =  `${window.location.origin}/_nuxt/assets/images/Icon/${imgFileMap[`edit_${mouse}`]}`
-    }else if(type == 'delete'){
-        item.deleteImg = `${window.location.origin}/_nuxt/assets/images/Icon/${imgFileMap[`delete_${mouse}`]}`
+    if (type == 'edit') {
+        item.isEditHove = mouse == 'mouseover'
+    } else if (type == 'delete') {
+        item.isDeleteHove = mouse == 'mouseover'
     }
 }
 

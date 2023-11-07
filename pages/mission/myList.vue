@@ -44,15 +44,19 @@
                                 <div @click.stop="checkMission(scope.row.taskId)" class="Mtable-look">查看
                                     <img src="@/assets/images/Icon/arrow-right.svg">
                                 </div>
-                                <div class="Mtable-icon-outer" @mouseover="setHoverImg(scope.row.id,'edit','mouseover')"
-                                    @mouseleave="setHoverImg(scope.row.id,'edit','mouseleave')">
-                                    <img @click="handleEdit(scope.row)" class="Mtable-icon"
-                                        :src="scope.row.editImg" alt="close">
+                                <div class="Mtable-icon-outer" @click="handleEdit(scope.row)"
+                                    @mouseover="setHoverImg(scope.row.id, 'edit', 'mouseover')"
+                                    @mouseleave="setHoverImg(scope.row.id, 'edit', 'mouseleave')">
+                                    <img v-if="scope.row.isEditHove" class="Mtable-icon"
+                                        src="@/assets/images/Icon/edit_hover.svg" alt="close">
+                                    <img v-else class="Mtable-icon" src="@/assets/images/Icon/edit.svg" alt="close">
                                 </div>
-                                <div class="Mtable-icon-outer" @mouseover="setHoverImg(scope.row.id,'delete','mouseover')"
-                                    @mouseleave="setHoverImg(scope.row.id,'delete','mouseleave')">
-                                    <img @click="deleteUser(scope.row)" class="Mtable-icon"
-                                    :src="scope.row.deleteImg" alt="close">
+                                <div class="Mtable-icon-outer" @click="deleteUser(scope.row)"
+                                    @mouseover="setHoverImg(scope.row.id, 'delete', 'mouseover')"
+                                    @mouseleave="setHoverImg(scope.row.id, 'delete', 'mouseleave')">
+                                    <img v-if="scope.row.isDeleteHove" class="Mtable-icon"
+                                        src="@/assets/images/Icon/delete_hover.svg" alt="close">
+                                    <img v-else class="Mtable-icon" src="@/assets/images/Icon/delete.svg" alt="close">
                                 </div>
                             </div>
                         </template>
@@ -166,14 +170,13 @@ async function setAllScript() {
 }
 
 
-const setHoverImg = (tableId,type,mouse) => {
+const setHoverImg = (tableId, type, mouse) => {
     let item = allData.filter(o => o.id == tableId)[0]
-    if(type == 'edit'){
-        item.editImg =  `${window.location.origin}/_nuxt/assets/images/Icon/${imgFileMap[`edit_${mouse}`]}`
-    }else if(type == 'delete'){
-        item.deleteImg = `${window.location.origin}/_nuxt/assets/images/Icon/${imgFileMap[`delete_${mouse}`]}`
+    if (type == 'edit') {
+        item.isEditHove = mouse == 'mouseover'
+    } else if (type == 'delete') {
+        item.isDeleteHove = mouse == 'mouseover'
     }
-    
 }
 
 const learningMap =
@@ -198,10 +201,10 @@ async function init() {
     const { data } = await getMyTask()
     let list = JSON.parse(JSON.stringify(data.value.data.list))
     list = list.filter(o => o.status !== 2)
-    list.map((o,index) => {
+    list.map((o, index) => {
         o.id = index
-        o.editImg=`${window.location.origin}/_nuxt/assets/images/Icon/edit.svg`
-        o.deleteImg=`${window.location.origin}/_nuxt/assets/images/Icon/delete.svg`
+        o.isEditHove = false
+        o.isDeleteHove = false
         o.learningStr = learningMap.filter(i => i.id == o.learning)[0].text
         o.statusStr = statusMap[o.status]
         o.endTime = o.endTime.split(' ')[0]
@@ -424,5 +427,4 @@ async function deleteCurrentData() {
         cursor: pointer;
     }
 
-}
-</style>
+}</style>
