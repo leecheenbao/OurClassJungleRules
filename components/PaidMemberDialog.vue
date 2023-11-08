@@ -8,7 +8,7 @@
                 <div class="content-box">
                     <div class="item-box">
                         <div class="item-title">為什麼要成為付費會員?</div>
-                        <div class="item-text">網站上的劇本教材僅提供給付費會員，註冊時登入一組註冊碼就可以使用網站所有開放的劇本遊戲，且無限定使用期限。</div>
+                        <div class="item-text">網站上的劇本教材僅提供給付費會員，註冊時登入一組註冊碼就可以使用網站所有開放的劇本遊戲。</div>
                     </div>
                     <div class="item-box">
                         <div class="item-title">註冊碼是什麼?</div>
