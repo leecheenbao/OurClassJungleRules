@@ -18,11 +18,11 @@
                     </el-table-column>
                     <el-table-column prop="customerName" label="使用者名稱" sortable min-width="160">
                     </el-table-column>
-                    <el-table-column prop="generateＦ" label="生成方式" sortable min-width="160">
+                    <el-table-column prop="generate" label="生成方式" sortable min-width="160">
                     </el-table-column>
-                    <el-table-column prop="activationDate" label="使用時間" sortable min-width="160">
+                    <el-table-column prop="activationDate" label="啟用時間" sortable min-width="160">
                     </el-table-column>
-                    <el-table-column prop="expirationDate" label="產生時間" sortable min-width="160">
+                    <el-table-column prop="createDate" label="產生時間" sortable min-width="160">
                     </el-table-column>
                     <el-table-column label="操作" sortable min-width="260">
                         <template #default="scope">
