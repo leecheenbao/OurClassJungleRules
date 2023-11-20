@@ -13,23 +13,25 @@ const fetch = async (url, option) => {
       const tempToken = useCookie('tempToken').value
       options.headers = new Headers(options.headers)
       if (isLogin.value) {
+        checkToken(token)
         options.headers.set('Authorization', `Bearer ${token}`)
-      }else if(url.includes('license/verify')){
+      } else if (url.includes('license/verify')) {
         options.headers.set('Authorization', `Bearer ${tempToken}`)
-      }else {
+      } else {
         options.headers.set('Authorization', ``)
       }
 
     },
     onResponse({ request, response, options }) {
-      const router = useRouter();
-      if(response.status == 401){
-        router.push("/login")
-      }
-  },
+
+    },
     ...option,
   })
 }
+
+
+
+
 
 export const useHttp = {
   get: (url, params?: any, option?: any): any => {

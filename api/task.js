@@ -19,3 +19,5 @@ export const edit = async (id,data) => {
 export const add = async (data) => {
     return await useHttp.post(`${categoryBaseUrl}`,data);
 };
+
+
