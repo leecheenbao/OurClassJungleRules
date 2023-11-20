@@ -17,9 +17,10 @@
                                 <div class="warn-text">購買資料設定後，將無法再進行變更，請確認您所填的資料。</div>
                             </div>
                             <div class="item-title">*購買人姓名</div>
-                            <div><input class="input" placeholder="請輸入姓名" style="margin-bottom: 10px;"></div>
+                            <div><input v-model="payData.recipient" class="input" placeholder="請輸入姓名"
+                                    style="margin-bottom: 10px;"></div>
                             <div class="item-title">*購買人Email</div>
-                            <div><input class="input" placeholder="請輸入Email" type="email"></div>
+                            <div><input v-model="payData.email" class="input" placeholder="請輸入Email" type="email"></div>
 
                         </div>
                     </div>
@@ -38,7 +39,8 @@
 
                             </div>
                             <div class="item-title">購買份數</div>
-                            <div><input class="input" style="margin-bottom: 10px; width:100px" type="number" value="1">
+                            <div><input v-model="payData.quantity" class="input" min="1"
+                                    style="margin-bottom: 10px; width:100px" type="number">
                             </div>
                             <div class="item-title">付款方式</div>
                             <div class="radio-box" style="margin: 0;">
@@ -70,14 +72,103 @@
                         </div>
                     </div>
                     <div class="btn-box">
-                        <nuxt-link class="pay-btn" to="/completePurchase">進行付款</nuxt-link>
+                        <div class="pay-btn" @click="pay">進行付款</div>
                         <nuxt-link class="cancel" to="/">取消</nuxt-link>
                     </div>
                 </div>
             </div>
         </div>
     </NuxtLayout>
+    <form action="https://ccore.newebpay.com/MPG/mpg_gateway" style="display: none;" method="post">
+        <label for="MerchantID">Merchant ID:</label>
+        <input type="text" id="MerchantID" name="MerchantID" v-model="formData.merchantID"><br><br>
+
+        <label for="TradeInfo">Trade Info:</label>
+        <input type="text" id="TradeInfo" name="TradeInfo" v-model="formData.tradeInfo"><br><br>
+
+        <label for="TradeSha">Trade Sha:</label>
+        <input type="text" id="TradeSha" name="TradeSha" v-model="formData.tradeSha"><br><br>
+
+        <label for="Version">Version:</label>
+        <input type="text" id="Version" name="Version" v-model="formData.version"><br><br>
+
+        <input type="submit" ref="submitButton" value="Submit" />
+    </form>
 </template>
+
+<script setup>
+import { order } from "~/api/cash";
+import { ElMessage } from 'element-plus'
+
+// 創建一個引用
+const submitButton = ref(null);
+
+// 觸發點擊的函數
+const triggerClick = () => {
+    if (submitButton.value) {
+        submitButton.value.click(); // 觸發點擊事件
+    }
+};
+
+const formData = reactive({
+    merchantID: "",
+    tradeInfo: "",
+    tradeSha: "",
+    version: "",
+})
+
+const payData = reactive({
+    recipient: "",
+    email: "",
+    quantity: 1
+})
+
+const checkPayData = () => {
+    if (payData.recipient == "") {
+        ElMessage({
+            message: '請輸入購買人姓名！',
+            type: 'warning',
+        })
+        return false
+    } else if (payData.email == "") {
+        ElMessage({
+            message: '請輸入購買人Email！',
+            type: 'warning',
+        })
+        return false
+    }
+
+    return true
+}
+
+const pay = async () => {
+    if (checkPayData()) {
+        let request = {
+            "address": "XXXXXX",
+            "phone": "",
+            "email": payData.email,
+            "products": [
+                {
+                    "productId": "1",
+                    "quantity": payData.quantity
+                }
+            ],
+            "recipient": payData.recipient
+        }
+        let orderResponse = await order(request)
+        let data = orderResponse.data.value.data
+        formData.merchantID = data.merchantID_
+        formData.tradeInfo = data.tradeInfo
+        formData.tradeSha = data.tradeSha
+        formData.version = data.version
+
+        nextTick(() => {
+            triggerClick()
+        })
+    }
+}
+
+</script>
 
 <style lang="scss" scoped>
 @import '~/assets/styles/form.scss';
@@ -207,11 +298,13 @@
                             font-style: normal;
                             font-weight: 500;
                         }
+
                         .price-box {
                             display: flex;
                             flex-direction: column;
                             align-items: flex-end;
                         }
+
                         .price {
                             color: $text2;
                             font-size: 24px;
