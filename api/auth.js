@@ -12,6 +12,10 @@ export const googleRegister = async () => {
     return await useHttp.get(`${categoryBaseUrl}/google-signup`)
 };
 
+export const googleLogin = async () => {
+    return await useHttp.get(`${categoryBaseUrl}/google-login`)
+};
+
 export const resendMail = async (data) => {
     return await useHttp.post(`${categoryBaseUrl}/mail`,data)
 };
