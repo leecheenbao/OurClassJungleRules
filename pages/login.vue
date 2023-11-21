@@ -18,14 +18,14 @@
                 </nuxt-link>
                 <div class="btn-green" @click="handleAuthLogin">登入</div>
                 <div class="or">或</div>
-                <div class="btn-green" @click="handleGoogleRegister">Google 帳號登入</div>
+                <div class="btn-green" @click="handleGoogleLogin">Google 帳號登入</div>
             </div>
         </div>
     </NuxtLayout>
 </template>
 
 <script setup>
-import { googleRegister } from "~/api/auth";
+import { googleRegister,googleLogin } from "~/api/auth";
 import { useAuthStore } from '@/store/authStore';
 
 let email = ref('')
@@ -49,6 +49,11 @@ const handleAuthLogin = async () => {
 
 const handleGoogleRegister = async () => {
     let { data } = await googleRegister()
+    window.location.href = data.value.data;
+}
+
+const handleGoogleLogin = async () => {
+    let { data } = await googleLogin()
     window.location.href = data.value.data;
 }
 

@@ -548,14 +548,14 @@ const endingTextOption = {
 const handelDownloadPDF = async () => {
     let data = {
         "media": `drama-${currentPeriod.value}`,
-        "scriptId": scriptId.value,
+        "taskId": taskData.taskId,
         "sheet": `sheet-${currentPeriod.value}`
     }
     if (currentPeriod.value == scriptData.dayEnd) {
         let mediaQuadrant = !quadrant.value ? 1 : quadrant.value
         data = {
             "media": `endingMovie-${mediaQuadrant}`,
-            "scriptId": scriptId.value,
+            "taskId": taskData.taskId,
             "sheet": `endingSheet`
         }
     }

@@ -63,7 +63,7 @@
                         </div>
                         <div class="item">
                             <div class="item-name">購買份數</div>
-                            <div class="price">1</div>
+                            <div class="price">{{payData.quantity}}</div>
                         </div>
                         <div class="gap"></div>
                         <div class="total">
