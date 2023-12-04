@@ -42,15 +42,7 @@
                             <div><input v-model="payData.quantity" class="input" min="1"
                                     style="margin-bottom: 10px; width:100px" type="number">
                             </div>
-                            <div class="item-title">付款方式</div>
-                            <div class="radio-box" style="margin: 0;">
-                                <div class="radio-item">
-                                    <input class="radio-point" type="radio" id="male" name="drone" value="male" checked>
-                                    <label for="male">信用卡線上付款</label>
-                                </div>
-
-
-                            </div>
+                            
                         </div>
                     </div>
                 </div>
