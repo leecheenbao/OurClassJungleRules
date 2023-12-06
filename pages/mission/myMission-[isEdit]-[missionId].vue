@@ -456,7 +456,7 @@
                                 </option>
                             </select>
                         </div>
-                        <div class="item-title">*預期參與人數/組數</div>
+                        <div class="item-title">*預期參與組數</div>
                         <div><input v-model="taskEditData.estimatedParticipants" class="input" placeholder="請輸入數字"
                                 type="number"></div>
                         <div class="item-title">*結束日期</div>
@@ -1023,7 +1023,7 @@ async function saveTaskEdit() {
         })
     } else if (taskEditData.estimatedParticipants === '') {
         ElMessage({
-            message: '請輸入預期參與人數/組數！',
+            message: '請輸入預期參與組數！',
             type: 'warning',
         })
     } else if (taskEditData.endTime === '') {
