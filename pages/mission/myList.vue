@@ -126,7 +126,7 @@
                             <option :value="item.id" v-for="item of learningMap" :key="item.id">{{ item.text }}</option>
                         </select>
                     </div>
-                    <div class="item-title">*預期參與人數/組數</div>
+                    <div class="item-title">*預期參與組數</div>
                     <div><input v-model="addData.estimatedParticipants" class="input" :min="0" placeholder="請輸入數字"
                             type="number">
                     </div>
@@ -157,7 +157,7 @@
                             <option :value="item.id" v-for="item of learningMap" :key="item.id">{{ item.text }}</option>
                         </select>
                     </div>
-                    <div class="item-title">*預期參與人數/組數</div>
+                    <div class="item-title">*預期參與組數</div>
                     <div><input v-model="current.estimatedParticipants" class="input" placeholder="請輸入數字" type="number">
                     </div>
                     <div class="item-title">*結束日期</div>
@@ -317,7 +317,7 @@ async function handleAddUser() {
         })
     } else if (addData.estimatedParticipants === '') {
         ElMessage({
-            message: '請輸入預期參與人數/組數！',
+            message: '請輸入預期參與組數！',
             type: 'warning',
         })
     } else if (addData.endTime === '') {
@@ -393,7 +393,7 @@ async function save() {
         })
     } else if (current.estimatedParticipants === '') {
         ElMessage({
-            message: '請輸入預期參與人數/組數！',
+            message: '請輸入預期參與組數！',
             type: 'warning',
         })
     } else if (current.endTime === '') {
