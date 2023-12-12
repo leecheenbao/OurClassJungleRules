@@ -42,7 +42,7 @@
                             <div><input v-model="payData.quantity" class="input" min="1"
                                     style="margin-bottom: 10px; width:100px" type="number">
                             </div>
-                            
+
                         </div>
                     </div>
                 </div>
@@ -51,7 +51,7 @@
                         <div class="title">訂單資訊</div>
                         <div class="item" style="margin-bottom:8px;">
                             <div class="item-name">註冊碼售價</div>
-                            <div class="price">$9,999</div>
+                            <div class="price">$1,350</div>
                         </div>
                         <div class="item">
                             <div class="item-name">購買份數</div>
@@ -60,7 +60,7 @@
                         <div class="gap"></div>
                         <div class="total">
                             <div class="item-name">訂單總額</div>
-                            <div class="price">$9,999</div>
+                            <div class="price">{{payData.quantity * 1350}}</div>
                         </div>
                     </div>
                     <div class="btn-box">
